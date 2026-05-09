@@ -12,8 +12,8 @@ const tools = [
   {
     href: "/tools/tracker",
     title: "Side Project Tracker",
-    description: "Theo dõi side project, nhắc khi bỏ bê quá lâu.",
-    status: "Plan 01 — coming soon",
+    description: "Track side project, nhắc khi bỏ bê quá lâu.",
+    status: "Riêng tư · cần password",
   },
 ];
 

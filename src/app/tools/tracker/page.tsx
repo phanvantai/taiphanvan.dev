@@ -62,7 +62,7 @@ export default async function TrackerPage({ searchParams }: { searchParams: Sear
           <p className="text-muted-foreground font-mono text-xs">/tools/tracker</p>
           <h1 className="text-3xl font-semibold tracking-tight">Side Projects</h1>
           <p className="text-muted-foreground text-sm">
-            Cảnh báo sau 7 ngày không update · 🔥 alert sau 14 ngày
+            Bỏ bê quá 7 ngày là vàng, 14 ngày là đỏ. Nhắc Tai đừng làm dở mà bỏ.
           </p>
         </div>
         <div className="flex gap-2">
@@ -78,7 +78,7 @@ export default async function TrackerPage({ searchParams }: { searchParams: Sear
           <p className="text-muted-foreground text-sm">
             {filter === "all"
               ? "Chưa có project. Add cái đầu tiên đi bro 🚀"
-              : `Không có project nào ở trạng thái "${filter}".`}
+              : `Không có project nào "${filter}". Nhẹ não rồi.`}
           </p>
         </div>
       ) : (

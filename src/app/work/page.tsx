@@ -19,7 +19,7 @@ export default function WorkPage() {
         <p className="text-muted-foreground font-mono text-xs">/work</p>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Work</h1>
         <p className="text-muted-foreground">
-          Side projects + sản phẩm đang build. {work.length} project.
+          Mấy thứ Tai đang ngồi build. Có cái xong, có cái còn dở dang. {work.length} project.
         </p>
       </header>
 

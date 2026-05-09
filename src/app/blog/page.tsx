@@ -29,8 +29,8 @@ export default async function BlogPage({ searchParams }: SearchParams) {
         <p className="text-muted-foreground font-mono text-xs">/blog</p>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Blog</h1>
         <p className="text-muted-foreground">
-          Note kỹ thuật + indie maker. {allPosts.length} bài
-          {activeTag && ` · đang lọc: #${activeTag}`}
+          Note kỹ thuật + chuyện indie. Viết khi rảnh, đọc khi rảnh hơn. {allPosts.length} bài
+          {activeTag && ` · đang lọc #${activeTag}`}
         </p>
       </header>
 
@@ -40,7 +40,7 @@ export default async function BlogPage({ searchParams }: SearchParams) {
 
       {posts.length === 0 ? (
         <p className="border-border/60 text-muted-foreground rounded-lg border border-dashed px-6 py-12 text-center text-sm">
-          Chưa có bài nào với tag này.
+          Tag này chưa có bài. Mai mốt nhé bro.
         </p>
       ) : (
         <div className="divide-border/40 -my-6 divide-y">
