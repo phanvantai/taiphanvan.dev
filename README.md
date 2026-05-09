@@ -57,4 +57,10 @@ Setup chi tiết: **[docs/SETUP.md](docs/SETUP.md)**.
 
 ## License
 
-Private. Code này là personal project của Tai Phan, không open source.
+Source-available, **không phải open source**. Code public để bro dev khác tham khảo cách wire Next.js + Prisma + MDX, học theo plans/ folder. Nhưng:
+
+- Content (blog posts, work case studies, /about, /now) thuộc bản quyền Tai Phan, không reuse.
+- Clone copy-paste để chạy thành "personal site của bro" là không OK.
+- Lifting component patterns, schema, scripts vào project bro thì tự nhiên.
+
+Có gì confused thì DM Tai một câu.
