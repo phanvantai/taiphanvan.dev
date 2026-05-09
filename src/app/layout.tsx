@@ -2,11 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ViewTransition } from "react";
 
+import { CommandPalette } from "@/components/site/command-palette";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { ThemeProvider } from "@/components/site/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { getAllPosts } from "@/lib/mdx";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -79,6 +82,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const paletteHits = getAllPosts().map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    description: p.description,
+    tags: p.tags,
+  }));
+
   return (
     <html
       lang="vi"
@@ -88,8 +98,11 @@ export default function RootLayout({
       <body className="bg-background text-foreground flex min-h-screen flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <Header />
-          <main className="flex-1">{children}</main>
+          <ViewTransition>
+            <main className="flex-1">{children}</main>
+          </ViewTransition>
           <Footer />
+          <CommandPalette posts={paletteHits} />
           <Toaster />
         </ThemeProvider>
         <Analytics />

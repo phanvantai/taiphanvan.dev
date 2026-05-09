@@ -31,6 +31,7 @@ Setup chi tiết: **[docs/SETUP.md](docs/SETUP.md)**.
 | [docs/SETUP.md](docs/SETUP.md) | First-time setup: clone → install → env → DB → run |
 | [docs/DATABASE.md](docs/DATABASE.md) | 2-URL Supabase pattern, switch local Docker ↔ Supabase, command cheatsheet |
 | [docs/TRACKER.md](docs/TRACKER.md) | Side Project Tracker: auth model, env vars, cách dùng |
+| [docs/DEPLOY.md](docs/DEPLOY.md) | Vercel deploy walkthrough, env vars, custom domain, troubleshooting |
 | [docs/STACK.md](docs/STACK.md) | Quyết định stack + version log + breaking changes vs spec gốc |
 | [plans/](plans/) | Phase roadmap — Plan 00 → 04 |
 
@@ -52,6 +53,7 @@ Setup chi tiết: **[docs/SETUP.md](docs/SETUP.md)**.
 | `pnpm db:seed` | Seed 4 starter projects |
 | `pnpm db:studio` | Prisma Studio (GUI) |
 | `pnpm db:generate` | Generate Prisma client |
+| `pnpm new-post "Title"` | Tạo file blog MDX mới với frontmatter prefilled |
 
 ## License
 

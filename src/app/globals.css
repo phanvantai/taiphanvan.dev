@@ -178,4 +178,18 @@
   code > [data-highlighted-line] {
     @apply bg-foreground/5;
   }
+
+  /* React <ViewTransition> — soft fade across route nav. Browsers without
+     View Transitions API just navigate instantly. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
+  }
 }

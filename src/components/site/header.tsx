@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CommandPaletteTrigger } from "@/components/site/command-palette-trigger";
 import { MobileNav } from "@/components/site/mobile-nav";
 import { Nav } from "@/components/site/nav";
 import { ThemeToggle } from "@/components/site/theme-toggle";
@@ -15,6 +16,7 @@ export function Header() {
         <div className="flex items-center gap-1">
           <Nav />
           <span className="bg-border mx-1 hidden h-5 w-px md:inline-block" aria-hidden />
+          <CommandPaletteTrigger />
           <ThemeToggle />
           <MobileNav />
         </div>
