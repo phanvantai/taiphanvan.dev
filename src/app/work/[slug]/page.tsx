@@ -4,9 +4,16 @@ import { notFound } from "next/navigation";
 import { CodeXml, ExternalLinkIcon } from "lucide-react";
 
 import { MdxContent } from "@/components/mdx/mdx-content";
+import { CreativeWorkJsonLd } from "@/components/seo/json-ld";
 import { getAllWork, getWorkBySlug } from "@/lib/mdx";
+import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import type { WorkStatus } from "@/types/work";
+
+function ogImage(title: string) {
+  const params = new URLSearchParams({ title, type: "work" });
+  return `${siteConfig.url}/og?${params.toString()}`;
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -35,6 +42,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const work = getWorkBySlug(slug);
   if (!work) return { title: "Not found" };
 
+  const og = work.cover ? `${siteConfig.url}${work.cover}` : ogImage(work.title);
+
   return {
     title: work.title,
     description: work.tagline,
@@ -42,6 +51,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: work.title,
       description: work.tagline,
       type: "article",
+      url: `${siteConfig.url}/work/${slug}`,
+      images: [{ url: og, width: 1200, height: 630, alt: work.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: work.title,
+      description: work.tagline,
+      images: [og],
     },
     alternates: {
       canonical: `/work/${slug}`,
@@ -56,6 +73,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
+      <CreativeWorkJsonLd work={work} />
       <header className="border-border/40 mb-10 space-y-4 border-b pb-10">
         <Link
           href="/work"

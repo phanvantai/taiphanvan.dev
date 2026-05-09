@@ -5,9 +5,16 @@ import { notFound } from "next/navigation";
 import { MdxContent } from "@/components/mdx/mdx-content";
 import { PostCard } from "@/components/blog/post-card";
 import { Toc } from "@/components/blog/toc";
+import { BlogPostingJsonLd } from "@/components/seo/json-ld";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/mdx";
+import { siteConfig } from "@/lib/site-config";
 import { extractToc } from "@/lib/toc";
 import { formatDate } from "@/lib/utils";
+
+function ogImage(title: string) {
+  const params = new URLSearchParams({ title, type: "blog" });
+  return `${siteConfig.url}/og?${params.toString()}`;
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,6 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug);
   if (!post) return { title: "Not found" };
 
+  const og = post.cover ? `${siteConfig.url}${post.cover}` : ogImage(post.title);
+
   return {
     title: post.title,
     description: post.description,
@@ -33,11 +42,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "article",
       publishedTime: post.date,
       tags: post.tags,
+      url: `${siteConfig.url}/blog/${slug}`,
+      images: [{ url: og, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [og],
     },
     alternates: {
       canonical: `/blog/${slug}`,
@@ -55,6 +67,7 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <article className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_220px] lg:py-16">
+      <BlogPostingJsonLd post={post} />
       <div className="min-w-0">
         <header className="border-border/40 mb-8 space-y-3 border-b pb-8">
           <Link
