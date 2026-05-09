@@ -1,0 +1,38 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+import { MdxContent } from "@/components/mdx/mdx-content";
+import { getPage } from "@/lib/mdx";
+
+export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = getPage("about");
+  if (!page) return { title: "About" };
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: "/about" },
+  };
+}
+
+export default function AboutPage() {
+  const page = getPage("about");
+  if (!page) notFound();
+
+  return (
+    <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <header className="border-border/40 mb-10 space-y-2 border-b pb-8">
+        <p className="text-muted-foreground font-mono text-xs">/about</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{page.title}</h1>
+        {page.description && (
+          <p className="text-muted-foreground text-pretty">{page.description}</p>
+        )}
+      </header>
+
+      <div className="prose prose-neutral dark:prose-invert prose-headings:tracking-tight prose-pre:p-0 max-w-none">
+        <MdxContent source={page.content} />
+      </div>
+    </article>
+  );
+}

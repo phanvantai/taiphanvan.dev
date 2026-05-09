@@ -141,4 +141,41 @@
   ::selection {
     background: oklch(from var(--primary) l c h / 0.2);
   }
+
+  /* MDX heading anchor — show '#' on hover */
+  h2,
+  h3,
+  h4 {
+    scroll-margin-top: 5rem;
+  }
+  .heading-anchor {
+    @apply text-muted-foreground/40 ml-2 no-underline opacity-0 transition-opacity;
+  }
+  h2:hover .heading-anchor,
+  h3:hover .heading-anchor,
+  h4:hover .heading-anchor,
+  .heading-anchor:focus {
+    @apply opacity-100;
+  }
+
+  /* rehype-pretty-code: theme-aware Shiki highlighting */
+  code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+  .dark code[data-theme*=" "],
+  .dark code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+  /* Diff / highlight lines */
+  code[data-line-numbers] > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    @apply text-muted-foreground/50 mr-4 inline-block w-4 text-right;
+  }
+  code > [data-highlighted-line] {
+    @apply bg-foreground/5;
+  }
 }
