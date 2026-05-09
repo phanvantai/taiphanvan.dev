@@ -3,9 +3,12 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient, ProjectStatus } from "@prisma/client";
 
-const url = process.env.DATABASE_URL;
+// Seed runs DDL-adjacent ops (insert, occasional reset) → use the migrate URL
+// (Supabase Session pooler, port 5432). Falls back to DATABASE_URL for the
+// single-URL Docker dev case.
+const url = process.env.MIGRATE_DATABASE_URL ?? process.env.DATABASE_URL;
 if (!url) {
-  console.error("Missing DATABASE_URL");
+  console.error("Missing MIGRATE_DATABASE_URL / DATABASE_URL — set one in .env.local");
   process.exit(1);
 }
 

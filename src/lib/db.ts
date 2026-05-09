@@ -5,10 +5,19 @@ declare global {
   var prismaGlobal: PrismaClient | undefined;
 }
 
+/**
+ * Prisma client for app runtime.
+ *
+ * Uses DATABASE_URL — point this at Supabase Transaction pooler (port 6543)
+ * in production. The pg driver adapter automatically avoids prepared
+ * statements which the transaction pooler rejects.
+ *
+ * Build-time: process.env.DATABASE_URL may be empty during `next build` page
+ * data collection. We don't throw here — pg only opens a real socket on
+ * first query, so any actual call at request time will surface a clear
+ * connection error instead of a misleading import-time crash.
+ */
 function makeClient(): PrismaClient {
-  // pg accepts an empty/placeholder string here; real connection only happens
-  // when a query is dispatched. This lets `next build` import this module
-  // without DATABASE_URL set (build-time data collection skips runtime queries).
   const url = process.env.DATABASE_URL ?? "";
   const adapter = new PrismaPg({ connectionString: url });
   return new PrismaClient({
