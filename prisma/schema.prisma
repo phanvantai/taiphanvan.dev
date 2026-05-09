@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProjectStatus {
+  ACTIVE
+  PAUSED
+  DONE
+  ARCHIVED
+}
+
+model SideProject {
+  id          String        @id @default(cuid())
+  name        String
+  emoji       String?
+  color       String?
+  status      ProjectStatus @default(ACTIVE)
+  description String?
+  notes       String?
+  lastUpdate  DateTime      @default(now())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  tasks       Task[]
+
+  @@index([status, lastUpdate])
+}
+
+model Task {
+  id        String      @id @default(cuid())
+  projectId String
+  title     String
+  done      Boolean     @default(false)
+  doneAt    DateTime?
+  createdAt DateTime    @default(now())
+  project   SideProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, done])
+}
+
+model PostView {
+  slug      String   @id
+  count     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
