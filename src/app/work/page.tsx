@@ -15,9 +15,9 @@ export default function WorkPage() {
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-      <header className="mb-10 space-y-2">
-        <p className="text-muted-foreground font-mono text-xs">/work</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Work</h1>
+      <header className="mb-10 space-y-3">
+        <p className="site-eyebrow text-muted-foreground font-mono text-xs">/work</p>
+        <h1 className="site-page-title text-3xl font-semibold tracking-tight sm:text-4xl">Work</h1>
         <p className="text-muted-foreground">
           Mấy thứ Tai đang ngồi build. Có cái xong, có cái còn dở dang. {work.length} project.
         </p>

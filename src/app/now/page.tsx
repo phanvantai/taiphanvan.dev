@@ -23,14 +23,16 @@ export default function NowPage() {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <header className="border-border/40 mb-10 space-y-2 border-b pb-8">
-        <p className="text-muted-foreground font-mono text-xs">/now</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{page.title}</h1>
+      <header className="border-border/40 mb-10 space-y-3 border-b pb-8">
+        <p className="site-eyebrow text-muted-foreground font-mono text-xs">/now</p>
+        <h1 className="site-page-title text-3xl font-semibold tracking-tight sm:text-4xl">
+          {page.title}
+        </h1>
         {page.description && (
           <p className="text-muted-foreground text-pretty">{page.description}</p>
         )}
         {page.updated && (
-          <p className="text-muted-foreground font-mono text-[11px]">
+          <p className="site-meta text-muted-foreground font-mono text-[11px]">
             Last updated: {formatDate(page.updated)}
           </p>
         )}

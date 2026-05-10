@@ -77,19 +77,20 @@ export default async function WorkDetailPage({ params }: PageProps) {
       <header className="border-border/40 mb-10 space-y-4 border-b pb-10">
         <Link
           href="/work"
-          className="text-muted-foreground hover:text-foreground font-mono text-xs transition-colors"
+          className="site-back text-muted-foreground hover:text-foreground font-mono text-xs transition-colors"
         >
           ← /work
         </Link>
 
-        <div className="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+        <div className="site-meta flex flex-wrap items-center gap-2 font-mono text-[11px]">
           <span className="text-muted-foreground">{work.period}</span>
           <span aria-hidden className="text-muted-foreground">
             ·
           </span>
           <span
+            data-status={work.status}
             className={cn(
-              "rounded-md border px-2 py-0.5 tracking-wide uppercase",
+              "site-status rounded-md border px-2 py-0.5 tracking-wide uppercase",
               STATUS_TONE[work.status],
             )}
           >
@@ -97,27 +98,27 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </span>
         </div>
 
-        <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        <h1 className="site-page-title text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           {work.title}
         </h1>
         <p className="text-muted-foreground text-lg text-pretty">{work.tagline}</p>
 
         <div className="grid gap-4 pt-2 text-sm sm:grid-cols-2">
           <div>
-            <p className="text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
+            <p className="site-info-label text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
               Role
             </p>
             <p className="mt-1">{work.role}</p>
           </div>
           <div>
-            <p className="text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
+            <p className="site-info-label text-muted-foreground font-mono text-[11px] tracking-wider uppercase">
               Stack
             </p>
             <div className="mt-1 flex flex-wrap gap-1.5">
               {work.stack.map((s) => (
                 <span
                   key={s}
-                  className="border-border/40 rounded-md border px-2 py-0.5 font-mono text-[10px]"
+                  className="site-tag border-border/40 rounded-md border px-2 py-0.5 font-mono text-[10px]"
                 >
                   {s}
                 </span>
@@ -133,7 +134,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 href={work.links.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-border/60 hover:border-foreground/40 hover:text-foreground inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 transition-colors"
+                className="site-link-button border-border/60 hover:border-foreground/40 hover:text-foreground inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 transition-colors"
               >
                 <ExternalLinkIcon className="size-3" /> Live
               </a>
@@ -143,7 +144,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 href={work.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-border/60 hover:border-foreground/40 hover:text-foreground inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 transition-colors"
+                className="site-link-button border-border/60 hover:border-foreground/40 hover:text-foreground inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 transition-colors"
               >
                 <CodeXml className="size-3" /> Source
               </a>

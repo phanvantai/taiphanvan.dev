@@ -45,15 +45,17 @@ export function FilterBar({ filter, sort, count }: Props) {
 
   return (
     <div className="border-border/60 flex flex-wrap items-center justify-between gap-3 border-b pb-3">
-      <div className="-mx-1 flex flex-wrap items-center font-mono text-xs">
-        {FILTERS.map((f) => {
+      <div className="site-nav -mx-1 flex flex-wrap items-center font-mono text-xs">
+        {FILTERS.map((f, i) => {
           const active = f.value === filter;
           return (
             <Link
               key={f.value}
               href={buildHref({ filter: f.value })}
+              data-active={active}
+              data-index={String(i + 1).padStart(2, "0")}
               className={cn(
-                "rounded-md px-2.5 py-1 transition-colors",
+                "site-nav-link rounded-md px-2.5 py-1 transition-colors",
                 active
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
@@ -64,7 +66,7 @@ export function FilterBar({ filter, sort, count }: Props) {
           );
         })}
       </div>
-      <div className="text-muted-foreground flex items-center gap-2 font-mono text-xs">
+      <div className="site-meta text-muted-foreground flex items-center gap-2 font-mono text-xs">
         <span>{count} project</span>
         <span aria-hidden>·</span>
         {SORTS.map((s, i) => (

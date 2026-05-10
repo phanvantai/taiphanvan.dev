@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ViewTransition } from "react";
@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/components/site/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { getAllPosts } from "@/lib/mdx";
 import { siteConfig } from "@/lib/site-config";
+import { getUIStyle } from "@/lib/ui-style";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,6 +21,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin", "latin-ext"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin", "latin-ext"],
 });
 
@@ -55,9 +61,6 @@ export const metadata: Metadata = {
       "application/rss+xml": [{ url: "/rss.xml", title: `${siteConfig.name} — RSS` }],
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
   robots: {
     index: true,
     follow: true,
@@ -89,14 +92,19 @@ export default function RootLayout({
     tags: p.tags,
   }));
 
+  const uiStyle = getUIStyle();
+  const fontVars = `${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable}`;
+  const defaultTheme = uiStyle === "neo-brutalist" ? "light" : "dark";
+
   return (
-    <html
-      lang="vi"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable}`}
-    >
+    <html lang="vi" suppressHydrationWarning data-ui-style={uiStyle} className={fontVars}>
       <body className="bg-background text-foreground flex min-h-screen flex-col">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme={defaultTheme}
+          enableSystem
+          disableTransitionOnChange
+        >
           <Header />
           <ViewTransition>
             <main className="flex-1">{children}</main>

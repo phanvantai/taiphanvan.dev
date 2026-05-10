@@ -72,15 +72,15 @@ export default async function PostPage({ params }: PageProps) {
         <header className="border-border/40 mb-8 space-y-3 border-b pb-8">
           <Link
             href="/blog"
-            className="text-muted-foreground hover:text-foreground font-mono text-xs transition-colors"
+            className="site-back text-muted-foreground hover:text-foreground font-mono text-xs transition-colors"
           >
             ← /blog
           </Link>
-          <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          <h1 className="site-page-title text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
             {post.title}
           </h1>
           <p className="text-muted-foreground text-pretty">{post.description}</p>
-          <div className="text-muted-foreground flex flex-wrap items-center gap-2 font-mono text-[11px]">
+          <div className="site-meta text-muted-foreground flex flex-wrap items-center gap-2 font-mono text-[11px]">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span aria-hidden>·</span>
             <span>{post.readingTime} phút đọc</span>
@@ -109,7 +109,7 @@ export default async function PostPage({ params }: PageProps) {
 
         {related.length > 0 && (
           <section className="border-border/40 mt-16 border-t pt-10">
-            <h2 className="text-muted-foreground mb-4 font-mono text-xs tracking-wider uppercase">
+            <h2 className="site-section-heading text-muted-foreground mb-4 font-mono text-xs tracking-wider uppercase">
               Related posts
             </h2>
             <div className="divide-border/40 -my-6 divide-y">

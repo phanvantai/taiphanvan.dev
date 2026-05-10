@@ -11,8 +11,8 @@ export function PostCard({ post }: Props) {
   return (
     <article className="group">
       <Link href={`/blog/${post.slug}`} className="block">
-        <div className="border-border/40 group-hover:border-foreground/20 flex flex-col gap-2 border-b py-6 transition-colors">
-          <div className="text-muted-foreground flex items-center gap-2 font-mono text-[11px]">
+        <div className="site-row border-border/40 group-hover:border-foreground/20 flex flex-col gap-2 border-b py-6 transition-colors">
+          <div className="site-meta text-muted-foreground flex items-center gap-2 font-mono text-[11px]">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span aria-hidden>·</span>
             <span>{post.readingTime} phút đọc</span>
@@ -23,7 +23,7 @@ export function PostCard({ post }: Props) {
               </>
             )}
           </div>
-          <h2 className="group-hover:text-primary text-xl font-semibold tracking-tight transition-colors">
+          <h2 className="site-card-title group-hover:text-primary text-xl font-semibold tracking-tight transition-colors">
             {post.title}
           </h2>
           <p className="text-muted-foreground line-clamp-2 text-sm">{post.description}</p>

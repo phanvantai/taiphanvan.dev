@@ -22,14 +22,15 @@ interface Props {
 export function WorkCard({ work }: Props) {
   return (
     <Link href={`/work/${work.slug}`} className="group">
-      <article className="border-border/60 bg-card group-hover:border-foreground/30 flex h-full flex-col gap-3 rounded-xl border p-5 transition-colors">
+      <article className="site-card border-border/60 bg-card group-hover:border-foreground/30 flex h-full flex-col gap-3 rounded-xl border p-5 transition-all">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="group-hover:text-primary text-lg font-semibold tracking-tight transition-colors">
+          <h3 className="site-card-title group-hover:text-primary text-lg font-semibold tracking-tight transition-colors">
             {work.title}
           </h3>
           <span
+            data-status={work.status}
             className={cn(
-              "rounded-md border px-2 py-0.5 font-mono text-[10px] tracking-wide uppercase",
+              "site-status rounded-md border px-2 py-0.5 font-mono text-[10px] tracking-wide uppercase",
               STATUS_TONE[work.status],
             )}
           >
@@ -39,10 +40,10 @@ export function WorkCard({ work }: Props) {
 
         <p className="text-muted-foreground line-clamp-2 text-sm">{work.tagline}</p>
 
-        <div className="text-muted-foreground mt-auto flex flex-wrap items-center gap-1.5 pt-2 font-mono text-[10px]">
+        <div className="site-meta text-muted-foreground mt-auto flex flex-wrap items-center gap-1.5 pt-2 font-mono text-[10px]">
           <span>{work.period}</span>
           {work.stack.slice(0, 3).map((s) => (
-            <span key={s} className="border-border/40 rounded-md border px-1.5 py-0.5">
+            <span key={s} className="site-tag border-border/40 rounded-md border px-1.5 py-0.5">
               {s}
             </span>
           ))}

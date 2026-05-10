@@ -58,9 +58,9 @@ export default async function TrackerPage({ searchParams }: { searchParams: Sear
   return (
     <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="space-y-1">
-          <p className="text-muted-foreground font-mono text-xs">/tools/tracker</p>
-          <h1 className="text-3xl font-semibold tracking-tight">Side Projects</h1>
+        <div className="space-y-2">
+          <p className="site-eyebrow text-muted-foreground font-mono text-xs">/tools/tracker</p>
+          <h1 className="site-page-title text-3xl font-semibold tracking-tight">Side Projects</h1>
           <p className="text-muted-foreground text-sm">
             Bỏ bê quá 7 ngày là vàng, 14 ngày là đỏ. Nhắc Tai đừng làm dở mà bỏ.
           </p>

@@ -14,8 +14,9 @@ export function TagFilter({ tags, activeTag }: Props) {
     <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
       <Link
         href="/blog"
+        data-active={!activeTag}
         className={cn(
-          "rounded-md border px-2.5 py-1 transition-colors",
+          "site-tag-link rounded-md border px-2.5 py-1 transition-colors",
           !activeTag
             ? "border-foreground bg-foreground text-background"
             : "border-border/60 text-muted-foreground hover:border-foreground/40 hover:text-foreground",
@@ -29,8 +30,9 @@ export function TagFilter({ tags, activeTag }: Props) {
           <Link
             key={tag}
             href={`/blog?tag=${encodeURIComponent(tag)}`}
+            data-active={active}
             className={cn(
-              "rounded-md border px-2.5 py-1 transition-colors",
+              "site-tag-link rounded-md border px-2.5 py-1 transition-colors",
               active
                 ? "border-foreground bg-foreground text-background"
                 : "border-border/60 text-muted-foreground hover:border-foreground/40 hover:text-foreground",

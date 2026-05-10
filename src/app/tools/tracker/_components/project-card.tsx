@@ -34,7 +34,7 @@ export function ProjectCard({ project }: Props) {
           }
         }}
         className={cn(
-          "group hover:border-foreground/30 relative cursor-pointer gap-3 p-4 transition-colors",
+          "site-card group hover:border-foreground/30 relative cursor-pointer gap-3 p-4 transition-colors",
         )}
       >
         <div className="flex items-start justify-between gap-2">
@@ -44,7 +44,7 @@ export function ProjectCard({ project }: Props) {
               className="inline-block size-2 rounded-full"
               style={{ background: accent }}
             />
-            <h3 className="text-base leading-tight font-semibold">
+            <h3 className="site-card-title text-base leading-tight font-semibold">
               {project.emoji && <span className="mr-1.5">{project.emoji}</span>}
               {project.name}
             </h3>
@@ -63,13 +63,13 @@ export function ProjectCard({ project }: Props) {
               style={{ width: `${pct}%`, background: accent }}
             />
           </div>
-          <span className="text-muted-foreground font-mono text-[10px]">
+          <span className="site-meta text-muted-foreground font-mono text-[10px]">
             {done}/{total}
           </span>
         </div>
 
         <div className="flex items-center justify-between pt-1">
-          <span className="text-muted-foreground font-mono text-[10px]">
+          <span className="site-meta text-muted-foreground font-mono text-[10px]">
             {total === 0 ? "Chưa có task" : `${total - done} việc còn`}
           </span>
           <div onClick={(e) => e.stopPropagation()}>

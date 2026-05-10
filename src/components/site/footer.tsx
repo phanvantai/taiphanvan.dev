@@ -7,7 +7,7 @@ export function Footer() {
   const socialLinks = Object.entries(siteConfig.social).filter(([, url]) => url.length > 0);
 
   return (
-    <footer className="border-border/60 border-t">
+    <footer className="site-footer border-border/60 border-t">
       <div className="text-muted-foreground mx-auto flex max-w-5xl flex-col items-start justify-between gap-3 px-4 py-8 text-sm sm:flex-row sm:items-center sm:px-6">
         <p className="font-mono">
           © {year} {siteConfig.author.name}

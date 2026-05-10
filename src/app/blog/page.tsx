@@ -22,17 +22,40 @@ export default async function BlogPage({ searchParams }: SearchParams) {
   const allPosts = getAllPosts();
   const allTags = getAllTags();
   const posts = activeTag ? allPosts.filter((p) => p.tags.includes(activeTag)) : allPosts;
+  const lastUpdate = allPosts[0]?.date;
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <header className="mb-10 space-y-2">
-        <p className="text-muted-foreground font-mono text-xs">/blog</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Blog</h1>
+      <header className="mb-8 space-y-3">
+        <p className="site-eyebrow text-muted-foreground font-mono text-xs">/blog</p>
+        <h1 className="site-page-title text-3xl font-semibold tracking-tight sm:text-4xl">Blog</h1>
         <p className="text-muted-foreground">
-          Note kỹ thuật + chuyện indie. Viết khi rảnh, đọc khi rảnh hơn. {allPosts.length} bài
-          {activeTag && ` · đang lọc #${activeTag}`}
+          Note kỹ thuật + chuyện indie. Viết khi rảnh, đọc khi rảnh hơn.
         </p>
       </header>
+
+      <div className="site-stats text-muted-foreground border-border/60 mb-8 flex flex-wrap items-center gap-x-4 gap-y-1 border-y py-2 font-mono text-[11px]">
+        <span>
+          <span className="site-stats-label">archive</span> · {allPosts.length} entries
+        </span>
+        {lastUpdate && (
+          <>
+            <span aria-hidden>·</span>
+            <span>
+              <span className="site-stats-label">last</span>{" "}
+              <time dateTime={lastUpdate}>{lastUpdate}</time>
+            </span>
+          </>
+        )}
+        {activeTag && (
+          <>
+            <span aria-hidden>·</span>
+            <span>
+              <span className="site-stats-label">filter</span> #{activeTag}
+            </span>
+          </>
+        )}
+      </div>
 
       <div className="mb-10">
         <TagFilter tags={allTags} activeTag={activeTag} />
@@ -43,7 +66,7 @@ export default async function BlogPage({ searchParams }: SearchParams) {
           Tag này chưa có bài. Mai mốt nhé bro.
         </p>
       ) : (
-        <div className="divide-border/40 -my-6 divide-y">
+        <div className="site-list divide-border/40 -my-6 divide-y">
           {posts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}

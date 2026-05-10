@@ -30,10 +30,10 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="right" className="w-72 p-0">
         <SheetHeader className="border-border/60 border-b">
-          <SheetTitle className="font-mono text-sm">taiphanvan.dev</SheetTitle>
+          <SheetTitle className="site-logo font-mono text-sm">taiphanvan.dev</SheetTitle>
         </SheetHeader>
-        <nav className="flex flex-col gap-1 p-3">
-          {siteConfig.nav.map((item) => {
+        <nav className="site-nav flex flex-col gap-1 p-3">
+          {siteConfig.nav.map((item, i) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <SheetClose
@@ -41,8 +41,10 @@ export function MobileNav() {
                 render={
                   <Link
                     href={item.href}
+                    data-active={isActive}
+                    data-index={String(i + 1).padStart(2, "0")}
                     className={cn(
-                      "rounded-md px-3 py-2.5 text-base transition-colors",
+                      "site-nav-link rounded-md px-3 py-2.5 text-base transition-colors",
                       isActive
                         ? "bg-muted text-foreground"
                         : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
