@@ -17,7 +17,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// Đổi sang `true` để bật page lại.
+const ENABLED: boolean = false;
+
 export default function NowPage() {
+  if (!ENABLED) notFound();
+
   const page = getPage("now");
   if (!page) notFound();
 

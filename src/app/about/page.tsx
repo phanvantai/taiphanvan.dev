@@ -32,7 +32,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// Đổi sang `true` để bật page lại.
+const ENABLED: boolean = false;
+
 export default function AboutPage() {
+  if (!ENABLED) notFound();
+
   const page = getPage("about");
   if (!page) notFound();
 
