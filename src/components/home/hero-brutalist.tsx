@@ -3,7 +3,7 @@ import { ArrowRightIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-const TAGS = ["NEXT.JS", "INDIE SAAS", "VIỆT NAM", "B2B", "AI-NATIVE"] as const;
+const TAGS = ["MAKER", "POLYGLOT", "VIỆT NAM", "AI-NATIVE", "INDIE"] as const;
 
 export function HeroBrutalist() {
   return (
@@ -26,15 +26,15 @@ export function HeroBrutalist() {
           </h1>
 
           <p className="text-foreground border-foreground bg-card max-w-prose border-2 p-4 text-base leading-relaxed">
-            Engineer ở Việt Nam. Build sản phẩm cá nhân + B2B nhỏ. Hiện đang focus{" "}
+            Engineer ở Việt Nam. Đang chuyển dần sang làm{" "}
             <Link
-              href="/work/examino"
+              href="/work"
               className="bg-accent text-accent-foreground border-foreground border-2 px-1 font-bold underline-offset-2 hover:underline"
             >
-              Examino
+              sản phẩm
             </Link>{" "}
-            — B2B SaaS English exam platform cho thị trường Việt. Trước đây mobile (SwiftUI/iOS),
-            giờ chuyển dần sang web với <strong>Next.js</strong>.
+            — không gò vào 1 domain. Site này là canvas cá nhân: tech, AI, phim, sách, ảnh, game,
+            bất cứ gì muốn ghi.
           </p>
 
           <div className="flex flex-wrap gap-3 pt-1">
@@ -67,13 +67,9 @@ export function HeroBrutalist() {
         {/* Right: card stack */}
         <aside className="space-y-4">
           <div className="nb-card p-5">
-            <p className="font-mono text-[10px] font-bold tracking-widest uppercase">
-              NOW SHIPPING →
-            </p>
-            <p className="nb-display mt-2 text-3xl">EXAMINO</p>
-            <p className="text-muted-foreground mt-2 text-sm">
-              B2B SaaS English exam platform · VN market
-            </p>
+            <p className="font-mono text-[10px] font-bold tracking-widest uppercase">NOW LIVE →</p>
+            <p className="nb-display mt-2 text-3xl">CANVAS V01</p>
+            <p className="text-muted-foreground mt-2 text-sm">Multi-domain notes. 1–2 bài/tuần.</p>
           </div>
           <div className="nb-card-flat p-5">
             <p className="font-mono text-[10px] font-bold tracking-widest uppercase">TAGS</p>

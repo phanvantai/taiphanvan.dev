@@ -55,14 +55,12 @@ export function HeroCypher() {
         <div className="mt-12 grid gap-10 sm:grid-cols-[1.6fr_1fr] sm:gap-14">
           <div className="space-y-7">
             <p className="text-foreground/90 max-w-prose text-lg leading-relaxed text-pretty">
-              Engineer ở Việt Nam. Build sản phẩm cá nhân + B2B nhỏ. Hiện đang focus{" "}
-              <Link href="/work/examino" className="cy-amber underline-offset-4 hover:underline">
-                Examino
+              Engineer ở Việt Nam. Đang chuyển dần sang làm{" "}
+              <Link href="/work" className="cy-amber underline-offset-4 hover:underline">
+                sản phẩm
               </Link>{" "}
-              — B2B SaaS English exam platform cho thị trường Việt. Trước đây mobile (SwiftUI/iOS),
-              giờ chuyển dần sang web với Next.js. Memory:{" "}
-              <span className="cy-redact">deprecated mobile artifacts</span> · accessible upon
-              request.
+              — không gò vào 1 domain. Site này là canvas cá nhân: tech, AI, phim, sách, ảnh, game,
+              bất cứ gì muốn ghi.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -117,7 +115,7 @@ export function HeroCypher() {
         <div className="mx-auto flex max-w-6xl items-center gap-4 overflow-hidden px-4 py-2 text-[10.5px] tracking-[0.22em] whitespace-nowrap uppercase sm:px-10">
           <span className="cy-amber">◤ LIVE</span>
           <span className="text-muted-foreground">voight-kampff · ok ·</span>
-          <span className="cy-pink">memory : examino · b2b · vn</span>
+          <span className="cy-pink">canvas · multi-domain · saigon</span>
           <span className="text-muted-foreground">·</span>
           <span className="cy-cyan">channel 31.7 stable</span>
           <span className="text-muted-foreground">·</span>

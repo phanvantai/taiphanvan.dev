@@ -38,6 +38,7 @@ export function MobileNav() {
             return (
               <SheetClose
                 key={item.href}
+                nativeButton={false}
                 render={
                   <Link
                     href={item.href}

@@ -26,8 +26,8 @@ export function SocialLinksTerminal() {
           contact/<span className="text-accent">*</span>
         </h2>
         <p className="text-foreground max-w-prose text-sm leading-relaxed">
-          <span className="text-accent">&gt;</span> Drop a line nếu bro muốn chat về indie SaaS, AI,
-          hay mobile dev. Mình online mấy giờ làm việc UTC+7.
+          <span className="text-accent">&gt;</span> Drop a line nếu bro muốn chat về tech, AI, sản
+          phẩm — hay bất cứ topic nào trong các bài viết. Mình online giờ làm việc UTC+7.
         </p>
 
         <div className="border-foreground/30 bg-card/40 mt-4 border p-3 text-sm">

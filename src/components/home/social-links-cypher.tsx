@@ -34,9 +34,9 @@ export function SocialLinksCypher() {
               </span>
             </h2>
             <p className="text-foreground/85 max-w-xl text-base leading-relaxed sm:text-lg">
-              Drop a line nếu bro muốn chat về indie SaaS, AI, hay mobile dev. Mình open cho cà phê
-              online &amp; ý tưởng quái dị. Encryption: optional · trust:{" "}
-              <span className="cy-amber">earned</span>.
+              Drop a line nếu bro muốn chat về tech, AI, sản phẩm — hay bất cứ topic nào trong các
+              bài viết. Mình open cho cà phê online &amp; ý tưởng quái dị. Encryption: optional ·
+              trust: <span className="cy-amber">earned</span>.
             </p>
             <div className="cy-mono flex flex-wrap gap-2 pt-1">
               <span className="cy-tag cy-tag-cyan">PROTO · HTTPS/TLS</span>

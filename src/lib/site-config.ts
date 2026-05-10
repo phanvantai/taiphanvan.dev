@@ -2,7 +2,8 @@ export const siteConfig = {
   name: "Tai Phan",
   url: "https://taiphanvan.dev",
   ogImage: "https://taiphanvan.dev/og",
-  description: "Engineer xây sản phẩm. Viết về Next.js, AI, indie SaaS.",
+  description:
+    "Canvas cá nhân của Tai — engineer ở Việt Nam, làm sản phẩm. Tech, AI, phim, sách, ảnh, game, bất cứ gì muốn ghi.",
   author: {
     name: "Phan Văn Tài",
     handle: "@phanvantai",

@@ -27,8 +27,8 @@ export function SocialLinksBrutalist() {
             SAY HI<span className="text-foreground">.</span>
           </h2>
           <p className="text-foreground border-foreground bg-card max-w-xl border-2 p-4 text-base leading-relaxed">
-            Drop a line nếu bro muốn chat về indie SaaS, AI, hay mobile dev. Mình luôn open cho cà
-            phê online &amp; ý tưởng quái dị.
+            Drop a line nếu bro muốn chat về tech, AI, sản phẩm — hay bất cứ topic nào trong các bài
+            viết. Mình luôn open cho cà phê online &amp; ý tưởng quái dị.
           </p>
         </div>
 

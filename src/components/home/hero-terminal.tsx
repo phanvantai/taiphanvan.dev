@@ -9,9 +9,9 @@ const ASCII_LOGO = String.raw`  _____      _   _____  _    _    _    _   _
 `;
 
 const FACTS = [
-  { k: "stack", v: "next.js 15 / supabase / prisma / mdx" },
-  { k: "focus", v: "examino — b2b saas english exam platform" },
-  { k: "background", v: "swiftui/ios → web (next.js)" },
+  { k: "stack", v: "next.js / supabase / prisma / mdx" },
+  { k: "focus", v: "build sản phẩm — không gò 1 domain" },
+  { k: "writing", v: "tech, ai, phim, sách, ảnh, game, thoughts" },
   { k: "location", v: "saigon, vn — utc+7" },
   { k: "status", v: "shipping daily" },
 ] as const;
@@ -53,16 +53,13 @@ export function HeroTerminal() {
             <div>
               <p className="tm-prompt text-foreground">cat ./about.txt</p>
               <p className="text-foreground pl-3">
-                Hi, mình là <span className="text-accent">Tai</span>. Engineer ở Việt Nam, build sản
-                phẩm cá nhân + B2B nhỏ. Hiện đang focus{" "}
-                <Link
-                  href="/work/examino"
-                  className="text-accent underline-offset-4 hover:underline"
-                >
-                  Examino
+                Hi, mình là <span className="text-accent">Tai</span>. Engineer ở Việt Nam, đang
+                chuyển dần sang làm{" "}
+                <Link href="/work" className="text-accent underline-offset-4 hover:underline">
+                  sản phẩm
                 </Link>{" "}
-                — B2B SaaS English exam platform cho thị trường Việt. Trước đây mobile
-                (SwiftUI/iOS), giờ chuyển dần sang web với Next.js.
+                — không gò vào 1 domain. Site này là canvas cá nhân: tech, AI, phim, sách, ảnh,
+                game, bất cứ gì muốn ghi.
               </p>
             </div>
 
