@@ -1,32 +1,38 @@
 ---
 title: "PES Arena"
 slug: "pes-arena"
-tagline: "Side project liên quan tới game/cộng đồng PES"
+tagline: "Mobile app tổ chức giải đấu PES — chạy được cả khi LAN party mất wifi"
 period: "2025 — present"
-status: "in-progress"
-stack: ["TypeScript", "React Native", "Supabase"]
+status: "shipped"
+stack: ["Firebase", "SQLite", "iOS", "Android"]
 role: "Solo"
 links:
-  live: ""
+  live: "https://pesarena.taiphanvan.dev"
   github: ""
 order: 2
 featured: true
 ---
 
-Side project xoay quanh community game PES.
+Mobile app cho dân PES tự tổ chức giải đấu — tạo group, sinh lịch round-robin, nhập tỉ số, track bảng xếp hạng, chat với crew. Online thì sync real-time qua Firebase, offline thì rớt về SQLite local — giải vẫn chạy mượt khi LAN party mất wifi giữa chừng.
+
+Tải app: [App Store](https://apps.apple.com/us/app/game-note/id6443969710) · [Google Play](https://play.google.com/store/apps/details?id=com.november.game_note).
 
 ## Background
 
-(Coming soon.)
+Cộng đồng PES Việt Nam hay tự tổ chức giải nhỏ — bạn bè, công ty, quán game. Workflow phổ biến: Excel kẻ bảng đấu, group chat ghi tỉ số, nhớ ai thắng ai thua qua… trí nhớ. Đông người, mất wifi giữa chừng là chương trình loạn.
+
+PES Arena rút gọn vòng đó: tạo group → invite member → app tự sinh lịch round-robin → enter tỉ số sau mỗi trận → bảng xếp hạng tự update (W/D/L, bàn thắng, hiệu số). Free, không bắt buộc đăng ký, chạy được hoàn toàn offline.
 
 ## Tech stack
 
-(Coming soon.)
+- **Firebase** — real-time sync giữa các device trong group, push notification khi có trận mới, group chat.
+- **SQLite** — local store cho offline mode. Mở app là dùng được, không cần account.
+- **iOS + Android** — cross-platform mobile.
 
 ## Challenges
 
-(Coming soon.)
+(Sẽ viết sau — bro fill phần này: cái gì khó nhất khi build, decision nào regret/đáng giá nhất.)
 
 ## Lessons
 
-(Coming soon.)
+(Sẽ viết sau.)
