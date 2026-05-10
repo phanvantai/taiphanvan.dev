@@ -1,32 +1,46 @@
 ---
 title: "QuickSpend"
 slug: "quickspend"
-tagline: "Mini app theo dõi chi tiêu nhanh"
+tagline: "iOS app theo dõi thu chi bằng giọng nói — log nhanh, offline-first"
 period: "2025"
-status: "in-progress"
-stack: ["SwiftUI", "iOS"]
+status: "shipped"
+stack: ["SwiftUI", "Swift", "iOS", "Charts", "StoreKit"]
 role: "Solo"
 links:
-  live: ""
+  live: "https://quickspend.taiphanvan.dev"
   github: ""
 order: 3
 featured: true
 ---
 
-Mini app cá nhân để track chi tiêu hằng ngày trên iOS — log nhanh trong vài giây, không cần category nhiều bước.
+QuickSpend là iOS app native để track thu chi thật nhanh: mở app, nói hoặc nhập một câu kiểu “50k cafe hôm qua”, app tự tách số tiền, mô tả, category và ngày. App ưu tiên offline-first, không bắt buộc đăng ký, dữ liệu lưu local và có import/export để backup.
+
+Tải app: [App Store](https://apps.apple.com/us/app/quickspend-instant-tracker/id6754815176). Landing page: [quickspend.taiphanvan.dev](https://quickspend.taiphanvan.dev).
 
 ## Background
 
-(Coming soon.)
+Mấy app finance thường bắt người dùng đi qua quá nhiều bước: chọn loại giao dịch, category, ngày, ví, note, rồi mới lưu. Với chi tiêu nhỏ hằng ngày, friction đó làm mình bỏ cuộc sau vài ngày.
+
+QuickSpend đi theo hướng ngược lại: capture trước, chỉnh sau. Use case chính là log trong vài giây bằng text hoặc voice, để app tự đoán phần còn lại. App cũng hỗ trợ thu nhập, expense, 26+ category, recurring transaction, calendar view và chart để xem lại thói quen chi tiêu.
 
 ## Tech stack
 
-(Coming soon.)
+- **SwiftUI + Swift** — iOS native app, build UI declarative, hỗ trợ dark mode và responsive layout cho iPhone/iPad.
+- **Local-first storage** — dữ liệu giao dịch, category, setting và backup được lưu local để app chạy offline hoàn toàn, không cần account.
+- **Speech / AI parsing flow** — voice input cho câu tự nhiên, parse ra amount, category và date; hỗ trợ 4 ngôn ngữ: English, Vietnamese, Japanese, Spanish.
+- **Charts + Calendar UI** — chart tương tác theo category/range và monthly calendar view với daily totals.
+- **Recurring engine** — quản lý recurring income/expense theo tháng hoặc năm, có pause/resume.
+- **Import / Export JSON** — backup đầy đủ transaction, category và setting để migrate hoặc restore.
+- **StoreKit** — in-app purchase/subscription cho Premium monthly/yearly.
+- **Multi-currency + privacy-first** — hỗ trợ đa tiền tệ, không cần account, hướng tới trải nghiệm private/local.
 
 ## Challenges
 
-(Coming soon.)
+- **Giảm friction khi nhập liệu** — challenge chính là biến câu nói tự nhiên thành transaction đủ sạch để lưu ngay, nhưng vẫn cho user chỉnh nhanh nếu app đoán sai.
+- **Offline-first nhưng vẫn đủ mạnh** — app cần calendar, chart, recurring và backup chạy local ổn định, không phụ thuộc network hoặc login.
+- **Finance UX trên mobile** — màn hình phải đủ nhanh cho thao tác hằng ngày nhưng vẫn có insight theo ngày/tuần/tháng/năm khi user muốn review.
 
 ## Lessons
 
-(Coming soon.)
+- Với personal finance, tốc độ capture quan trọng hơn độ chi tiết ban đầu. Nếu flow nhập liệu chậm, data sẽ không bao giờ đủ để chart có ý nghĩa.
+- Native iOS + SwiftUI hợp với app nhỏ cần cảm giác nhanh, private và offline. Ít backend hơn cũng giúp giảm maintenance cho indie product.

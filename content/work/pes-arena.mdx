@@ -4,18 +4,18 @@ slug: "pes-arena"
 tagline: "Mobile app tổ chức giải đấu PES — chạy được cả khi LAN party mất wifi"
 period: "2025 — present"
 status: "shipped"
-stack: ["Firebase", "SQLite", "iOS", "Android"]
+stack: ["Flutter", "Firebase", "SQLite", "BLoC", "iOS", "Android"]
 role: "Solo"
 links:
   live: "https://pesarena.taiphanvan.dev"
-  github: ""
+  github: "https://github.com/phanvantai/game_note"
 order: 2
 featured: true
 ---
 
 Mobile app cho dân PES tự tổ chức giải đấu — tạo group, sinh lịch round-robin, nhập tỉ số, track bảng xếp hạng, chat với crew. Online thì sync real-time qua Firebase, offline thì rớt về SQLite local — giải vẫn chạy mượt khi LAN party mất wifi giữa chừng.
 
-Tải app: [App Store](https://apps.apple.com/us/app/game-note/id6443969710) · [Google Play](https://play.google.com/store/apps/details?id=com.november.game_note).
+Tải app: [App Store](https://apps.apple.com/us/app/game-note/id6443969710) · [Google Play](https://play.google.com/store/apps/details?id=com.november.game_note). Open source trên [GitHub](https://github.com/phanvantai/game_note).
 
 ## Background
 
@@ -25,9 +25,13 @@ PES Arena rút gọn vòng đó: tạo group → invite member → app tự sinh
 
 ## Tech stack
 
-- **Firebase** — real-time sync giữa các device trong group, push notification khi có trận mới, group chat.
-- **SQLite** — local store cho offline mode. Mở app là dùng được, không cần account.
-- **iOS + Android** — cross-platform mobile.
+- **Flutter + Dart** — một codebase cho iOS, Android và web shell. App đang dùng Flutter SDK `>=3.41.0`, Dart SDK `>=3.10.0`.
+- **BLoC + Clean Architecture** — feature tách theo `presentation`, `domain`, `data`; state management chính bằng `flutter_bloc`, phụ trợ bằng `provider`.
+- **Firebase** — Auth cho email/password + Google Sign-In, Firestore cho real-time tournament/group/chat, Storage cho avatar/media, Messaging cho push notification, Remote Config cho cấu hình runtime.
+- **SQLite / sqflite** — local database cho offline mode. Tournament data lưu trong máy nên vẫn tạo giải, nhập tỉ số, xem bảng xếp hạng khi không có mạng.
+- **go_router + get_it** — điều hướng declarative và dependency injection cho bloc/repository/use case.
+- **fl_chart + Google Mobile Ads** — chart thống kê trong app và monetization nhẹ bằng ads.
+- **Fastlane + Store release flow** — có cấu hình release cho Android/iOS và app đang public trên Google Play + App Store.
 
 ## Challenges
 
