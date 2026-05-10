@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code — local settings & python bytecode
+.claude/settings.local.json
+__pycache__/
+*.pyc
