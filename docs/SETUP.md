@@ -146,4 +146,4 @@ Dev quotidian:
 2. `pnpm dev`
 3. Code → HMR
 4. Trước commit: hooks tự chạy
-5. `git push` → Vercel auto-deploy (Plan 04 setup)
+5. `git push` → Vercel auto-deploy

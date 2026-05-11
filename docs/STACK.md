@@ -80,21 +80,4 @@ Chi tiết: [TRACKER.md § Auth model](TRACKER.md#auth-model).
 
 ## Phase plans
 
-[plans/](../plans/) folder chia roadmap thành 5 plan, dừng demo sau mỗi plan.
-
-| # | Plan | Status |
-| --- | --- | --- |
-| 00 | Foundation (Next + Tailwind + shadcn + theme + nav) | ✅ done |
-| 01 | Tracker (Prisma + auth + UI) | ✅ done |
-| 02 | Content layer (MDX) | ⏳ pending |
-| 03 | Homepage + SEO (OG, sitemap, RSS, JSON-LD) | ⏳ pending |
-| 04 | Polish (Cmd+K, view transitions, README, deploy) | ⏳ pending |
-
-## Memory & context
-
-[memory/](../../.claude/projects/-Users-taipv-Developer-taipv-taiphanvan-dev/memory/) (Claude Code persistent memory) lưu:
-
-- Versioning preference (luôn latest stable)
-- Code quality bar (chuẩn chỉnh, không "làm cho xong")
-
-→ Áp dụng tự động ở các phase sau.
+Tất cả 5 plans đã hoàn thành. Chi tiết: [plans/README.md](../plans/README.md).

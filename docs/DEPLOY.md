@@ -4,13 +4,11 @@ Site này deploy lên Vercel + custom domain `taiphanvan.dev`. DB qua Supabase S
 
 ## Pre-flight checklist
 
-Trước khi push lần đầu:
-
-- [ ] Supabase project created, region **Singapore (`ap-southeast-1`)**.
-- [ ] Migration đã applied: `pnpm prisma migrate deploy` chạy local OK với `MIGRATE_DATABASE_URL` của Supabase.
-- [ ] `pnpm db:seed` chạy OK trên Supabase (4 starter projects).
-- [ ] `pnpm typecheck` + `pnpm lint` + `pnpm build` đều pass local.
-- [ ] Repo đã push lên Github (private hoặc public).
+- [x] Supabase project created, region **Singapore (`ap-southeast-1`)**.
+- [x] Migration đã applied: `pnpm prisma migrate deploy` chạy local OK với `MIGRATE_DATABASE_URL` của Supabase.
+- [x] `pnpm db:seed` chạy OK trên Supabase (4 starter projects).
+- [x] `pnpm typecheck` + `pnpm lint` + `pnpm build` đều pass local.
+- [x] Repo đã push lên Github (private hoặc public).
 
 ## Step 1 — Push lên Github
 

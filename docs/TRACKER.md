@@ -146,4 +146,4 @@ NEXT_PUBLIC_SITE_URL = https://taiphanvan.dev
 
 Build hook hoặc manual: `pnpm prisma migrate deploy` để apply migration lên Supabase prod.
 
-Plan 04 sẽ setup deploy automation — tạm thời manual.
+Chi tiết deploy: [DEPLOY.md](DEPLOY.md).
