@@ -13,7 +13,7 @@ interface IconDesign {
   background: string;
   primary: string;
   secondary?: string;
-  glyph: "T-dot" | "T-cursor" | "T-flat";
+  glyph: "T-dot" | "T-cursor" | "T-flat" | "T-mini";
   fontSize: number;
   paddingBottom: number;
   border?: string;
@@ -43,6 +43,15 @@ const DESIGNS: Record<UIStyle, IconDesign> = {
     paddingBottom: 2,
     border: "2px solid #0F0F0F",
   },
+  minimalist: {
+    background: "#FAFAFA",
+    primary: "#0A0A0A",
+    secondary: "#5B6CFF",
+    glyph: "T-mini",
+    fontSize: 20,
+    paddingBottom: 2,
+    border: "1px solid #E5E5E5",
+  },
 };
 
 function renderGlyph(d: IconDesign) {
@@ -59,6 +68,14 @@ function renderGlyph(d: IconDesign) {
       <div style={{ display: "flex", color: d.primary }}>
         <div>T</div>
         <div>_</div>
+      </div>
+    );
+  }
+  if (d.glyph === "T-mini") {
+    return (
+      <div style={{ display: "flex" }}>
+        <div style={{ color: d.primary, fontWeight: 500 }}>t</div>
+        <div style={{ color: d.secondary }}>.</div>
       </div>
     );
   }

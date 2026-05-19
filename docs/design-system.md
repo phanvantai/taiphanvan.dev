@@ -1,6 +1,6 @@
 # Design System — taiphanvan.dev
 
-Three swappable visual themes controlled by `NEXT_PUBLIC_UI_STYLE` env var. The active style is stamped as `data-ui-style` on the root `<html>` element and picked up by CSS attribute selectors and `getUIStyle()` in components.
+Four swappable visual themes controlled by `NEXT_PUBLIC_UI_STYLE` env var. The active style is stamped as `data-ui-style` on the root `<html>` element and picked up by CSS attribute selectors and `getUIStyle()` in components.
 
 ## Styles
 
@@ -9,6 +9,7 @@ Three swappable visual themes controlled by `NEXT_PUBLIC_UI_STYLE` env var. The 
 | `cypher-2049` | Blade Runner 2049 — amber, pink, cyan on near-black | Dark | [docs/design/cypher-2049.md](design/cypher-2049.md) |
 | `terminal` | Phosphor-green CRT hacker terminal | Dark | [docs/design/terminal.md](design/terminal.md) |
 | `neo-brutalist` | Bold thick-border brutalism with pop-yellow accent | Light | [docs/design/neo-brutalist.md](design/neo-brutalist.md) |
+| `minimalist` | Swiss / Rams / Linear — hairline borders, type-led, one indigo accent | Light | [docs/design/minimalist.md](design/minimalist.md) |
 
 Each style doc is structured in three sections: **Design DNA** (platform-agnostic — colors as raw hex/OKLCH, principles, do/don't) → **Web** (CSS tokens, Tailwind utilities, component CSS) → **Flutter** (`ColorScheme`, `ThemeData`, `TextTheme`, widget code patterns).
 
@@ -18,7 +19,7 @@ Each style doc is structured in three sections: **Design DNA** (platform-agnosti
 
 ```ts
 // src/lib/ui-style.ts
-const VALID = ["cypher-2049", "terminal", "neo-brutalist"] as const;
+const VALID = ["cypher-2049", "terminal", "neo-brutalist", "minimalist"] as const;
 export type UIStyle = (typeof VALID)[number];
 export function getUIStyle(): UIStyle { ... }  // reads NEXT_PUBLIC_UI_STYLE, falls back to "cypher-2049"
 ```
@@ -36,6 +37,8 @@ All tokens live in `src/app/globals.css`. Structure:
 [data-ui-style="neo-brutalist"].dark { ... }
 [data-ui-style="cypher-2049"] { ... }
 [data-ui-style="cypher-2049"].dark { ... }
+[data-ui-style="minimalist"] { ... }
+[data-ui-style="minimalist"].dark { ... }
 ```
 
 Decorative utility classes follow:
@@ -43,6 +46,7 @@ Decorative utility classes follow:
 - `.tm-*` — Terminal-specific (scanlines, prompt prefix, cursor blink, frame)
 - `.nb-*` — Neo-brutalist-specific (offset shadow card, stripe, bold tag)
 - `.cy-*` — Cypher-2049-specific (glitch, aurora, noise, scope, kanji, redact)
+- `.mn-*` — Minimalist-specific (card, eyebrow, display, link-underline, rule, dot)
 
 Shared semantic hooks (used by all components, styled per `data-ui-style`):
 
@@ -63,11 +67,12 @@ export async function Hero() {
   const style = getUIStyle();
   if (style === "terminal") return <HeroTerminal />;
   if (style === "neo-brutalist") return <HeroBrutalist />;
+  if (style === "minimalist") return <HeroMinimalist />;
   return <HeroCypher />;   // default
 }
 ```
 
-Files: `hero-cypher.tsx`, `hero-terminal.tsx`, `hero-brutalist.tsx` (same pattern for `featured-work`, `recent-posts`, `social-links`).
+Files: `hero-cypher.tsx`, `hero-terminal.tsx`, `hero-brutalist.tsx`, `hero-minimalist.tsx` (same pattern for `featured-work`, `recent-posts`, `social-links`).
 
 Shared components (`post-card.tsx`, `work-card.tsx`, `nav.tsx`, `footer.tsx`) use `.site-*` CSS hooks — no JSX branching needed.
 
@@ -91,7 +96,8 @@ This means `bg-background`, `text-foreground`, `border-border` etc. automaticall
 
 ```ts
 // src/app/layout.tsx
-const defaultTheme = uiStyle === "neo-brutalist" ? "light" : "dark";
+const defaultTheme =
+  uiStyle === "neo-brutalist" || uiStyle === "minimalist" ? "light" : "dark";
 ```
 
 ### View transitions
