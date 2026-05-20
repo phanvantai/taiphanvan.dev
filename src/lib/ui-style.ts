@@ -1,6 +1,11 @@
-export type UIStyle = "cypher-2049" | "terminal" | "neo-brutalist";
+export type UIStyle = "cypher-2049" | "terminal" | "neo-brutalist" | "minimalist";
 
-const VALID_STYLES: readonly UIStyle[] = ["cypher-2049", "terminal", "neo-brutalist"] as const;
+const VALID_STYLES: readonly UIStyle[] = [
+  "cypher-2049",
+  "terminal",
+  "neo-brutalist",
+  "minimalist",
+] as const;
 
 export function getUIStyle(): UIStyle {
   const raw = process.env.NEXT_PUBLIC_UI_STYLE?.trim().toLowerCase();

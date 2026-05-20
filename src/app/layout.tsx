@@ -94,7 +94,8 @@ export default function RootLayout({
 
   const uiStyle = getUIStyle();
   const fontVars = `${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable}`;
-  const defaultTheme = uiStyle === "neo-brutalist" ? "light" : "dark";
+  const defaultTheme =
+    uiStyle === "neo-brutalist" || uiStyle === "minimalist" ? "light" : "dark";
 
   return (
     <html lang="vi" suppressHydrationWarning data-ui-style={uiStyle} className={fontVars}>

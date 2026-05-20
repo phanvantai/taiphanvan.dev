@@ -71,7 +71,7 @@ Mutations to `SideProject` should bump `lastUpdate` (drives the stale badge — 
 
 ### UI style switch
 
-`NEXT_PUBLIC_UI_STYLE` env var picks one of three site themes: `cypher-2049` (default), `terminal`, `neo-brutalist`. Resolved via [src/lib/ui-style.ts](src/lib/ui-style.ts) with a fallback. Components branch on this — when adding visual features, check existing style branches before adding a new style-aware component.
+`NEXT_PUBLIC_UI_STYLE` env var picks one of four site themes: `cypher-2049` (default), `terminal`, `neo-brutalist`, `minimalist`. Resolved via [src/lib/ui-style.ts](src/lib/ui-style.ts) with a fallback. Components branch on this — when adding visual features, check existing style branches before adding a new style-aware component.
 
 Full design system docs (tokens, utilities, component patterns, do/don't):
 
@@ -79,6 +79,7 @@ Full design system docs (tokens, utilities, component patterns, do/don't):
 - [docs/design/cypher-2049.md](docs/design/cypher-2049.md) — amber/pink/cyan Blade Runner palette, `.cy-*` utilities
 - [docs/design/terminal.md](docs/design/terminal.md) — phosphor-green CRT palette, `.tm-*` utilities
 - [docs/design/neo-brutalist.md](docs/design/neo-brutalist.md) — bold cream/yellow brutalist palette, `.nb-*` utilities
+- [docs/design/minimalist.md](docs/design/minimalist.md) — Swiss/Rams hairline-neutral palette with indigo accent, `.mn-*` utilities
 
 ## Conventions
 

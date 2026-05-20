@@ -13,7 +13,7 @@ interface AppleDesign {
   background: string;
   primary: string;
   secondary?: string;
-  variant: "cypher" | "terminal" | "brutalist";
+  variant: "cypher" | "terminal" | "brutalist" | "minimal";
 }
 
 const DESIGNS: Record<UIStyle, AppleDesign> = {
@@ -32,6 +32,12 @@ const DESIGNS: Record<UIStyle, AppleDesign> = {
     background: "#FFD84D",
     primary: "#0F0F0F",
     variant: "brutalist",
+  },
+  minimalist: {
+    background: "#FAFAFA",
+    primary: "#0A0A0A",
+    secondary: "#5B6CFF",
+    variant: "minimal",
   },
 };
 
@@ -134,6 +140,67 @@ function renderArtwork(d: AppleDesign) {
         <div style={{ display: "flex", paddingBottom: 6 }}>
           <div>&gt; tai</div>
           <div>_</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (d.variant === "minimal") {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          background: d.background,
+          color: d.primary,
+          fontFamily: "Departure Mono",
+          boxSizing: "border-box",
+          border: "1px solid #E5E5E5",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 18,
+            left: 22,
+            display: "flex",
+            color: "#737373",
+            fontSize: 11,
+            letterSpacing: 3,
+          }}
+        >
+          TAIPHANVAN.DEV
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 102,
+            paddingBottom: 8,
+            fontWeight: 500,
+            letterSpacing: -4,
+          }}
+        >
+          <div>tai</div>
+          <div style={{ color: d.secondary }}>.</div>
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: 18,
+            right: 22,
+            display: "flex",
+            color: "#737373",
+            fontSize: 11,
+            letterSpacing: 3,
+          }}
+        >
+          MMXXVI
         </div>
       </div>
     );
