@@ -22,9 +22,9 @@ Bắt đầu nhỏ — pattern xác nhận từ bài đã có (`hello-world`) + 
 
 ## Xưng hô
 
-- **Mình** (first person). KHÔNG dùng "tôi", "tớ", "ta".
-- Với reader: **"bro"** (casual default), **"bạn"** (khi serious hoặc tránh lặp).
-- Số nhiều: "anh em", "bro" (đừng "các bạn").
+- **Mình** (first person). KHÔNG dùng "tôi", "tớ", "ta", "tác giả".
+- Với reader: **"các bạn"** / **"bạn"** (số nhiều "các bạn", số ít / call-out "bạn nào", "bạn"). KHÔNG dùng "bro" trong bài (chỉ dùng trong chat skill). Update 2026-05-23 — đảo lại pattern cũ.
+- Số nhiều: "các bạn", "mọi người". Tránh "anh em".
 
 ## Từ ngữ — ưu tiên
 
@@ -51,6 +51,7 @@ Bắt đầu nhỏ — pattern xác nhận từ bài đã có (`hello-world`) + 
 - Decorative SVG/icon emoji (UI-style icons) — chỉ dùng nếu load nghĩa (✅ checklist, ❌ failed). VN chat emoji `=))` `:))` xem mục Tone, là exception.
 - **Defensive SEO/algorithm awareness** — vd. "không tối ưu cho thuật toán phân phối nào", "SEO-friendly". Phá personal/canvas tone.
 - **Manufactured-casual filler** — vd. "tuỳ mood mình hôm đó", "mình thấy thích thì viết". Sounds rehearsed-casual. Substantive disclaimer thật mới fit.
+- **Chê third-party tool quá đà** — vd. ban đầu mình viết "Siri cười khẩy gọi Google" về Apple's Siri, bro soften lại. Khi feature flaky vì tool ngoài, **soften + giải thích root cause kỹ thuật** (vd. API restriction) — không đổ lỗi một chiều.
 
 ## Code switching VN/EN
 
@@ -139,3 +140,4 @@ Sau khi tuyên bố canvas cá nhân, set expectation cho reader:
 
 - **2026-05-10** — Khởi tạo profile từ `hello-world` post + memory về voice & quality bar của bro.
 - **2026-05-10** — Session `2026-05-07-hello-world` (~3 round). Add: VN chat emoji `=))` OK trong reflective sections; reflective Intro pattern (3 đoạn: difficulty → soft commitment → poetic close); reader disclaimer pattern; title EN-subtitle preference khi carry tên/concept; description phải sync title vibe. Avoid: defensive SEO/algorithm awareness, manufactured-casual filler.
+- **2026-05-23** — Session `2026-05-23-quickspend-now-really-quick-finally` (~6 round). **Đảo Xưng hô**: bỏ "bro" trong bài, default sang "các bạn" / "bạn". Add tránh: self-ref "tác giả"; chê third-party tool quá đà (soften + giải thích root cause kỹ thuật). Keep: blockquote cho voice command, inline code cho struct/API/app name, conversational rhetorical close ("Sướng phải không nào?"), future-work bullet với motivation hook ("nếu có người dùng thì mình mới có động lực update").
