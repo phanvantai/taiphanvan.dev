@@ -2,7 +2,6 @@
 title: "QuickSpend now really quick, finally"
 description: "QuickSpend 3.0 thêm voice-first flow qua Siri + Shortcuts — chi tiêu nhanh đến mức không cần mở app. Bonus: cuộc chiến nắm tay Siri."
 date: "2026-05-23"
-cover: "/blog/quickspend-now-really-quick-finally/cover.webp"
 tags: ["quickspend", "ios", "siri", "indie"]
 published: true
 featured: false
@@ -72,8 +71,7 @@ Nghe nó lủng củng sao sao ấy, nhưng chưa biết làm sao vì để Siri
 ## Phần kỹ thuật (skip OK nếu không quan tâm)
 
 <Callout type="info">
-  Section này dành cho ai tò mò Apple stack. Không quan trọng để dùng feature — nhảy thẳng xuống
-  [phần tổng kết](#tổng-kết) cũng được.
+Section này dành cho ai tò mò Apple stack. Không quan trọng để dùng feature — nhảy thẳng xuống [phần tổng kết](#tổng-kết) cũng được.
 </Callout>
 
 Bốn thành phần chính:
