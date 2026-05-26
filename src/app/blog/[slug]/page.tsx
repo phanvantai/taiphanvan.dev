@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -102,6 +103,20 @@ export default async function PostPage({ params }: PageProps) {
             )}
           </div>
         </header>
+
+        {post.cover && (
+          <figure className="border-border/60 mb-10 overflow-hidden rounded-lg border">
+            <Image
+              src={post.cover}
+              alt={post.title}
+              width={1200}
+              height={630}
+              priority
+              sizes="(max-width: 1024px) 100vw, 900px"
+              className="aspect-[1200/630] w-full object-cover"
+            />
+          </figure>
+        )}
 
         <div className="prose prose-neutral dark:prose-invert prose-headings:scroll-mt-20 prose-headings:tracking-tight prose-pre:p-0 max-w-none">
           <MdxContent source={post.content} />

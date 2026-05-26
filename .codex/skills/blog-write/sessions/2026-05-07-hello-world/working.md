@@ -2,7 +2,6 @@
 title: "Hello world: Tai is calling"
 description: "Sau nhiều năm lặng lẽ, mình cất tiếng. Canvas cá nhân — không gò 1 niche. Tech, AI, phim, sách, ảnh, game, bất cứ gì muốn ghi."
 date: "2026-05-07"
-cover: "/blog/hello-world/cover.webp"
 tags: ["meta", "personal", "indie"]
 published: true
 featured: true

@@ -1,26 +1,17 @@
 ---
-title: "Hello world: Tai is calling"
-description: "Sau nhiều năm lặng lẽ, mình cất tiếng. Canvas cá nhân — không gò 1 niche. Tech, AI, phim, sách, ảnh, game, bất cứ gì muốn ghi."
+title: "Hello world: canvas cá nhân, không gò bó domain"
+description: "Site này là canvas cá nhân — không gò 1 niche. Mình chuyển từ engineer thuần sang làm sản phẩm, sẽ viết tech, AI, phim, sách, ảnh, game — bất cứ gì muốn ghi."
 date: "2026-05-07"
-cover: "/blog/hello-world/cover.webp"
 tags: ["meta", "personal", "indie"]
 published: true
 featured: true
 ---
 
-## Intro
-
-Bắt đầu một thứ luôn là rất khó, duy trì nó lại càng khó hơn. Mình thích làm điều khó nên mình làm trang này =)).
-
-Có thể viết bài với nhiều người là điều bình thường nhưng với mình thì đây là một bước nhảy vọt. Mình sẽ cố gắng duy trì đều đặn, không để quá 2 tuần không có bài mới. Sẽ không hoàn hảo, nhưng ai cũng phải bắt đầu từ đâu đó.
-
-Bắt đầu của mình là từ đây, bài viết đầu tiên, sau nhiều năm lặng lẽ quan sát, lắng nghe, giờ đến lúc cất tiếng, chào thế giới.
-
 ## Site này là gì
 
-`taiphanvan.dev` không phải blog kỹ thuật thuần, cũng không phải portfolio. Đây là **canvas cá nhân** — chỗ mình tô vẽ mọi ý tưởng, ghi mọi thứ mình muốn ghi, làm mọi thứ mình muốn làm.
+`taiphanvan.dev` không phải blog kỹ thuật thuần, cũng không phải portfolio. Đây là **canvas cá nhân** — chỗ mình tô vẽ mọi ý tưởng, ghi mọi thứ mình muốn ghi, làm mọi thứ mình muốn làm. Không gò vào 1 niche, không tối ưu cho thuật toán phân phối nào.
 
-Lưu ý, mọi bài viết đều đậm tính cá nhân, nếu bạn thấy không hợp, có thể trao đổi với mình, mình luôn sẵn sàng mở rộng góc nhìn, tiếp cận vấn đề theo một góc khác — hoặc không, bạn có thể cứ lặng lẽ rời đi.
+Lúc thì kỹ thuật cứng, lúc thì suy ngẫm vu vơ. Tuỳ mood mình hôm đó.
 
 ## Mình đang chuyển sang làm sản phẩm
 
@@ -53,7 +44,7 @@ Chưa có roadmap cụ thể về topic — đặt sẵn cứng dễ thành tự
 - **Target**: 1 tuần 2 bài.
 - **Mandatory**: 1 tuần ít nhất 1 bài.
 
-Tuần nào không có bài nào, coi như mình đang lười.
+Tuần nào không có bài nào, coi như mình đang lười. Không cho phép kéo dài quá 2 tuần.
 
 ---
 
