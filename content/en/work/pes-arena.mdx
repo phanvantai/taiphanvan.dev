@@ -1,0 +1,41 @@
+---
+title: "PES Arena"
+slug: "pes-arena"
+tagline: "Mobile PES tournament app — keeps running when the LAN party loses Wi-Fi"
+period: "2025 — present"
+status: "shipped"
+stack: ["Flutter", "Firebase", "SQLite", "BLoC", "iOS", "Android"]
+role: "Solo"
+links:
+  live: "https://pesarena.taiphanvan.dev"
+  github: "https://github.com/phanvantai/game_note"
+order: 2
+featured: true
+---
+
+PES Arena helps PES players organize small tournaments: create a group, generate a round-robin schedule, enter scores, track standings, and chat with the crew. When online it syncs through Firebase; when Wi-Fi drops, it falls back to local SQLite so the tournament can continue.
+
+Download: [App Store](https://apps.apple.com/us/app/game-note/id6443969710) · [Google Play](https://play.google.com/store/apps/details?id=com.november.game_note). Source: [GitHub](https://github.com/phanvantai/game_note).
+
+## Background
+
+Small PES tournaments often run on spreadsheets, group chats, and memory. That breaks down quickly when there are many players or when the network disappears mid-session.
+
+PES Arena compresses the flow: create group → invite members → generate fixtures → enter scores → standings update automatically.
+
+## Tech stack
+
+- **Flutter + Dart** — one codebase for iOS, Android, and a web shell.
+- **BLoC + Clean Architecture** — features split across presentation, domain, and data.
+- **Firebase** — auth, Firestore sync, storage, messaging, and remote config.
+- **SQLite / sqflite** — offline tournament data.
+- **go_router + get_it** — declarative routing and dependency injection.
+- **Fastlane** — release configuration for app stores.
+
+## Challenges
+
+The main challenge is keeping tournament state consistent across online and offline modes without making the match-entry flow heavy.
+
+## Lessons
+
+Offline support is not a nice-to-have for event software. If the event can happen without stable internet, the app must survive without stable internet too.

@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { siteConfig } from "@/lib/site-config";
 
-export function Footer() {
+export async function Footer() {
   const year = new Date().getFullYear();
+  const t = await getTranslations("Site.footer");
   const socialLinks = Object.entries(siteConfig.social).filter(([, url]) => url.length > 0);
 
   return (
@@ -25,7 +27,7 @@ export function Footer() {
             </Link>
           ))}
           <Link href="/rss.xml" className="hover:text-foreground font-mono transition-colors">
-            RSS
+            {t("rss")}
           </Link>
         </div>
       </div>

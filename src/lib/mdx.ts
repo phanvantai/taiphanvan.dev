@@ -7,13 +7,15 @@ import { cache } from "react";
 import matter from "gray-matter";
 import readingTimeFn from "reading-time";
 
+import type { Locale } from "@/i18n/routing";
 import type { Post, PostFrontmatter, PostListItem } from "@/types/post";
 import type { Work, WorkFrontmatter, WorkListItem } from "@/types/work";
 
 const CONTENT_ROOT = join(process.cwd(), "content");
-const BLOG_DIR = join(CONTENT_ROOT, "blog");
-const WORK_DIR = join(CONTENT_ROOT, "work");
-const PAGES_DIR = join(CONTENT_ROOT, "pages");
+
+function localeContentDir(locale: Locale, section: "blog" | "work" | "pages"): string {
+  return join(CONTENT_ROOT, locale, section);
+}
 
 // ============================================================
 // Shared helpers
@@ -46,8 +48,8 @@ function stripContent<T extends { content: string }>(item: T): Omit<T, "content"
 // Blog
 // ============================================================
 
-function parsePost(filename: string): Post | null {
-  const { data, content } = readMdxFile(join(BLOG_DIR, filename));
+function parsePost(locale: Locale, filename: string): Post | null {
+  const { data, content } = readMdxFile(join(localeContentDir(locale, "blog"), filename));
   const fm = data as Partial<PostFrontmatter>;
 
   if (!fm.title || !fm.date || !fm.description) {
@@ -71,31 +73,31 @@ function parsePost(filename: string): Post | null {
   };
 }
 
-export const getAllPosts = cache((): PostListItem[] => {
-  const files = listMdxFiles(BLOG_DIR);
+export const getAllPosts = cache((locale: Locale): PostListItem[] => {
+  const files = listMdxFiles(localeContentDir(locale, "blog"));
   const posts: Post[] = [];
   for (const f of files) {
-    const p = parsePost(f);
+    const p = parsePost(locale, f);
     if (p && p.published) posts.push(p);
   }
   posts.sort((a, b) => (a.date < b.date ? 1 : -1));
   return posts.map(stripContent);
 });
 
-export const getPostBySlug = cache((slug: string): Post | null => {
-  const files = listMdxFiles(BLOG_DIR);
+export const getPostBySlug = cache((locale: Locale, slug: string): Post | null => {
+  const files = listMdxFiles(localeContentDir(locale, "blog"));
   for (const f of files) {
     if (slugFromFile(f) === slug) {
-      const p = parsePost(f);
+      const p = parsePost(locale, f);
       if (p && p.published) return p;
     }
   }
   return null;
 });
 
-export const getAllTags = cache((): { tag: string; count: number }[] => {
+export const getAllTags = cache((locale: Locale): { tag: string; count: number }[] => {
   const counts = new Map<string, number>();
-  for (const post of getAllPosts()) {
+  for (const post of getAllPosts(locale)) {
     for (const tag of post.tags) {
       counts.set(tag, (counts.get(tag) ?? 0) + 1);
     }
@@ -105,11 +107,11 @@ export const getAllTags = cache((): { tag: string; count: number }[] => {
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 });
 
-export const getRelatedPosts = cache((slug: string, limit = 3): PostListItem[] => {
-  const current = getPostBySlug(slug);
+export const getRelatedPosts = cache((locale: Locale, slug: string, limit = 3): PostListItem[] => {
+  const current = getPostBySlug(locale, slug);
   if (!current) return [];
   const tagSet = new Set(current.tags);
-  return getAllPosts()
+  return getAllPosts(locale)
     .filter((p) => p.slug !== slug)
     .map((p) => ({
       post: p,
@@ -125,8 +127,8 @@ export const getRelatedPosts = cache((slug: string, limit = 3): PostListItem[] =
 // Work
 // ============================================================
 
-function parseWork(filename: string): Work | null {
-  const { data, content } = readMdxFile(join(WORK_DIR, filename));
+function parseWork(locale: Locale, filename: string): Work | null {
+  const { data, content } = readMdxFile(join(localeContentDir(locale, "work"), filename));
   const fm = data as Partial<WorkFrontmatter>;
 
   if (!fm.title || !fm.slug || !fm.tagline || !fm.period || !fm.status || !fm.role) {
@@ -150,28 +152,28 @@ function parseWork(filename: string): Work | null {
   };
 }
 
-export const getAllWork = cache((): WorkListItem[] => {
-  const files = listMdxFiles(WORK_DIR);
+export const getAllWork = cache((locale: Locale): WorkListItem[] => {
+  const files = listMdxFiles(localeContentDir(locale, "work"));
   const items: Work[] = [];
   for (const f of files) {
-    const w = parseWork(f);
+    const w = parseWork(locale, f);
     if (w) items.push(w);
   }
   items.sort((a, b) => a.order - b.order);
   return items.map(stripContent);
 });
 
-export const getWorkBySlug = cache((slug: string): Work | null => {
-  const files = listMdxFiles(WORK_DIR);
+export const getWorkBySlug = cache((locale: Locale, slug: string): Work | null => {
+  const files = listMdxFiles(localeContentDir(locale, "work"));
   for (const f of files) {
-    const w = parseWork(f);
+    const w = parseWork(locale, f);
     if (w && w.slug === slug) return w;
   }
   return null;
 });
 
-export const getFeaturedWork = cache((): WorkListItem[] => {
-  return getAllWork().filter((w) => w.featured);
+export const getFeaturedWork = cache((locale: Locale): WorkListItem[] => {
+  return getAllWork(locale).filter((w) => w.featured);
 });
 
 // ============================================================
@@ -185,8 +187,8 @@ export interface PageDoc {
   content: string;
 }
 
-export const getPage = cache((name: "about" | "now"): PageDoc | null => {
-  const file = join(PAGES_DIR, `${name}.mdx`);
+export const getPage = cache((locale: Locale, name: "about" | "now"): PageDoc | null => {
+  const file = join(localeContentDir(locale, "pages"), `${name}.mdx`);
   if (!existsSync(file)) return null;
   const { data, content } = readMdxFile(file);
   const fm = data as Partial<PageDoc>;

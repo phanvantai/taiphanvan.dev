@@ -1,0 +1,162 @@
+{
+  "Site": {
+    "description": "Tai's personal canvas — a Vietnam-based engineer building products. Tech, AI, films, books, photography, games, and whatever is worth writing down.",
+    "nav": {
+      "work": "Work",
+      "blog": "Blog",
+      "tools": "Tools"
+    },
+    "actions": {
+      "openCommandPalette": "Open command palette (⌘K)",
+      "toggleTheme": "Toggle theme"
+    },
+    "command": {
+      "placeholder": "Search posts, navigate, change theme...",
+      "empty": "No results found.",
+      "pages": "Pages",
+      "blogPosts": "Blog posts",
+      "theme": "Theme",
+      "tracker": "Side Project Tracker",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "label": "Change language",
+      "vi": "VI",
+      "en": "EN"
+    },
+    "footer": {
+      "rss": "RSS"
+    }
+  },
+  "Home": {
+    "hero": {
+      "personalSite": "Personal site · v01",
+      "introPrefix": "Hi, I'm",
+      "name": "Tai",
+      "bodyBefore": "I'm an engineer in Vietnam, gradually moving toward building",
+      "bodyLink": "products",
+      "bodyAfter": "without locking myself into one domain. This site is my personal canvas: tech, AI, films, books, photography, games, and whatever I want to write down.",
+      "readBlog": "Read journal",
+      "seeWork": "Projects",
+      "about": "Profile",
+      "now": "Now",
+      "nowTitle": "Canvas v01 — multi-domain notes.",
+      "nowDescription": "1-2 posts a week. Writing to think more clearly, not to go viral.",
+      "tags": "Tags",
+      "scope": "scope locked · subject visible",
+      "transcript": "◤ TRANSCRIPT // STATIC.LOG",
+      "endTransmission": "end of transmission",
+      "live": "◤ LIVE",
+      "tickerOk": "voight-kampff · ok ·",
+      "tickerCanvas": "canvas · multi-domain · saigon",
+      "tickerChannel": "channel 31.7 stable",
+      "status": "ONLINE — shipping daily"
+    },
+    "work": {
+      "cypherRule": "◤ FILE.SYSTEM // SUBJECT.WORK",
+      "cypherTitlePrefix": "SELECTED",
+      "cypherTitleAccent": "DOSSIERS",
+      "fullArchive": "full archive",
+      "selected": "Selected work",
+      "title": "Things I've built.",
+      "all": "All work",
+      "terminalList": "featured/*",
+      "terminalEcho": "{count} item(s) · run",
+      "terminalEchoTail": "for full archive",
+      "brutalistTitle": "/WORK",
+      "brutalistAll": "ALL",
+      "tableStatus": "status",
+      "tableName": "name",
+      "tablePeriod": "period",
+      "stack": "stack",
+      "statusShipped": "shipped",
+      "statusInProgress": "in progress",
+      "statusArchived": "archived",
+      "statusShippedShort": "shipped",
+      "statusInProgressShort": "wip",
+      "statusArchivedShort": "archived"
+    },
+    "posts": {
+      "cypherRule": "◤ MEMORY.ARCHIVE // RECALL",
+      "cypherTitlePrefix": "REPLAY",
+      "cypherTitleAccent": "ENTRIES",
+      "decodeAll": "read all",
+      "play": "▸ read",
+      "journal": "Journal",
+      "latest": "Latest posts.",
+      "all": "All posts",
+      "terminalTitle": "journal/*",
+      "terminalAll": "# all entries",
+      "brutalistTitle": "/JOURNAL ✸",
+      "brutalistAll": "ALL",
+      "minuteShort": "m",
+      "minute": "min"
+    },
+    "social": {
+      "contact": "Contact",
+      "title": "Say hi",
+      "tagline": "// END OF LINE",
+      "body": "Drop a line if you want to chat about tech, AI, products, or any topic from the posts. I'm open to online coffee and strange ideas.",
+      "terminalBody": "Drop a line if you want to chat about tech, AI, products, or any topic from the posts. I'm online during UTC+7 working hours.",
+      "findMe": "Find me at",
+      "freq": "◢ FREQ // FIND ME AT",
+      "empty": "social links are being updated",
+      "end": "◤ end transmission"
+    }
+  },
+  "Blog": {
+    "metadataTitle": "Blog",
+    "metadataDescription": "Technical notes and indie maker writing in English.",
+    "title": "Blog",
+    "description": "Technical notes and indie stories. Written when there's something worth thinking through.",
+    "archive": "archive",
+    "entries": "entries",
+    "last": "last",
+    "filter": "filter",
+    "empty": "No posts for this tag yet.",
+    "notFound": "Not found",
+    "back": "← /blog",
+    "readingTime": "{minutes} min read",
+    "related": "Related posts"
+  },
+  "Work": {
+    "metadataTitle": "Work",
+    "metadataDescription": "Portfolio: side projects and products Tai has built or is building.",
+    "title": "Work",
+    "description": "Things Tai is building. Some shipped, some still in progress. {count} projects.",
+    "notFound": "Not found",
+    "back": "← /work",
+    "role": "Role",
+    "stack": "Stack",
+    "live": "Live",
+    "source": "Source",
+    "status": {
+      "shipped": "Shipped",
+      "in-progress": "In progress",
+      "archived": "Archived"
+    }
+  },
+  "Tools": {
+    "metadataTitle": "Tools",
+    "metadataDescription": "Tai's small personal tools.",
+    "title": "Tools",
+    "description": "Small tools I build for personal use. Anything useful enough may show up here.",
+    "trackerTitle": "Side Project Tracker",
+    "trackerDescription": "Track side projects and nudge stale ones.",
+    "trackerStatus": "Private · password required"
+  },
+  "Pages": {
+    "aboutFallback": "About",
+    "nowFallback": "Now",
+    "lastUpdated": "Last updated: {date}"
+  },
+  "NotFound": {
+    "label": "404 · Not found",
+    "title": "This page wandered off.",
+    "description": "The link may be old, or I may have moved the content. Try home or the blog.",
+    "home": "Go home",
+    "blog": "Read blog"
+  }
+}

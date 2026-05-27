@@ -1,13 +1,9 @@
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import type { WorkListItem } from "@/types/work";
-
-const STATUS_LABEL: Record<WorkListItem["status"], string> = {
-  shipped: "Shipped",
-  "in-progress": "In progress",
-  archived: "Archived",
-};
 
 const STATUS_TONE: Record<WorkListItem["status"], string> = {
   shipped: "border-emerald-500/30 text-emerald-500",
@@ -20,8 +16,11 @@ interface Props {
 }
 
 export function WorkCard({ work }: Props) {
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Work.status");
+
   return (
-    <Link href={`/work/${work.slug}`} className="group">
+    <Link href={withLocale(locale, `/work/${work.slug}`)} className="group">
       <article className="site-card border-border/60 bg-card group-hover:border-foreground/30 flex h-full flex-col gap-3 rounded-xl border p-5 transition-all">
         <div className="flex items-start justify-between gap-2">
           <h3 className="site-card-title group-hover:text-primary text-lg font-semibold tracking-tight transition-colors">
@@ -34,7 +33,7 @@ export function WorkCard({ work }: Props) {
               STATUS_TONE[work.status],
             )}
           >
-            {STATUS_LABEL[work.status]}
+            {t(work.status)}
           </span>
         </div>
 

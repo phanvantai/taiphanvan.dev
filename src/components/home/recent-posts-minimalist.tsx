@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { getAllPosts } from "@/lib/mdx";
 import { formatDate } from "@/lib/utils";
 
 export function RecentPostsMinimalist() {
-  const posts = getAllPosts().slice(0, 5);
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Home.posts");
+  const posts = getAllPosts(locale).slice(0, 5);
   if (posts.length === 0) return null;
 
   return (
@@ -13,16 +17,14 @@ export function RecentPostsMinimalist() {
       <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-24">
         <header className="mb-10 flex flex-wrap items-baseline justify-between gap-4">
           <div>
-            <p className="mn-eyebrow">Journal</p>
-            <h2 className="mn-display text-foreground mt-2 text-3xl sm:text-4xl">
-              Bài mới nhất.
-            </h2>
+            <p className="mn-eyebrow">{t("journal")}</p>
+            <h2 className="mn-display text-foreground mt-2 text-3xl sm:text-4xl">{t("latest")}</h2>
           </div>
           <Link
-            href="/blog"
+            href={withLocale(locale, "/blog")}
             className="text-muted-foreground hover:text-foreground mn-link-underline inline-flex items-center gap-1 text-sm font-medium"
           >
-            All posts <ArrowUpRightIcon className="size-3.5" />
+            {t("all")} <ArrowUpRightIcon className="size-3.5" />
           </Link>
         </header>
 
@@ -30,7 +32,7 @@ export function RecentPostsMinimalist() {
           {posts.map((post, i) => (
             <li key={post.slug}>
               <Link
-                href={`/blog/${post.slug}`}
+                href={withLocale(locale, `/blog/${post.slug}`)}
                 className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 gap-y-2 py-5 sm:gap-x-8 sm:py-6"
               >
                 <span className="text-muted-foreground font-mono text-xs tabular-nums">

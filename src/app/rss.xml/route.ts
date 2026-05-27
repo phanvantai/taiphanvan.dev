@@ -1,3 +1,4 @@
+import { defaultLocale, withLocale } from "@/i18n/routing";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { mdxToHtml } from "@/lib/mdx-to-html";
 import { siteConfig } from "@/lib/site-config";
@@ -16,13 +17,13 @@ function escapeXml(text: string): string {
 }
 
 export async function GET() {
-  const posts = getAllPosts().slice(0, MAX_ITEMS);
+  const posts = getAllPosts(defaultLocale).slice(0, MAX_ITEMS);
 
   const items = await Promise.all(
     posts.map(async (post) => {
-      const full = getPostBySlug(post.slug);
+      const full = getPostBySlug(defaultLocale, post.slug);
       const html = full ? await mdxToHtml(full.content) : "";
-      const url = `${siteConfig.url}/blog/${post.slug}`;
+      const url = `${siteConfig.url}${withLocale(defaultLocale, `/blog/${post.slug}`)}`;
       return { post, url, html };
     }),
   );

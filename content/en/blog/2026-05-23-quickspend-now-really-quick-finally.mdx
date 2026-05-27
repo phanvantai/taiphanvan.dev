@@ -1,0 +1,46 @@
+---
+title: "QuickSpend is finally actually quick"
+description: "QuickSpend 3.0 adds a voice-first flow through Siri and Shortcuts — fast enough to log an expense without opening the app."
+date: "2026-05-23"
+cover: "/blog/quickspend-now-really-quick-finally/cover.webp"
+tags: ["quickspend", "ios", "siri", "indie"]
+published: true
+featured: true
+---
+
+_"It's done. It's over." — Frodo, The Lord of the Rings._
+
+## The problem: a "quick" app that was still not quick enough
+
+QuickSpend was built to make expense logging fast. But even a fast app still had one annoying step: you had to open it.
+
+At the end of the month, sparse data makes every chart useless. The issue was not the form. The issue was the moment before the form. I wanted a flow where the user could say "quick expense 50k milk tea" and be done without tapping anything.
+
+## The Shortcut path
+
+The reliable flow became:
+
+1. Siri triggers a bundled Shortcut.
+2. The Shortcut asks for the expense text.
+3. The user says a natural sentence.
+4. QuickSpend parses the text.
+5. If confidence is high, the transaction is saved immediately.
+
+It is not as magical as a perfect one-shot Siri intent, but it is reliable enough to ship.
+
+## The App Intent path
+
+The prettier version is: "Hey Siri, use QuickSpend to add 50k milk tea."
+
+That path is still flaky. Apple's App Intents API has constraints around free-form string parameters in shortcut phrases, so Siri often has to ask for the expense text after triggering the intent. The Shortcut path exists because it is the path I can trust.
+
+## What shipped
+
+- **App Intent** — exposes the add-expense action to Siri and Shortcuts.
+- **Bundled Shortcut** — creates a smoother voice-first path.
+- **AI parser reuse** — voice input goes through the same parser as manual input.
+- **No app launch on the happy path** — Siri can read the result and finish.
+
+## Lesson
+
+Speed is not only about app performance. Sometimes the fastest UI is no UI at all.

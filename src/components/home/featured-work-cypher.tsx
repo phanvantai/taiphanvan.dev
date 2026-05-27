@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { getFeaturedWork } from "@/lib/mdx";
 import type { WorkListItem } from "@/types/work";
 
@@ -13,25 +15,27 @@ const STATUS_LABEL: Record<WorkListItem["status"], { label: string; tone: string
 const KANJI_GLYPHS = ["株", "電", "賽", "脳", "記", "夢"] as const;
 
 export function FeaturedWorkCypher() {
-  const featured = getFeaturedWork();
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Home.work");
+  const featured = getFeaturedWork(locale);
   if (featured.length === 0) return null;
 
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-20 sm:px-10 sm:py-24">
       <header className="mb-10">
         <p className="cy-rule cy-mono text-[10.5px] tracking-[0.22em] uppercase">
-          <span>◤ FILE.SYSTEM // SUBJECT.WORK</span>
+          <span>{t("cypherRule")}</span>
         </p>
         <div className="mt-6 flex items-end justify-between gap-4">
           <h2 className="cy-display text-foreground text-3xl sm:text-5xl">
-            SELECTED <span className="cy-amber">DOSSIERS</span>
+            {t("cypherTitlePrefix")} <span className="cy-amber">{t("cypherTitleAccent")}</span>
             <span className="cy-pink">/</span>
           </h2>
           <Link
-            href="/work"
+            href={withLocale(locale, "/work")}
             className="cy-mono cy-amber border-foreground/30 inline-flex items-center gap-1.5 border px-3 py-1.5 text-[10.5px] tracking-[0.22em] uppercase transition-colors hover:border-[var(--cy-amber)]"
           >
-            full archive <ArrowUpRightIcon className="size-3.5" />
+            {t("fullArchive")} <ArrowUpRightIcon className="size-3.5" />
           </Link>
         </div>
       </header>
@@ -43,7 +47,7 @@ export function FeaturedWorkCypher() {
           return (
             <li key={w.slug}>
               <Link
-                href={`/work/${w.slug}`}
+                href={withLocale(locale, `/work/${w.slug}`)}
                 className="cy-card group relative flex h-full flex-col gap-3 overflow-hidden p-6"
               >
                 {/* Kanji watermark */}

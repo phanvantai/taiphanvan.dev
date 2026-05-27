@@ -1,0 +1,162 @@
+{
+  "Site": {
+    "description": "Canvas cá nhân của Tai — engineer ở Việt Nam, làm sản phẩm. Tech, AI, phim, sách, ảnh, game, bất cứ gì muốn ghi.",
+    "nav": {
+      "work": "Work",
+      "blog": "Blog",
+      "tools": "Tools"
+    },
+    "actions": {
+      "openCommandPalette": "Mở bảng lệnh (⌘K)",
+      "toggleTheme": "Đổi giao diện"
+    },
+    "command": {
+      "placeholder": "Tìm bài, chuyển trang, đổi theme...",
+      "empty": "Không tìm thấy gì.",
+      "pages": "Trang",
+      "blogPosts": "Bài blog",
+      "theme": "Giao diện",
+      "tracker": "Side Project Tracker",
+      "light": "Sáng",
+      "dark": "Tối",
+      "system": "Theo hệ thống"
+    },
+    "language": {
+      "label": "Đổi ngôn ngữ",
+      "vi": "VI",
+      "en": "EN"
+    },
+    "footer": {
+      "rss": "RSS"
+    }
+  },
+  "Home": {
+    "hero": {
+      "personalSite": "Personal site · v01",
+      "introPrefix": "Hi, mình là",
+      "name": "Tai",
+      "bodyBefore": "Engineer ở Việt Nam. Đang chuyển dần sang làm",
+      "bodyLink": "sản phẩm",
+      "bodyAfter": "— không gò vào 1 domain. Site này là canvas cá nhân: tech, AI, phim, sách, ảnh, game, bất cứ gì muốn ghi.",
+      "readBlog": "Đọc nhật ký",
+      "seeWork": "Dự án",
+      "about": "Hồ sơ",
+      "now": "Now",
+      "nowTitle": "Canvas v01 — multi-domain notes.",
+      "nowDescription": "1–2 bài/tuần. Viết để nghĩ rõ hơn, không phải để viral.",
+      "tags": "Tags",
+      "scope": "đã khóa khung · đã thấy chủ thể",
+      "transcript": "◤ BẢN GHI // STATIC.LOG",
+      "endTransmission": "hết truyền tin",
+      "live": "◤ LIVE",
+      "tickerOk": "voight-kampff · ok ·",
+      "tickerCanvas": "canvas · multi-domain · saigon",
+      "tickerChannel": "channel 31.7 stable",
+      "status": "ONLINE — shipping daily"
+    },
+    "work": {
+      "cypherRule": "◤ FILE.SYSTEM // SUBJECT.WORK",
+      "cypherTitlePrefix": "HỒ SƠ",
+      "cypherTitleAccent": "DỰ ÁN",
+      "fullArchive": "xem tất cả",
+      "selected": "Selected work",
+      "title": "Things mình đã làm.",
+      "all": "All work",
+      "terminalList": "featured/*",
+      "terminalEcho": "{count} item(s) · chạy",
+      "terminalEchoTail": "để xem toàn bộ archive",
+      "brutalistTitle": "/WORK",
+      "brutalistAll": "ALL",
+      "tableStatus": "status",
+      "tableName": "name",
+      "tablePeriod": "period",
+      "stack": "stack",
+      "statusShipped": "shipped",
+      "statusInProgress": "in progress",
+      "statusArchived": "archived",
+      "statusShippedShort": "shipped",
+      "statusInProgressShort": "wip",
+      "statusArchivedShort": "archived"
+    },
+    "posts": {
+      "cypherRule": "◤ MEMORY.ARCHIVE // RECALL",
+      "cypherTitlePrefix": "NHẬT KÝ",
+      "cypherTitleAccent": "MỚI",
+      "decodeAll": "đọc tất cả",
+      "play": "▸ đọc",
+      "journal": "Journal",
+      "latest": "Bài mới nhất.",
+      "all": "All posts",
+      "terminalTitle": "journal/*",
+      "terminalAll": "# tất cả bài",
+      "brutalistTitle": "/JOURNAL ✸",
+      "brutalistAll": "ALL",
+      "minuteShort": "p",
+      "minute": "phút"
+    },
+    "social": {
+      "contact": "Contact",
+      "title": "Say hi",
+      "tagline": "// HẾT DÒNG",
+      "body": "Drop a line nếu bro muốn chat về tech, AI, sản phẩm — hay bất cứ topic nào trong các bài viết. Mình luôn open cho cà phê online & ý tưởng quái dị.",
+      "terminalBody": "Drop a line nếu bro muốn chat về tech, AI, sản phẩm — hay bất cứ topic nào trong các bài viết. Mình online giờ làm việc UTC+7.",
+      "findMe": "Find me at",
+      "freq": "◢ FREQ // FIND ME AT",
+      "empty": "social link đang cập nhật",
+      "end": "◤ hết truyền tin"
+    }
+  },
+  "Blog": {
+    "metadataTitle": "Blog",
+    "metadataDescription": "Note kỹ thuật + indie maker. Viết bằng tiếng Việt.",
+    "title": "Blog",
+    "description": "Note kỹ thuật + chuyện indie. Viết khi rảnh, đọc khi rảnh hơn.",
+    "archive": "archive",
+    "entries": "entries",
+    "last": "last",
+    "filter": "filter",
+    "empty": "Tag này chưa có bài. Mai mốt nhé bro.",
+    "notFound": "Không tìm thấy",
+    "back": "← /blog",
+    "readingTime": "{minutes} phút đọc",
+    "related": "Bài liên quan"
+  },
+  "Work": {
+    "metadataTitle": "Work",
+    "metadataDescription": "Portfolio: side projects + sản phẩm Tai đã build / đang build.",
+    "title": "Work",
+    "description": "Mấy thứ Tai đang ngồi build. Có cái xong, có cái còn dở dang. {count} project.",
+    "notFound": "Không tìm thấy",
+    "back": "← /work",
+    "role": "Role",
+    "stack": "Stack",
+    "live": "Live",
+    "source": "Source",
+    "status": {
+      "shipped": "Shipped",
+      "in-progress": "In progress",
+      "archived": "Archived"
+    }
+  },
+  "Tools": {
+    "metadataTitle": "Tools",
+    "metadataDescription": "Mini tools cá nhân của Tai.",
+    "title": "Tools",
+    "description": "Mini tool tự build cho việc dùng cá nhân. Có gì hay sẽ public ra đây.",
+    "trackerTitle": "Side Project Tracker",
+    "trackerDescription": "Track side project, nhắc khi bỏ bê quá lâu.",
+    "trackerStatus": "Riêng tư · cần password"
+  },
+  "Pages": {
+    "aboutFallback": "About",
+    "nowFallback": "Now",
+    "lastUpdated": "Last updated: {date}"
+  },
+  "NotFound": {
+    "label": "404 · Không tìm thấy",
+    "title": "Trang này đi lạc rồi.",
+    "description": "Có thể link cũ, có thể mình đổi chỗ nội dung. Về home hoặc đọc blog thử nhé.",
+    "home": "Về home",
+    "blog": "Đọc blog"
+  }
+}

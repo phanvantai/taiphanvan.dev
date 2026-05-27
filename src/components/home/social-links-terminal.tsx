@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GlobeIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { siteConfig } from "@/lib/site-config";
 
@@ -11,6 +12,7 @@ const HANDLE: Record<keyof typeof siteConfig.social, string> = {
 };
 
 export function SocialLinksTerminal() {
+  const t = useTranslations("Home.social");
   const entries = Object.entries(siteConfig.social).filter(([, url]) => url.length > 0) as [
     keyof typeof siteConfig.social,
     string,
@@ -26,14 +28,13 @@ export function SocialLinksTerminal() {
           contact/<span className="text-accent">*</span>
         </h2>
         <p className="text-foreground max-w-prose text-sm leading-relaxed">
-          <span className="text-accent">&gt;</span> Drop a line nếu bro muốn chat về tech, AI, sản
-          phẩm — hay bất cứ topic nào trong các bài viết. Mình online giờ làm việc UTC+7.
+          <span className="text-accent">&gt;</span> {t("terminalBody")}
         </p>
 
         <div className="border-foreground/30 bg-card/40 mt-4 border p-3 text-sm">
           {entries.length === 0 ? (
             <p className="text-muted-foreground inline-flex items-center gap-1.5 text-xs">
-              <GlobeIcon className="size-3" /> social link đang cập nhật
+              <GlobeIcon className="size-3" /> {t("empty")}
             </p>
           ) : (
             <ul className="space-y-1">

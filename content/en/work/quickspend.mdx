@@ -1,0 +1,40 @@
+---
+title: "QuickSpend"
+slug: "quickspend"
+tagline: "Voice-first iOS expense tracker — fast logging, offline-first"
+period: "2025"
+status: "shipped"
+stack: ["SwiftUI", "Swift", "iOS", "Charts", "StoreKit"]
+role: "Solo"
+links:
+  live: "https://quickspend.taiphanvan.dev"
+  github: ""
+order: 3
+featured: true
+---
+
+QuickSpend is a native iOS app for logging expenses quickly: open the app, say or type a short sentence like "50k coffee yesterday", and the app extracts the amount, description, category, and date. It is offline-first, does not require an account, stores data locally, and supports import/export for backups.
+
+Download: [App Store](https://apps.apple.com/us/app/quickspend-instant-tracker/id6754815176). Landing page: [quickspend.taiphanvan.dev](https://quickspend.taiphanvan.dev).
+
+## Background
+
+Most finance apps make users walk through too many fields before saving a tiny daily transaction. QuickSpend flips that flow: capture first, fix later. The core use case is logging with text or voice in a few seconds while the app infers the rest.
+
+## Tech stack
+
+- **SwiftUI + Swift** — native iOS UI with dark mode and responsive layouts.
+- **Local-first storage** — transactions, categories, settings, and backups stay on device.
+- **Speech / AI parsing flow** — natural-language input becomes amount, category, and date.
+- **Charts + Calendar UI** — interactive spending views by category, range, and month.
+- **Recurring engine** — recurring income/expense rules with pause and resume.
+- **Import / Export JSON** — portable backups for migration and restore.
+- **StoreKit** — monthly/yearly Premium subscription.
+
+## Challenges
+
+The hard part is reducing capture friction without making the parser feel risky. The app needs to save fast, but still keep correction cheap when the guess is wrong.
+
+## Lessons
+
+For personal finance, capture speed matters more than perfect detail at input time. If the flow is slow, the dataset never becomes useful enough for insights.

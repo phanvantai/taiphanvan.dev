@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,9 +16,12 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
+import { withLocale, type Locale } from "@/i18n/routing";
 
 export function MobileNav() {
   const pathname = usePathname();
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Site.nav");
 
   return (
     <Sheet>
@@ -34,14 +38,16 @@ export function MobileNav() {
         </SheetHeader>
         <nav className="site-nav flex flex-col gap-1 p-3">
           {siteConfig.nav.map((item, i) => {
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const href = withLocale(locale, item.href);
+            const key = item.href.slice(1) as "work" | "blog" | "tools";
+            const isActive = pathname === href || pathname.startsWith(`${href}/`);
             return (
               <SheetClose
                 key={item.href}
                 nativeButton={false}
                 render={
                   <Link
-                    href={item.href}
+                    href={href}
                     data-active={isActive}
                     data-index={String(i + 1).padStart(2, "0")}
                     className={cn(
@@ -51,7 +57,7 @@ export function MobileNav() {
                         : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
                     )}
                   >
-                    {item.label}
+                    {t(key)}
                   </Link>
                 }
               />

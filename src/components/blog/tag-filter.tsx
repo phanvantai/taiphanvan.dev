@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -8,12 +10,14 @@ interface Props {
 }
 
 export function TagFilter({ tags, activeTag }: Props) {
+  const locale = useLocale() as Locale;
+
   if (tags.length === 0) return null;
 
   return (
     <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
       <Link
-        href="/blog"
+        href={withLocale(locale, "/blog")}
         data-active={!activeTag}
         className={cn(
           "site-tag-link rounded-md border px-2.5 py-1 transition-colors",
@@ -29,7 +33,7 @@ export function TagFilter({ tags, activeTag }: Props) {
         return (
           <Link
             key={tag}
-            href={`/blog?tag=${encodeURIComponent(tag)}`}
+            href={`${withLocale(locale, "/blog")}?tag=${encodeURIComponent(tag)}`}
             data-active={active}
             className={cn(
               "site-tag-link rounded-md border px-2.5 py-1 transition-colors",

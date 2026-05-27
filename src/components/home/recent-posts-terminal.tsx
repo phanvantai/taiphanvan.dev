@@ -1,10 +1,14 @@
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { getAllPosts } from "@/lib/mdx";
 import { formatDate } from "@/lib/utils";
 
 export function RecentPostsTerminal() {
-  const posts = getAllPosts().slice(0, 5);
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Home.posts");
+  const posts = getAllPosts(locale).slice(0, 5);
   if (posts.length === 0) return null;
 
   return (
@@ -14,7 +18,8 @@ export function RecentPostsTerminal() {
           <span className="text-accent">$</span> tail -n 5 ./blog/posts.log
         </p>
         <h2 className="mt-1 text-xl tracking-tight">
-          journal/<span className="text-accent">*</span>
+          {t("terminalTitle").replace("*", "")}
+          <span className="text-accent">*</span>
         </h2>
       </header>
 
@@ -22,7 +27,7 @@ export function RecentPostsTerminal() {
         {posts.map((post, i) => (
           <li key={post.slug}>
             <Link
-              href={`/blog/${post.slug}`}
+              href={withLocale(locale, `/blog/${post.slug}`)}
               className="hover:bg-accent/10 group block px-3 py-3 transition-colors"
             >
               <div className="text-muted-foreground flex flex-wrap items-baseline gap-x-3 text-[10px] tracking-widest uppercase">
@@ -31,7 +36,9 @@ export function RecentPostsTerminal() {
                   {formatDate(post.date)}
                 </time>
                 <span aria-hidden>·</span>
-                <span>{post.readingTime} min</span>
+                <span>
+                  {post.readingTime} {t("minute")}
+                </span>
               </div>
               <p className="text-foreground group-hover:text-accent mt-1.5 text-base leading-snug font-medium transition-colors">
                 <span className="text-accent">&gt;</span> {post.title}
@@ -53,10 +60,13 @@ export function RecentPostsTerminal() {
 
       <p className="text-muted-foreground mt-3 text-[11px]">
         <span className="text-accent">$</span>{" "}
-        <Link href="/blog" className="hover:text-accent underline underline-offset-4">
+        <Link
+          href={withLocale(locale, "/blog")}
+          className="hover:text-accent underline underline-offset-4"
+        >
           cat ./blog/
         </Link>{" "}
-        # all entries
+        {t("terminalAll")}
       </p>
     </section>
   );

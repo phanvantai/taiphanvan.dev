@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site-config";
 
 const ASCII_LOGO = String.raw`  _____      _   _____  _    _    _    _   _
@@ -17,6 +19,8 @@ const FACTS = [
 ] as const;
 
 export function HeroTerminal() {
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Home.hero");
   const host = siteConfig.url.replace(/^https?:\/\//, "");
   const year = new Date().getFullYear();
 
@@ -53,13 +57,15 @@ export function HeroTerminal() {
             <div>
               <p className="tm-prompt text-foreground">cat ./about.txt</p>
               <p className="text-foreground pl-3">
-                Hi, mình là <span className="text-accent">Tai</span>. Engineer ở Việt Nam, đang
-                chuyển dần sang làm{" "}
-                <Link href="/work" className="text-accent underline-offset-4 hover:underline">
-                  sản phẩm
+                {t("introPrefix")} <span className="text-accent">{t("name")}</span>.{" "}
+                {t("bodyBefore")}{" "}
+                <Link
+                  href={withLocale(locale, "/work")}
+                  className="text-accent underline-offset-4 hover:underline"
+                >
+                  {t("bodyLink")}
                 </Link>{" "}
-                — không gò vào 1 domain. Site này là canvas cá nhân: tech, AI, phim, sách, ảnh,
-                game, bất cứ gì muốn ghi.
+                {t("bodyAfter")}
               </p>
             </div>
 
@@ -80,7 +86,7 @@ export function HeroTerminal() {
               <ul className="space-y-1 pl-3">
                 <li>
                   <Link
-                    href="/blog"
+                    href={withLocale(locale, "/blog")}
                     className="hover:text-accent text-foreground underline-offset-4 hover:underline"
                   >
                     drwxr-xr-x · ./blog/
@@ -88,7 +94,7 @@ export function HeroTerminal() {
                 </li>
                 <li>
                   <Link
-                    href="/work"
+                    href={withLocale(locale, "/work")}
                     className="hover:text-accent text-foreground underline-offset-4 hover:underline"
                   >
                     drwxr-xr-x · ./work/
@@ -96,7 +102,7 @@ export function HeroTerminal() {
                 </li>
                 <li>
                   <Link
-                    href="/about"
+                    href={withLocale(locale, "/about")}
                     className="hover:text-accent text-foreground underline-offset-4 hover:underline"
                   >
                     -rw-r--r-- · ./about.md

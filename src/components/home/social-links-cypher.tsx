@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GlobeIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { siteConfig } from "@/lib/site-config";
 
@@ -11,6 +12,7 @@ const HANDLE: Record<keyof typeof siteConfig.social, { label: string; freq: stri
 };
 
 export function SocialLinksCypher() {
+  const t = useTranslations("Home.social");
   const entries = Object.entries(siteConfig.social).filter(([, url]) => url.length > 0) as [
     keyof typeof siteConfig.social,
     string,
@@ -27,16 +29,15 @@ export function SocialLinksCypher() {
               ◤ TRANSMISSION // OPEN.CHANNEL
             </p>
             <h2 className="cy-display text-foreground text-4xl leading-tight sm:text-6xl">
-              SAY HI<span className="cy-amber">.</span>
+              {t("title").toUpperCase()}
+              <span className="cy-amber">.</span>
               <br />
-              <span className="cy-glitch text-3xl sm:text-4xl" data-text="// END OF LINE">
-                <span className="cy-pink">{"// END OF LINE"}</span>
+              <span className="cy-glitch text-3xl sm:text-4xl" data-text={t("tagline")}>
+                <span className="cy-pink">{t("tagline")}</span>
               </span>
             </h2>
             <p className="text-foreground/85 max-w-xl text-base leading-relaxed sm:text-lg">
-              Drop a line nếu bro muốn chat về tech, AI, sản phẩm — hay bất cứ topic nào trong các
-              bài viết. Mình open cho cà phê online &amp; ý tưởng quái dị. Encryption: optional ·
-              trust: <span className="cy-amber">earned</span>.
+              {t("body")} Encryption: optional · trust: <span className="cy-amber">earned</span>.
             </p>
             <div className="cy-mono flex flex-wrap gap-2 pt-1">
               <span className="cy-tag cy-tag-cyan">PROTO · HTTPS/TLS</span>
@@ -47,11 +48,11 @@ export function SocialLinksCypher() {
 
           <div>
             <p className="cy-mono cy-amber mb-4 text-[10.5px] tracking-[0.22em] uppercase">
-              ◢ FREQ // FIND ME AT
+              {t("freq")}
             </p>
             {entries.length === 0 ? (
               <p className="text-muted-foreground inline-flex items-center gap-1.5 font-mono text-xs">
-                <GlobeIcon className="size-3" /> social link đang cập nhật
+                <GlobeIcon className="size-3" /> {t("empty")}
               </p>
             ) : (
               <ul className="space-y-2">
@@ -94,7 +95,7 @@ export function SocialLinksCypher() {
         </div>
 
         <p className="cy-mono cy-amber/70 mt-6 text-center text-[10px] tracking-[0.3em] uppercase">
-          ◤ end transmission · {new Date().getUTCFullYear()} · K-V0.1.4
+          {t("end")} · {new Date().getUTCFullYear()} · K-V0.1.4
         </p>
       </div>
     </section>

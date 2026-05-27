@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { getFeaturedWork } from "@/lib/mdx";
 import type { WorkListItem } from "@/types/work";
 
@@ -10,7 +12,9 @@ const STATUS_GLYPH: Record<WorkListItem["status"], { glyph: string; label: strin
 };
 
 export function FeaturedWorkTerminal() {
-  const featured = getFeaturedWork();
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Home.work");
+  const featured = getFeaturedWork(locale);
   if (featured.length === 0) return null;
 
   return (
@@ -21,11 +25,12 @@ export function FeaturedWorkTerminal() {
             <span className="text-accent">$</span> ls ./work --sort=featured
           </p>
           <h2 className="mt-1 text-xl tracking-tight">
-            featured/<span className="text-accent">*</span>
+            {t("terminalList").replace("*", "")}
+            <span className="text-accent">*</span>
           </h2>
         </div>
         <Link
-          href="/work"
+          href={withLocale(locale, "/work")}
           className="hover:text-accent text-muted-foreground inline-flex items-center gap-1 text-xs underline-offset-4 hover:underline"
         >
           → ./work/
@@ -34,9 +39,9 @@ export function FeaturedWorkTerminal() {
 
       <div className="border-foreground/30 bg-card/40 overflow-hidden border">
         <div className="border-foreground/30 text-muted-foreground grid grid-cols-[auto_1fr_auto] gap-3 border-b px-3 py-1.5 text-[10px] tracking-widest uppercase">
-          <span>status</span>
-          <span>name</span>
-          <span>period</span>
+          <span>{t("tableStatus")}</span>
+          <span>{t("tableName")}</span>
+          <span>{t("tablePeriod")}</span>
         </div>
         <ol>
           {featured.map((w, i) => {
@@ -44,7 +49,7 @@ export function FeaturedWorkTerminal() {
             return (
               <li key={w.slug} className="border-foreground/20 group border-b last:border-b-0">
                 <Link
-                  href={`/work/${w.slug}`}
+                  href={withLocale(locale, `/work/${w.slug}`)}
                   className="hover:bg-accent/10 grid grid-cols-[auto_1fr_auto] items-baseline gap-3 px-3 py-3 transition-colors"
                 >
                   <span className="text-accent text-xs tabular-nums">
@@ -58,7 +63,7 @@ export function FeaturedWorkTerminal() {
                       &gt; {w.tagline}
                     </span>
                     <span className="text-muted-foreground/70 mt-1 block truncate text-[10px] tracking-wider uppercase">
-                      stack: {w.stack.slice(0, 4).join(" · ")}
+                      {t("stack")}: {w.stack.slice(0, 4).join(" · ")}
                     </span>
                   </div>
                   <span className="text-muted-foreground text-xs tabular-nums">{w.period}</span>
@@ -70,11 +75,15 @@ export function FeaturedWorkTerminal() {
       </div>
 
       <p className="text-muted-foreground mt-3 text-[11px]">
-        <span className="text-accent">$</span> echo &quot;{featured.length} item(s) · run{" "}
-        <Link href="/work" className="hover:text-accent underline underline-offset-4">
+        <span className="text-accent">$</span> echo &quot;
+        {t("terminalEcho", { count: featured.length })}{" "}
+        <Link
+          href={withLocale(locale, "/work")}
+          className="hover:text-accent underline underline-offset-4"
+        >
           cd ./work
         </Link>{" "}
-        for full archive&quot;
+        {t("terminalEchoTail")}&quot;
       </p>
     </section>
   );

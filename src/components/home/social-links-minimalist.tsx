@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRightIcon, GlobeIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { siteConfig } from "@/lib/site-config";
 
@@ -11,6 +12,7 @@ const HANDLE: Record<keyof typeof siteConfig.social, string> = {
 };
 
 export function SocialLinksMinimalist() {
+  const t = useTranslations("Home.social");
   const entries = Object.entries(siteConfig.social).filter(([, url]) => url.length > 0) as [
     keyof typeof siteConfig.social,
     string,
@@ -20,21 +22,21 @@ export function SocialLinksMinimalist() {
     <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
       <div className="grid gap-12 sm:grid-cols-[1fr_auto] sm:gap-16">
         <div className="space-y-5">
-          <p className="mn-eyebrow mn-dot">Contact</p>
+          <p className="mn-eyebrow mn-dot">{t("contact")}</p>
           <h2 className="mn-display text-foreground text-4xl sm:text-5xl">
-            Say hi<span className="mn-accent">.</span>
+            {t("title")}
+            <span className="mn-accent">.</span>
           </h2>
           <p className="text-muted-foreground max-w-xl text-base leading-relaxed sm:text-lg">
-            Drop a line nếu bro muốn chat về tech, AI, sản phẩm — hay bất cứ topic nào trong các bài
-            viết. Mình luôn open cho cà phê online &amp; ý tưởng quái dị.
+            {t("body")}
           </p>
         </div>
 
         <div className="sm:min-w-[18rem]">
-          <p className="mn-eyebrow">Find me at</p>
+          <p className="mn-eyebrow">{t("findMe")}</p>
           {entries.length === 0 ? (
             <p className="text-muted-foreground mt-4 inline-flex items-center gap-1.5 text-sm">
-              <GlobeIcon className="size-3.5" /> social link đang cập nhật
+              <GlobeIcon className="size-3.5" /> {t("empty")}
             </p>
           ) : (
             <ul className="divide-border mt-4 divide-y">

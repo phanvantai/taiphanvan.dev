@@ -1,22 +1,26 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
+import { withLocale, type Locale } from "@/i18n/routing";
 import { getAllPosts } from "@/lib/mdx";
 import { formatDate } from "@/lib/utils";
 
 export function RecentPostsBrutalist() {
-  const posts = getAllPosts().slice(0, 4);
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Home.posts");
+  const posts = getAllPosts(locale).slice(0, 4);
   if (posts.length === 0) return null;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <header className="border-foreground bg-accent text-accent-foreground mb-8 flex flex-wrap items-center justify-between gap-4 border-2 px-4 py-3">
-        <h2 className="nb-display text-2xl sm:text-3xl">/JOURNAL ✸</h2>
+        <h2 className="nb-display text-2xl sm:text-3xl">{t("brutalistTitle")}</h2>
         <Link
-          href="/blog"
+          href={withLocale(locale, "/blog")}
           className="bg-foreground text-background inline-flex items-center gap-1 border-2 border-current px-3 py-1 font-mono text-xs font-bold uppercase transition-transform hover:translate-x-[-2px]"
         >
-          ALL <ArrowUpRightIcon className="size-3.5" />
+          {t("brutalistAll")} <ArrowUpRightIcon className="size-3.5" />
         </Link>
       </header>
 
@@ -24,7 +28,7 @@ export function RecentPostsBrutalist() {
         {posts.map((post, i) => (
           <li key={post.slug}>
             <Link
-              href={`/blog/${post.slug}`}
+              href={withLocale(locale, `/blog/${post.slug}`)}
               className="nb-card group flex h-full flex-col gap-3 p-5"
             >
               <div className="flex items-baseline justify-between gap-3">
@@ -35,7 +39,8 @@ export function RecentPostsBrutalist() {
                   dateTime={post.date}
                   className="text-muted-foreground font-mono text-[10px] tracking-widest uppercase"
                 >
-                  {formatDate(post.date)} · {post.readingTime}M
+                  {formatDate(post.date)} · {post.readingTime}
+                  {t("minuteShort")}
                 </time>
               </div>
               <h3 className="nb-display text-foreground text-xl leading-tight sm:text-2xl">

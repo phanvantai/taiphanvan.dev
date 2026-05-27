@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import {
   ArrowRightIcon,
   FileTextIcon,
@@ -13,6 +13,7 @@ import {
   WrenchIcon,
 } from "lucide-react";
 
+import { useTheme } from "@/components/site/theme-provider";
 import {
   CommandDialog,
   CommandEmpty,
@@ -24,6 +25,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { siteConfig } from "@/lib/site-config";
+import { withLocale, type Locale } from "@/i18n/routing";
 
 export const COMMAND_PALETTE_OPEN_EVENT = "command-palette:open";
 
@@ -51,6 +53,9 @@ export function CommandPalette({ posts }: Props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const { setTheme } = useTheme();
+  const locale = useLocale() as Locale;
+  const t = useTranslations("Site.command");
+  const tNav = useTranslations("Site.nav");
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -72,7 +77,7 @@ export function CommandPalette({ posts }: Props) {
 
   function go(href: string) {
     setOpen(false);
-    router.push(href);
+    router.push(withLocale(locale, href));
   }
 
   function pickTheme(theme: "light" | "dark" | "system") {
@@ -82,36 +87,37 @@ export function CommandPalette({ posts }: Props) {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Search bài, navigate, đổi theme..." />
+      <CommandInput placeholder={t("placeholder")} />
       <CommandList>
-        <CommandEmpty>Không tìm thấy gì.</CommandEmpty>
+        <CommandEmpty>{t("empty")}</CommandEmpty>
 
-        <CommandGroup heading="Pages">
+        <CommandGroup heading={t("pages")}>
           {siteConfig.nav.map((item) => {
             const Icon = NAV_ICONS[item.href] ?? ArrowRightIcon;
+            const key = item.href.slice(1) as "work" | "blog" | "tools";
             return (
               <CommandItem
                 key={item.href}
-                value={`page ${item.label} ${item.href}`}
+                value={`page ${tNav(key)} ${item.href}`}
                 onSelect={() => go(item.href)}
               >
                 <Icon />
-                {item.label}
-                <CommandShortcut>{item.href}</CommandShortcut>
+                {tNav(key)}
+                <CommandShortcut>{withLocale(locale, item.href)}</CommandShortcut>
               </CommandItem>
             );
           })}
           <CommandItem value="page tracker /tools/tracker" onSelect={() => go("/tools/tracker")}>
             <WrenchIcon />
-            Side Project Tracker
-            <CommandShortcut>/tools/tracker</CommandShortcut>
+            {t("tracker")}
+            <CommandShortcut>{withLocale(locale, "/tools/tracker")}</CommandShortcut>
           </CommandItem>
         </CommandGroup>
 
         {posts.length > 0 && (
           <>
             <CommandSeparator />
-            <CommandGroup heading="Blog posts">
+            <CommandGroup heading={t("blogPosts")}>
               {posts.map((post) => (
                 <CommandItem
                   key={post.slug}
@@ -134,18 +140,18 @@ export function CommandPalette({ posts }: Props) {
         )}
 
         <CommandSeparator />
-        <CommandGroup heading="Theme">
+        <CommandGroup heading={t("theme")}>
           <CommandItem value="theme light" onSelect={() => pickTheme("light")}>
             <SunIcon />
-            Light
+            {t("light")}
           </CommandItem>
           <CommandItem value="theme dark" onSelect={() => pickTheme("dark")}>
             <MoonIcon />
-            Dark
+            {t("dark")}
           </CommandItem>
           <CommandItem value="theme system" onSelect={() => pickTheme("system")}>
             <LaptopIcon />
-            System
+            {t("system")}
           </CommandItem>
         </CommandGroup>
       </CommandList>
