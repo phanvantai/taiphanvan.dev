@@ -14,7 +14,7 @@ const FACTS = [
   { k: "stack", v: "next.js / supabase / prisma / mdx" },
   { k: "focus", v: "build sản phẩm — không gò 1 domain" },
   { k: "writing", v: "tech, ai, phim, sách, ảnh, game, thoughts" },
-  { k: "location", v: "saigon, vn — utc+7" },
+  { k: "location", v: "hanoi, vn — utc+7" },
   { k: "status", v: "shipping daily" },
 ] as const;
 
