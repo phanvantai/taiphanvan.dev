@@ -1,0 +1,23 @@
+name: Supabase keep-alive
+
+# Pings the keep-alive route so Supabase's free tier doesn't pause the project
+# after 7 days of no DB activity. The route runs a real `SELECT 1` against Postgres.
+#
+# Note: GitHub disables scheduled workflows after 60 days of repo inactivity —
+# not a concern for an actively-developed repo. Manual trigger always available.
+
+on:
+  schedule:
+    # Every 3 days at 06:00 UTC.
+    - cron: "0 6 */3 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping keep-alive endpoint
+        run: |
+          curl -fsS \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            https://taiphanvan.dev/api/cron/keep-alive
