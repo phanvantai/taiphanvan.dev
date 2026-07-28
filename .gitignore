@@ -41,6 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local git worktrees
+.worktrees/
+
 # claude code — local settings & python bytecode
 .claude/settings.local.json
 __pycache__/
