@@ -11,7 +11,6 @@ import { CommandPalette } from "@/components/site/command-palette";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { ThemeProvider } from "@/components/site/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
 import { assertLocale, locales, ogLocales, type Locale } from "@/i18n/routing";
 import { getAllPosts } from "@/lib/mdx";
 import { siteConfig } from "@/lib/site-config";
@@ -151,7 +150,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
             </ViewTransition>
             <Footer />
             <CommandPalette posts={paletteHits} />
-            <Toaster />
           </ThemeProvider>
         </NextIntlClientProvider>
         <Analytics />

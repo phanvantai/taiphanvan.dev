@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { href: "/", priority: 1, changeFrequency: "weekly" as const },
       { href: "/blog", priority: 0.9, changeFrequency: "weekly" as const },
       { href: "/work", priority: 0.9, changeFrequency: "weekly" as const },
-      { href: "/tools", priority: 0.5, changeFrequency: "monthly" as const },
     ].map((route) => ({
       url: `${siteConfig.url}${withLocale(locale, route.href)}`,
       lastModified: now,

@@ -3,13 +3,9 @@ allowBuilds:
   unrs-resolver: true
   "@tailwindcss/oxide": true
   msw: false
-  "@prisma/engines": true
   esbuild: true
-  prisma: true
 onlyBuiltDependencies:
   - sharp
   - unrs-resolver
   - "@tailwindcss/oxide"
-  - "@prisma/engines"
   - esbuild
-  - prisma

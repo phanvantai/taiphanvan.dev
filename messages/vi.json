@@ -3,8 +3,7 @@
     "description": "Không gian cá nhân của Tai — kỹ sư ở Việt Nam, đang làm sản phẩm. Công nghệ, AI, phim, sách, ảnh, game, và bất cứ gì muốn ghi lại.",
     "nav": {
       "work": "Work",
-      "blog": "Blog",
-      "tools": "Tools"
+      "blog": "Blog"
     },
     "actions": {
       "openCommandPalette": "Mở bảng lệnh (⌘K)",
@@ -16,7 +15,6 @@
       "pages": "Trang",
       "blogPosts": "Bài blog",
       "theme": "Giao diện",
-      "tracker": "Side Project Tracker",
       "light": "Sáng",
       "dark": "Tối",
       "system": "Theo hệ thống"
@@ -137,15 +135,6 @@
       "in-progress": "Đang làm",
       "archived": "Đã lưu trữ"
     }
-  },
-  "Tools": {
-    "metadataTitle": "Tools",
-    "metadataDescription": "Công cụ nhỏ cho nhu cầu cá nhân của Tai.",
-    "title": "Tools",
-    "description": "Công cụ nhỏ tự làm để dùng cá nhân. Có gì đủ hay sẽ đưa lên đây.",
-    "trackerTitle": "Side Project Tracker",
-    "trackerDescription": "Theo dõi dự án phụ, nhắc khi bỏ bê quá lâu.",
-    "trackerStatus": "Riêng tư · cần mật khẩu"
   },
   "Pages": {
     "aboutFallback": "Giới thiệu",

@@ -3,8 +3,7 @@
     "description": "Tai's personal canvas — a Vietnam-based engineer building products. Tech, AI, films, books, photography, games, and whatever is worth writing down.",
     "nav": {
       "work": "Work",
-      "blog": "Blog",
-      "tools": "Tools"
+      "blog": "Blog"
     },
     "actions": {
       "openCommandPalette": "Open command palette (⌘K)",
@@ -16,7 +15,6 @@
       "pages": "Pages",
       "blogPosts": "Blog posts",
       "theme": "Theme",
-      "tracker": "Side Project Tracker",
       "light": "Light",
       "dark": "Dark",
       "system": "System"
@@ -137,15 +135,6 @@
       "in-progress": "In progress",
       "archived": "Archived"
     }
-  },
-  "Tools": {
-    "metadataTitle": "Tools",
-    "metadataDescription": "Tai's small personal tools.",
-    "title": "Tools",
-    "description": "Small tools I build for personal use. Anything useful enough may show up here.",
-    "trackerTitle": "Side Project Tracker",
-    "trackerDescription": "Track side projects and nudge stale ones.",
-    "trackerStatus": "Private · password required"
   },
   "Pages": {
     "aboutFallback": "About",

@@ -9,7 +9,7 @@ const SIGNALS = [
   { k: "subj.id", v: "K-V0.1.4" },
   { k: "block", v: "ÆØ-04 / SAIGON" },
   { k: "coord", v: "10°47′N 106°40′E" },
-  { k: "stack", v: "next.js · supabase" },
+  { k: "stack", v: "next.js · mdx" },
 ] as const;
 
 const KANJI_LEFT = "電脳 — 賽博 — 記憶";

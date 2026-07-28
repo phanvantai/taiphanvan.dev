@@ -22,7 +22,7 @@ pnpm dlx shadcn@latest add command
 `src/components/site/command-palette.tsx` (client):
 
 - `Cmd+K` / `Ctrl+K` open.
-- Sections: Pages (nav items), Blog posts (search title), Tools, Theme (toggle, set light/dark/system).
+- Sections: Pages (nav items), Blog posts (search title), Theme (toggle, set light/dark/system).
 - Mount global trong root layout.
 
 ### 2. View transitions
@@ -33,7 +33,7 @@ Next 15 hỗ trợ `experimental.viewTransition: true` trong `next.config.ts`. W
 
 - `src/app/not-found.tsx` — 404 đẹp, link về home + blog.
 - `src/app/error.tsx` (`"use client"`) — error boundary với reset button + log error.
-- `src/app/loading.tsx` cho route segment có data fetch (blog list, tracker).
+- `src/app/loading.tsx` cho route segment có data fetch như blog list.
 
 ### 4. New post script
 
@@ -51,10 +51,9 @@ pnpm tsx scripts/new-post.ts "Tên bài viết"
 `README.md`:
 
 - Banner + description.
-- Setup local: clone → `pnpm install` → copy `.env.example` → tạo Supabase project → migrate → seed → `pnpm dev`.
+- Setup local: clone → `pnpm install` → copy `.env.example` → `pnpm dev`.
 - Cách viết bài: `pnpm new-post "Tên"` → edit MDX → push → Vercel deploy.
 - Cách thêm work: tạo `content/work/[slug].mdx`, fill frontmatter, push.
-- Tracker auth: `TRACKER_PASSWORD` + `TRACKER_COOKIE_SECRET`.
 - Deploy Vercel: connect repo, set env vars, custom domain.
 - Stack overview.
 
@@ -74,11 +73,11 @@ Hướng dẫn bro:
 
 1. Push repo lên GitHub.
 2. Vercel → New Project → import repo.
-3. Set env vars: `DATABASE_URL`, `DIRECT_URL`, `TRACKER_PASSWORD`, `TRACKER_COOKIE_SECRET`, `NEXT_PUBLIC_SITE_URL=https://taiphanvan.dev`.
+3. Set `NEXT_PUBLIC_SITE_URL=https://taiphanvan.dev` và UI style nếu muốn override default.
 4. Add domain `taiphanvan.dev` + `www.taiphanvan.dev`.
 5. Set DNS theo Vercel hướng dẫn (A record / CNAME).
 6. Vercel auto provision SSL.
-7. Verify production URL load OK + tracker login works.
+7. Verify production URL, localized pages, sitemap, RSS và OG image.
 
 ## Acceptance checklist
 
@@ -89,6 +88,5 @@ Hướng dẫn bro:
 - [ ] README đầy đủ, paste vào GitHub render OK.
 - [ ] Production build pass, Lighthouse target hit.
 - [ ] Site live trên `taiphanvan.dev` với SSL.
-- [ ] Tracker login hoạt động ở production.
 
 **Done** — site đã ship.

@@ -39,7 +39,7 @@ export function MobileNav() {
         <nav className="site-nav flex flex-col gap-1 p-3">
           {siteConfig.nav.map((item, i) => {
             const href = withLocale(locale, item.href);
-            const key = item.href.slice(1) as "work" | "blog" | "tools";
+            const key = item.href.slice(1) as "work" | "blog";
             const isActive = pathname === href || pathname.startsWith(`${href}/`);
             return (
               <SheetClose

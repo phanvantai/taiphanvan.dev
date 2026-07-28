@@ -43,15 +43,8 @@ Cả 4 file đều có `links.live: ""` và `links.github: ""`:
 - [ ] [content/work/pes-arena.mdx](content/work/pes-arena.mdx) — Background, Tech stack, Challenges, Lessons
 - [ ] [content/work/quickspend.mdx](content/work/quickspend.mdx) — Background, Tech stack, Challenges, Lessons
 
-## Verify trước khi deploy
-
-- [ ] `.env.local` — `TRACKER_PASSWORD` đã set chưa (không để `dev`)
-- [ ] `.env.local` — `TRACKER_COOKIE_SECRET` đã generate 32+ ký tự (`openssl rand -hex 32`) chưa
-- [ ] `.env.local` — `DATABASE_URL` + `MIGRATE_DATABASE_URL` trỏ Supabase prod chưa
-
 ## Không phải placeholder (đừng đụng)
 
 - `scripts/new-post.ts` chữ `TODO` — là template cho bài blog mới (`pnpm new-post`)
 - `.env.example` `xxxxx` / `PASSWORD` — file example, đúng style
 - `docs/*.md` chữ `xxxxx` / `<password>` — ví dụ trong docs
-- `docker-compose.yml` `POSTGRES_PASSWORD: dev` — local dev DB

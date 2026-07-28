@@ -1,159 +1,86 @@
 # Deploy
 
-Site này deploy lên Vercel + custom domain `taiphanvan.dev`. DB qua Supabase Singapore. CDN của Vercel sẽ tự gần Singapore vì Vercel auto edge.
+Site deploy lên Vercel với custom domain `taiphanvan.dev`.
 
 ## Pre-flight checklist
 
-- [x] Supabase project created, region **Singapore (`ap-southeast-1`)**.
-- [x] Migration đã applied: `pnpm prisma migrate deploy` chạy local OK với `MIGRATE_DATABASE_URL` của Supabase.
-- [x] `pnpm db:seed` chạy OK trên Supabase (4 starter projects).
-- [x] `pnpm typecheck` + `pnpm lint` + `pnpm build` đều pass local.
-- [x] Repo đã push lên Github (private hoặc public).
+- [ ] `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, và `pnpm build` pass local.
+- [ ] Repo đã push lên GitHub.
+- [ ] Các link social và content draft đã được rà soát.
 
-## Step 1 — Push lên Github
+## 1. Create the Vercel project
 
-```bash
-gh repo create taiphanvan-dev --private --source=. --remote=origin --push
-```
+1. Vào <https://vercel.com> → **Add new** → **Project**.
+2. Import repo `taiphanvan-dev`.
+3. Framework Preset: **Next.js**.
+4. Root Directory: `./`.
+5. Build Command: `pnpm build`.
+6. Install Command: `pnpm install`.
+7. Output Directory: `.next`.
+8. Node version: 24 để match `.nvmrc`.
 
-(Hoặc tạo qua Github UI rồi `git remote add origin` + `git push -u origin main`.)
+## 2. Environment variables
 
-## Step 2 — Tạo Vercel project
-
-1. Vào https://vercel.com → **Add new** → **Project**
-2. Import repo `taiphanvan-dev`
-3. **Framework Preset**: Next.js (auto-detect)
-4. **Root Directory**: `./`
-5. **Build Command**: `pnpm build` (default)
-6. **Install Command**: `pnpm install`
-7. **Output Directory**: `.next` (default)
-8. **Node version**: 24+ (Settings → General sau khi tạo). Match `.nvmrc`.
-
-## Step 3 — Set Environment Variables
-
-Project → **Settings → Environment Variables**. Set cho cả Production, Preview, và Development:
+Set cho Production, Preview, và Development khi cần:
 
 | Name | Value |
 | --- | --- |
-| `DATABASE_URL` | Supabase Transaction pooler (port 6543) + `?pgbouncer=true` |
-| `MIGRATE_DATABASE_URL` | Supabase Session pooler (port 5432) |
-| `TRACKER_PASSWORD` | Password mạnh để vô tracker |
-| `TRACKER_COOKIE_SECRET` | `openssl rand -hex 32` |
 | `NEXT_PUBLIC_SITE_URL` | `https://taiphanvan.dev` |
+| `NEXT_PUBLIC_UI_STYLE` | `cypher-2049`, `terminal`, `neo-brutalist`, hoặc `minimalist` |
 
-> `MIGRATE_DATABASE_URL` chỉ cần ở môi trường mà bro chạy migrate — Vercel runtime không gọi tới `prisma migrate`, chỉ runtime queries. Nhưng để đó cho Preview deployments cũng OK.
+Hai biến đều có default hợp lệ trong code; khai báo rõ trên Vercel giúp cấu hình dễ nhìn hơn.
 
-## Step 4 — Trigger first deploy
+## 3. First deploy
 
-Push một commit nhỏ lên `main`:
+Push lên `main`; Vercel tự install và build. Trong build log cần thấy compile, TypeScript và static
+generation hoàn tất. Không chấp nhận ESLint hoặc TypeScript error.
 
-```bash
-git commit --allow-empty -m "trigger first vercel deploy"
-git push
-```
+## 4. Custom domain
 
-Vercel pick up tự build. Lần đầu mất ~2 phút.
+1. Project → **Settings → Domains**.
+2. Add `taiphanvan.dev`.
+3. Add `www.taiphanvan.dev` và redirect về apex domain.
+4. Set A/CNAME record theo giá trị Vercel hiển thị.
+5. Đợi DNS propagate và Vercel cấp SSL.
 
-Theo dõi build log: project page → **Deployments** → click latest → **Build Logs**.
-
-Build expectations:
-- Compile Turbopack ✓
-- TypeScript pass ✓
-- 18 routes generated (5 SSG + 12 static + 3 dynamic + proxy)
-- ESLint warnings OK, errors NOT OK
-
-## Step 5 — Apply migration lên prod DB
-
-Migration đã được apply local rồi (Step 0 pre-flight) — nếu DB Supabase fresh chưa có schema, chạy:
+## 5. Production smoke test
 
 ```bash
-# từ máy local, với MIGRATE_DATABASE_URL trỏ về prod Supabase
-pnpm prisma migrate deploy
-pnpm db:seed
-```
-
-Hoặc thêm `prisma migrate deploy` vào Vercel build command:
-
-```bash
-# Build Command override:
-prisma generate && prisma migrate deploy && next build
-```
-
-(Optional — nếu bro muốn auto-migrate khi deploy. Hơi nguy nếu migration phức tạp; với schema đơn giản thì OK.)
-
-## Step 6 — Custom domain
-
-1. Project → **Settings → Domains**
-2. Add `taiphanvan.dev`
-3. Add `www.taiphanvan.dev` (redirect → root)
-4. Vercel show DNS records cần set:
-   - `taiphanvan.dev` → **A record** `76.76.21.21`
-   - `www.taiphanvan.dev` → **CNAME** `cname.vercel-dns.com`
-5. Set DNS ở provider của bro (Namecheap, Cloudflare, etc.)
-6. Đợi propagate (5-30 phút), Vercel auto issue SSL Let's Encrypt.
-
-## Step 7 — Smoke test production
-
-```bash
-# Homepage
 curl -sI https://taiphanvan.dev/ | head -1
-
-# OG image
 curl -sI "https://taiphanvan.dev/og?title=Hello&type=blog" | head -3
-
-# Sitemap
 curl -s https://taiphanvan.dev/sitemap.xml | head -20
-
-# RSS
 curl -s https://taiphanvan.dev/rss.xml | head -20
-
-# Tracker auth gate (expect 307)
-curl -sI https://taiphanvan.dev/tools/tracker | head -3
 ```
 
-Browser:
-- [ ] Theme toggle work, no FOUC.
-- [ ] Cmd+K palette open + search posts + nav.
-- [ ] /tools/tracker login với password env, vô được, CRUD project.
-- [ ] OG preview pass tại https://www.opengraph.xyz/url/https%3A%2F%2Ftaiphanvan.dev
-- [ ] JSON-LD validate tại https://validator.schema.org
+Browser checklist:
 
-## Step 8 — Vercel Analytics + Speed Insights
+- [ ] `/vi` và `/en` render đúng locale.
+- [ ] Blog/work list và detail pages mở được.
+- [ ] Theme toggle không FOUC.
+- [ ] Cmd+K tìm bài và điều hướng được.
+- [ ] OG preview và JSON-LD validation pass.
 
-Auto-activate vì 2 components đã mount trong `app/layout.tsx`. Vào project → **Analytics** + **Speed Insights** tab — data flow sau lần deploy đầu.
+## Analytics
 
-Free tier đủ cho personal site.
+Vercel Analytics và Speed Insights được mount trong localized layout. Data bắt đầu xuất hiện sau khi
+production có traffic.
 
-## Subsequent deploys
+## Subsequent deploys and rollback
 
-```bash
-git push origin main
-```
-
-Mỗi push lên `main` = production deploy. Mỗi push lên branch khác = preview deploy với URL riêng (`taiphanvan-dev-<hash>.vercel.app`).
-
-## Rollback
-
-Vercel → **Deployments** → click một deployment cũ → **Promote to Production**. Instant rollback, không cần git revert.
+- Push `main` tạo production deployment.
+- Push branch khác tạo preview deployment.
+- Rollback: **Deployments** → chọn deployment cũ → **Promote to Production**.
 
 ## Troubleshooting
 
-**Build fail với `Missing DATABASE_URL`**
+**Build không tải được Google Fonts**
 
-→ Env var chưa set. Settings → Environment Variables. Re-deploy.
+Kiểm tra outbound network/DNS của build. Ba font được tải qua `next/font/google`.
 
-**Tracker login redirect loop**
+**RSC payload quá lớn**
 
-→ `TRACKER_COOKIE_SECRET` không set hoặc khác giữa các pod. Set 1 giá trị fix vào prod env.
+Kiểm tra list page chỉ nhận metadata, không truyền full MDX content qua client boundary.
 
-**Supabase connection error trong runtime**
+**Nội dung mới chưa hiện**
 
-→ Check DATABASE_URL có `?pgbouncer=true` cuối không. Transaction pooler không support prepared statements; query param là defensive.
-
-**RSC payload quá to**
-
-→ Vercel cảnh báo nếu page payload > 1MB. Check `getAllPosts()` không trả full content cho list page (đã handle qua `stripContent` helper trong `lib/mdx.ts`).
-
-**Next 16 turbopack warning về module.register**
-
-→ Deprecation warning từ tsx, không break build. Ignore tới khi tsx 5.x.
+Kiểm tra `published`, locale directory, filename và Vercel deployment đang trỏ đúng commit.

@@ -18,7 +18,6 @@ export const siteConfig = {
   nav: [
     { label: "Work", href: "/work" },
     { label: "Blog", href: "/blog" },
-    { label: "Tools", href: "/tools" },
   ],
 } as const;
 

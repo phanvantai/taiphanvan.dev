@@ -11,7 +11,7 @@ const ASCII_LOGO = String.raw`  _____      _   _____  _    _    _    _   _
 `;
 
 const FACTS = [
-  { k: "stack", v: "next.js / supabase / prisma / mdx" },
+  { k: "stack", v: "next.js / typescript / tailwind / mdx" },
   { k: "focus", v: "build sản phẩm — không gò 1 domain" },
   { k: "writing", v: "tech, ai, phim, sách, ảnh, game, thoughts" },
   { k: "location", v: "hanoi, vn — utc+7" },

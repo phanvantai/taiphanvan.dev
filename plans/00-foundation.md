@@ -1,13 +1,13 @@
 # Plan 00 — Foundation
 
-**Goal:** Bootstrap Next.js 15 đủ để chạy `/tools/tracker` ở Plan 01. Chưa làm MDX/blog/work/SEO/homepage thật.
+**Goal:** Bootstrap Next.js 15 với layout, theme và navigation dùng chung. Chưa làm MDX/blog/work/SEO/homepage thật.
 
 ## Deliverables
 
-- App chạy được `pnpm dev`, render `/` placeholder + `/tools` placeholder.
+- App chạy được `pnpm dev` và render `/` placeholder.
 - Dark mode default, toggle hoạt động, không nhấp nháy khi reload.
 - Header (logo + nav) + Footer.
-- shadcn cài sẵn các component sẽ dùng cho tracker.
+- shadcn cài sẵn các component nền tảng cho public site.
 - Lint + format chạy OK trước commit.
 
 ## Steps
@@ -33,11 +33,10 @@ pnpm dlx create-next-app@latest . \
 
 ```bash
 pnpm dlx shadcn@latest init -d
-pnpm dlx shadcn@latest add button input dialog sheet badge card dropdown-menu sonner label textarea select separator
+pnpm dlx shadcn@latest add button dialog sheet dropdown-menu
 ```
 
 - `components.json`: style `new-york`, baseColor `neutral`, RSC true, CSS vars true.
-- Sonner provider mount trong root layout.
 
 ### 4. Theming
 
@@ -56,13 +55,11 @@ pnpm dlx shadcn@latest add button input dialog sheet badge card dropdown-menu so
 - `src/components/site/header.tsx`: logo "Tai Phan" + nav từ `siteConfig.nav` + theme toggle.
 - `src/components/site/footer.tsx`: copyright + social links.
 - `src/components/site/nav.tsx`: render link list, highlight active route bằng `usePathname`.
-- `src/app/layout.tsx`: html lang `vi`, font vars, theme provider, header, `<main>`, footer, sonner toaster, root metadata defaults (title template, description, og defaults).
+- `src/app/layout.tsx`: html lang `vi`, font vars, theme provider, header, `<main>`, footer và root metadata defaults (title template, description, OG defaults).
 
-### 7. Placeholder pages
+### 7. Placeholder page
 
 - `src/app/page.tsx` — hero placeholder "Coming soon" (sẽ thay ở Plan 03).
-- `src/app/tools/page.tsx` — list 1 card link "/tools/tracker" (Plan 01 sẽ build).
-- `src/app/tools/tracker/page.tsx` — placeholder "Tracker coming in Plan 01" để route exist.
 
 ### 8. Lint + git hooks
 
@@ -77,14 +74,13 @@ pnpm dlx shadcn@latest add button input dialog sheet badge card dropdown-menu so
 
 ### 10. Tooling files
 
-- `.env.example` ban đầu chỉ có `NEXT_PUBLIC_SITE_URL`. Plan 01 sẽ thêm DB + tracker secrets.
+- `.env.example` ban đầu chỉ có `NEXT_PUBLIC_SITE_URL`.
 - `.gitignore` chuẩn Next.js + `.env*.local` + `node_modules`.
 
 ## Acceptance checklist
 
 - [ ] `pnpm dev` → `http://localhost:3000` render OK, không error.
 - [ ] Toggle theme dark ↔ light không flash.
-- [ ] `/tools` clickable, `/tools/tracker` placeholder render.
 - [ ] `pnpm build` pass.
 - [ ] Commit thử → husky chạy lint-staged.
 

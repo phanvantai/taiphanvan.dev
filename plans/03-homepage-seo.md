@@ -34,13 +34,13 @@
 
 `src/app/sitemap.ts` — list:
 
-- Static: `/`, `/about`, `/now`, `/work`, `/blog`, `/tools` (KHÔNG list `/tools/tracker` — internal).
+- Static: `/`, `/about`, `/now`, `/work`, `/blog`.
 - Dynamic: tất cả `/blog/[slug]`, `/work/[slug]`.
 - `lastModified` từ frontmatter `date`.
 
 ### 4. Robots
 
-`src/app/robots.ts` — allow all, disallow `/tools/tracker/*` + `/api/*`, sitemap URL.
+`src/app/robots.ts` — allow public pages và khai báo sitemap URL.
 
 ### 5. RSS
 
