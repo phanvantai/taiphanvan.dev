@@ -16,12 +16,9 @@ Checklist các chỗ còn để trống trong codebase. Tick từng cái sau khi
 
 ### About page — [content/vi/pages/about.mdx](content/vi/pages/about.mdx)
 
-> **Tạm ẩn** — `/about` route trả 404, ẩn khỏi nav, bỏ khỏi sitemap. Re-enable: đổi `ENABLED = true` trong [src/app/[locale]/about/page.tsx](src/app/[locale]/about/page.tsx) và thêm lại vào nav + sitemap.
-
-- [ ] [L22](content/vi/pages/about.mdx#L22) "Email coming soon" — điền `taipv.swe@gmail.com` hoặc xoá đoạn này (xử khi re-enable)
-- [ ] [L24-25](content/vi/pages/about.mdx#L24-L25) verify Twitter/Github handle khớp với site-config — hiện tại sai (`@taiphanvan` thay vì `phanvantai`); fix khi re-enable
-- [ ] L11 "đang chuyển dần sang web" mâu thuẫn framing mới của hello-world — rewrite khi re-enable
-- [ ] L46 link `github.com/taiphanvan/taiphanvan-dev/tree/main/plans` — sai org, sửa thành `phanvantai` khi re-enable
+- [x] Viết lại toàn bộ vi + en 2026-09-23, bật route (`/about`), thêm vào nav, command palette và sitemap.
+- [x] Email, GitHub handle, LinkedIn khớp với `site-config.ts`.
+- [x] Bỏ section roadmap/plans (link sai org) — thay bằng "Về site này" trỏ repo `phanvantai/taiphanvan.dev`.
 
 ### Now page — [content/vi/pages/now.mdx](content/vi/pages/now.mdx)
 

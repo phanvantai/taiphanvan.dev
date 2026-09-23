@@ -1,40 +1,49 @@
 ---
 title: "About"
-description: "Phan Văn Tài — engineer xây sản phẩm, mobile (SwiftUI/iOS) chuyển sang web."
+description: "Phan Văn Tài — engineer ở Việt Nam. Đang chuyển từ nhận task rồi code sang tự chọn vấn đề để giải và build sản phẩm."
 ---
 
-Hi, mình là **Phan Văn Tài** (Tai). Engineer ở Việt Nam.
+Hi, mình là **Phan Văn Tài**, gọi **Tai** cho gọn. Engineer ở Việt Nam, viết code nhiều năm và đang tập làm một việc khó hơn code: tự chọn vấn đề để giải.
 
-## Background
+## Mình làm gì
 
-- **Mobile**: SwiftUI / iOS — kinh nghiệm chính trong vài năm gần đây.
-- **Web**: đang chuyển dần sang Next.js + TypeScript stack. Site này là một trong những Next.js project mình build. Examino là cái đầu tiên đang chạy.
-- **Indie maker**: mình thích build sản phẩm cá nhân hoặc B2B nhỏ thay vì làm corp app. Hiện đang focus [Examino](/work/examino) — B2B SaaS English exam platform cho thị trường Việt Nam.
+Trước giờ mình là engineer thuần: nhận spec, code, ship. Mobile trước, web sau, đổi stack vài lần nhưng vai trò không đổi. Cái mình đang đổi bây giờ không phải stack mà là **vai trò** — đứng từ đầu chuỗi: nhận diện vấn đề, design giải pháp, kiến trúc hệ thống, rồi mới tới code.
+
+Nên thay vì gò vào một domain, mình build thứ mình thấy đáng build:
+
+- **[Examino](/work/examino)** — hệ thống white-label cho trung tâm tiếng Anh: thi thử Cambridge/IELTS bám đề giấy, chấm AI, vận hành trung tâm trong một chỗ. Mình là solo founder kiêm engineer. Trung tâm đầu tiên đã chạy production, và đây là thứ mình dành nhiều thời gian nhất hiện tại.
+- **[QuickSpend](/work/quickspend)** — app iOS log chi tiêu bằng giọng nói, offline-first. Build cho chính mình dùng trước, ship lên App Store sau.
+- **[PES Arena](/work/pes-arena)** — app Flutter cho dân PES tự tổ chức giải đấu, chạy được cả khi LAN party mất wifi. Open source.
+
+Ba cái, ba stack khác nhau. Không phải vì thích đổi, mà vì mỗi bài toán hợp một công cụ khác.
 
 ## Cách mình làm việc
 
-- **Ship sớm, iterate**: thà đẩy ra một version 60% để có người dùng feedback hơn là polish 100% rồi mới release.
-- **Boring tech stack**: chọn công cụ mature, doc đầy đủ, community lớn. Không follow hype mỗi 3 tháng.
-- **Tự host khi có thể**: tránh dependency vào quá nhiều SaaS để stack mất control. Vẫn dùng Vercel cho production khi nó giải đúng bài toán.
-
-## Liên hệ
-
-Email coming soon. Trong khi chờ:
-
-- Twitter/X: [@taiphanvan](https://twitter.com/taiphanvan)
-- Github: [@taiphanvan](https://github.com/taiphanvan)
-
-Mình thường check mỗi sáng. Spam thì bỏ qua, content tốt thì sẵn sàng chat.
+- **Ship sớm, iterate**: thà đẩy version 60% cho người dùng thật xài rồi sửa theo feedback, hơn là polish 100% rồi mới release. Examino lớn theo đúng thứ tự câu hỏi của trung tâm, không phải theo roadmap mình vẽ sẵn.
+- **Boring tech**: Next.js, Postgres, một VPS. Chọn công cụ mature, doc đầy đủ, community lớn. Không đổi stack mỗi 3 tháng theo hype.
+- **Code cùng AI, nhưng guard bằng máy**: phần lớn code mình viết gần đây là pair với AI coding tool. Tốc độ ship vượt xa tốc độ review bằng mắt, nên thứ giữ codebase không rã là lint boundary, test lane, CI đỏ khi sai — không phải kỷ luật cá nhân.
+- **Tự host khi hợp lý**: Docker + Coolify trên VPS cho Examino để giữ control và chi phí. Site này thì lên Vercel, vì nó giải đúng bài toán và mình không cần lo thêm.
+- **Có quan điểm, sai thì sửa công khai**: viết ra để nghĩ rõ hơn. Bài nào sai mình sửa, không xoá.
 
 ## Stack mình hay dùng
 
-- **Web**: Next.js (App Router), TypeScript, Tailwind, MDX
-- **Mobile**: SwiftUI, Combine
-- **AI**: Claude API + Claude Code (build site này)
-- **DevOps**: Vercel cho deploy, Github Actions cho CI
+- **Web**: Next.js (App Router), TypeScript strict, Tailwind, Prisma + PostgreSQL, MDX
+- **Mobile**: SwiftUI cho iOS native, Flutter khi cần cả iOS và Android
+- **AI**: OpenAI trong sản phẩm (chấm bài, parse câu nói thành giao dịch), Claude Code để build — kể cả site này
+- **Infra**: Docker, Coolify, Cloudflare (R2, Pages), Vercel, GitHub Actions, Sentry
 
-## Roadmap site
+## Ngoài code
 
-Site này được build qua bốn phase: foundation, content (blog + portfolio), homepage + SEO, rồi polish + deploy.
+Site này là canvas cá nhân, không phải blog kỹ thuật thuần, nên ngoài tech còn có phim, sách, ảnh, game. Mình đọc sách kỹ thuật kiểu chậm rãi, vừa đọc vừa map vào thứ đang build. PES là lý do PES Arena tồn tại. Và nếu bạn thấy site này có mùi Blade Runner 2049 thì không phải trùng hợp =)).
 
-Xem chi tiết trong [plans/](https://github.com/taiphanvan/taiphanvan-dev/tree/main/plans) (sau khi mình push lên Github).
+## Liên hệ
+
+- Email: [taipv.swe@gmail.com](mailto:taipv.swe@gmail.com)
+- GitHub: [@phanvantai](https://github.com/phanvantai)
+- LinkedIn: [tai-phan-van](https://www.linkedin.com/in/tai-phan-van)
+
+Mình thường online giờ làm việc UTC+7. Muốn nói chuyện về tech, AI, sản phẩm, hay bất kỳ chủ đề nào trong blog thì cứ nhắn. Sẵn sàng cà phê online, nghe ý tưởng lạ. Spam thì bỏ qua.
+
+## Về site này
+
+Next.js 16, MDX, Tailwind v4, deploy trên Vercel. Song ngữ Việt/Anh, tiếng Việt là bản chính. Source để trên [GitHub](https://github.com/phanvantai/taiphanvan.dev), source-available để tham khảo cách wire Next.js + MDX — không phải open source. Content là của mình, đừng reuse.

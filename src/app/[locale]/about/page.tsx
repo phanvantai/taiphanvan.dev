@@ -47,12 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// Đổi sang `true` để bật page lại.
-const ENABLED: boolean = false;
-
 export default async function AboutPage({ params }: PageProps) {
-  if (!ENABLED) notFound();
-
   const { locale: rawLocale } = await params;
   assertLocale(rawLocale);
   const locale: Locale = rawLocale;

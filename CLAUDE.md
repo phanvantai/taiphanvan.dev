@@ -35,8 +35,8 @@ See [docs/STACK.md](docs/STACK.md) for version and migration notes.
 ### Routing and content
 
 - `src/app/` contains localized App Router pages plus metadata, OG, RSS, sitemap and robots routes.
-- Public destinations are home, blog and work. `/about` and `/now` remain temporarily gated by
-  `ENABLED = false` constants in their page files.
+- Public destinations are home, blog, work and about. `/now` remains temporarily gated by an
+  `ENABLED = false` constant in its page file.
 - `src/proxy.ts` redirects `/` to the default locale.
 - `src/lib/mdx.ts` reads localized file-backed content from `content/{vi,en}/`.
 - Blog filenames use `YYYY-MM-DD-slug.mdx`; unpublished posts are filtered out.

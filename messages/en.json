@@ -3,7 +3,8 @@
     "description": "Tai's personal canvas — a Vietnam-based engineer building products. Tech, AI, films, books, photography, games, and whatever is worth writing down.",
     "nav": {
       "work": "Work",
-      "blog": "Blog"
+      "blog": "Blog",
+      "about": "About"
     },
     "actions": {
       "openCommandPalette": "Open command palette (⌘K)",

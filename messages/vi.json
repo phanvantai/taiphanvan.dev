@@ -3,7 +3,8 @@
     "description": "Không gian cá nhân của Tai — kỹ sư ở Việt Nam, đang làm sản phẩm. Công nghệ, AI, phim, sách, ảnh, game, và bất cứ gì muốn ghi lại.",
     "nav": {
       "work": "Work",
-      "blog": "Blog"
+      "blog": "Blog",
+      "about": "About"
     },
     "actions": {
       "openCommandPalette": "Mở bảng lệnh (⌘K)",

@@ -10,6 +10,7 @@ import {
   LaptopIcon,
   MoonIcon,
   SunIcon,
+  UserIcon,
   WrenchIcon,
 } from "lucide-react";
 
@@ -44,7 +45,7 @@ const NAV_ICONS: Record<string, typeof HomeIcon> = {
   "/": HomeIcon,
   "/work": WrenchIcon,
   "/blog": FileTextIcon,
-  "/about": HomeIcon,
+  "/about": UserIcon,
   "/now": HomeIcon,
 };
 
@@ -93,7 +94,7 @@ export function CommandPalette({ posts }: Props) {
         <CommandGroup heading={t("pages")}>
           {siteConfig.nav.map((item) => {
             const Icon = NAV_ICONS[item.href] ?? ArrowRightIcon;
-            const key = item.href.slice(1) as "work" | "blog";
+            const key = item.href.slice(1) as "work" | "blog" | "about";
             return (
               <CommandItem
                 key={item.href}
