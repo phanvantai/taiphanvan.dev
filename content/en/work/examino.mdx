@@ -1,34 +1,59 @@
 ---
 title: "Examino"
 slug: "examino"
-tagline: "B2B SaaS English exam platform for language centers"
+tagline: "White-label platform for English centers — Cambridge/IELTS mock tests, AI grading, and center operations in one place"
 period: "2026 — present"
-status: "in-progress"
-stack: ["Next.js", "Prisma", "Supabase", "Claude API", "Tailwind", "TypeScript"]
+status: "shipped"
+stack:
+  ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "OpenAI", "Tailwind", "Cloudflare R2", "Docker"]
 role: "Solo founder & engineer"
 links:
-  live: ""
+  live: "https://examino.vn"
   github: ""
 order: 1
 featured: true
 ---
 
-Examino is a B2B SaaS exam platform for English centers in Vietnam, starting with Cambridge YLE-style placement and mock tests.
+Examino is a white-label platform for English language centers in Vietnam. Each center gets its own domain, its own brand, and its own database. Students take Cambridge (Starters through B1 Preliminary) and IELTS Academic/General Training mock tests on a paper-faithful UI. Listening and Reading are scored instantly; Writing and Speaking are graded by AI with feedback in Vietnamese. Operations — recruitment, classes, attendance, tuition, homework — live in the same system, with no data re-entry.
+
+Landing: [examino.vn](https://examino.vn) · Demo: [demo.examino.vn](https://demo.examino.vn) (self-register as a Student). The source is not open source. The first center is running in production.
 
 ## Background
 
-Many centers still prepare tests with Word files, spreadsheets, and email. That workflow is slow, fragile, and gives little structured data for teachers or managers.
+Most English centers in Vietnam still run on Word, Excel, Zalo, and email. Mock tests are written in Word, graded by hand, typed into a spreadsheet, and sent to parents over chat. It is slow, error-prone, and produces no data about where a student is actually weak.
 
-Examino aims to make test creation, grading, and reporting easier without forcing centers into a heavyweight LMS.
+Off-the-shelf online testing tools look nothing like the real exam: different layouts, different task types, so teachers do not trust the scores. Full LMS products are heavy, force centers to change how they work, and still do not follow the Cambridge format.
+
+Examino started from two decisions. **First**, white-label and single-tenant: a center uses its own domain, students only ever see the center's brand, and data lives in a dedicated database. **Second**, "more like the real exam": every task type is rebuilt from photos of the paper test, one part at a time, until a teacher looks at the screen and sees the book.
+
+The first version was only testing and practice. Then centers kept asking: where do leads come from, which class meets when, who has not paid tuition. The product grew in exactly that order — CRM, classes, billing, homework, library — into an operating system for the whole center.
 
 ## Tech stack
 
-Coming soon.
+- **Next.js 16 App Router + strict TypeScript** — one app, structured as a modular monolith. `app/` holds routes and composition only; business logic is split by capability in `modules/` (auth, exam, crm, classroom, billing, homework, library, and more); infrastructure adapters live in `platform/`; portable exam logic lives in `packages/` (exam-core, exam-cambridge, exam-ielts, exam-ui). Boundaries are enforced by AST checks that run as part of `lint`: a deep import across modules fails CI.
+- **PostgreSQL + Prisma 6** — 94 models and 61 migrations so far. One database per center, and no `orgId` column anywhere.
+- **Exam plugin system** — close to 60 Cambridge and IELTS task types. Each plugin declares its schema, authoring editor, student UI, result UI, and grading logic; the core dispatches through a registry with no per-type branching.
+- **NextAuth v5** — credentials and Google OAuth; roles and permissions are split by account type, and staff and students get separate UI shells.
+- **OpenAI** — Writing and Speaking grading, audio transcripts, and text-to-speech for Listening. A cost guard enforces a monthly USD budget per center, reads real synced spend, and blocks at the top of the handler once the budget is gone.
+- **Cloudflare R2** — recorded audio, task images, and media, accessed through the AWS SDK since it is S3-compatible.
+- **Tailwind + shadcn/ui (base-nova)** — a theme registry powers white-labeling. Admin and staff use a fixed UI; every student surface, from login to results, follows the center's theme.
+- **PWA** — a per-center dynamic manifest, service worker, dedicated offline page, iOS install guide, and web push for notifications.
+- **Sentry + Upstash** — structured observability (exceptions, warnings, breadcrumbs, logs) and rate limiting on public endpoints.
+- **Vitest + Playwright** — more than 2,300 test files across a node lane and a dom lane, with a guard that fails when a test lands in the wrong lane. Playwright covers end-to-end smoke tests.
+- **Docker + Coolify on a VPS** — images are built on GitHub Actions and rolled out through Coolify. Dev, staging, and production share one runbook; cron jobs run as systemd timers on the host.
+- **Separate Astro landing page** — deployed to Cloudflare, fully decoupled from the app.
 
 ## Challenges
 
-Coming soon.
+- **Single-tenant or multi-tenant** — with student data and white-label requirements, I chose one deployment and one database per center. The price is operations: onboarding a center means a VPS, Postgres, an R2 bucket, and secrets. It is manageable because of a runbook written from real mistakes, file-based center configs, and CI-built images, since a 4GB VPS cannot build Next.js on its own.
+- **Online tasks must match the paper test** — sounds simple, but the details are where it gets hard. Crosswords in the Prepare series shade a few cells so the next task can ask what those letters spell; if the online version cannot draw shaded cells, students have no way to solve it. Word searches have to be grids readable in all eight directions, not a string wrapped at arbitrary widths. Every part goes through its own paper-like checklist, from photo to UI.
+- **AI grading has to be trustworthy and affordable** — AI scores are estimates that support review; center staff still approve them. Every grading call goes through a single guard: per-center on/off, monthly budget, and fresh cost sync. The A2/B1 Speaking rubrics are only verified with unit tests so far, and still need real recordings to compare AI bands against teacher bands before the scores can be trusted.
+- **Recording Speaking on iPhone** — the first recorder forced WebM, which WebKit on iOS cannot record, so tapping record failed immediately. The fix asks the browser for formats in priority order, records MP4/AAC where WebM is unavailable, and adds a Web Audio fallback for MP3 conversion on iOS versions without WebCodecs. Chromium and Firefox were untouched.
+- **Solo, coding with AI, and keeping the architecture clean** — six months, close to 3,900 commits, most of them written alongside AI coding tools. What keeps the codebase from falling apart is machine-run guards: boundary checks, UI contract checks, test lane checks. Personal discipline does not scale at that shipping speed.
 
 ## Lessons
 
-Coming soon.
+- Boring tech is still the right call for indie SaaS: Next.js, Postgres, one VPS. The early investment that matters is not a new stack but automated guards, because when you code with AI, shipping speed outruns what you can review by eye.
+- Paper-faithful UI is a product decision, not polish. One task type in the wrong format and teachers lose trust in the whole system, even if the other 59 are right.
+- Single-tenant is right for center-sized B2B, but the cost lands in operations. The runbook, CI builds, and center configs need to exist from the first customer, not the fifth.
+- B2B differs from consumer apps in that the product grows along the customer's questions. Ship to a real center as early as possible: exam → CRM → classes → billing was the order the center asked for, not the order I would have guessed.

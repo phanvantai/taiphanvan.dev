@@ -1,34 +1,59 @@
 ---
 title: "Examino"
 slug: "examino"
-tagline: "B2B SaaS English exam platform cho trung tâm tiếng Anh"
+tagline: "Hệ thống white-label cho trung tâm tiếng Anh — thi thử Cambridge/IELTS, chấm AI, vận hành trong một chỗ"
 period: "2026 — present"
-status: "in-progress"
-stack: ["Next.js", "Prisma", "Supabase", "Claude API", "Tailwind", "TypeScript"]
+status: "shipped"
+stack:
+  ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "OpenAI", "Tailwind", "Cloudflare R2", "Docker"]
 role: "Solo founder & engineer"
 links:
-  live: ""
+  live: "https://examino.vn"
   github: ""
 order: 1
 featured: true
 ---
 
-Examino là B2B SaaS English exam platform mình đang build cho thị trường trung tâm tiếng Anh ở Việt Nam, focus đầu vào Cambridge YLE (Young Learners English).
+Examino là hệ thống white-label cho trung tâm tiếng Anh ở Việt Nam. Mỗi trung tâm có domain riêng, brand riêng, database riêng. Học viên thi thử Cambridge (Starters tới B1 Preliminary) và IELTS Academic/General Training trên giao diện bám đề giấy; Listening và Reading chấm tức thì, Writing và Speaking chấm bằng AI kèm nhận xét tiếng Việt. Phần vận hành — tuyển sinh, lớp học, điểm danh, học phí, bài về nhà — nằm cùng một chỗ, không phải nhập lại dữ liệu.
+
+Landing: [examino.vn](https://examino.vn) · Demo: [demo.examino.vn](https://demo.examino.vn) (tự đăng ký vai Student). Source không open source. Trung tâm đầu tiên đã chạy production.
 
 ## Background
 
-Trung tâm tiếng Anh ở VN cần tools để tạo đề + chấm thi mock test cho học viên. Hiện tại workflow mostly Word file + Excel + email — slow, easy to mess up, không có data analytics.
+Trung tâm tiếng Anh ở Việt Nam phần lớn vẫn vận hành bằng Word, Excel, Zalo và email. Đề thi thử soạn trong Word, chấm tay, điểm gõ vào Excel, kết quả gửi phụ huynh qua Zalo. Chậm, dễ lệch, và không có dữ liệu để nhìn xem học viên yếu ở đâu.
 
-(Sẽ viết chi tiết sau.)
+Mấy tool thi online có sẵn thì lạc quẻ so với đề thật: layout khác, dạng bài khác, nên giáo viên không tin điểm. LMS lớn thì nặng, bắt trung tâm đổi cách làm việc, và cũng chẳng bám format Cambridge.
+
+Examino đi từ hai quyết định. **Một**, white-label và single-tenant: trung tâm dùng domain của mình, học viên chỉ thấy brand của trung tâm, dữ liệu nằm trong database riêng. **Hai**, "thi thật hơn": mỗi dạng bài được dựng lại theo ảnh đề giấy, từng part một, tới khi giáo viên nhìn màn hình thấy giống sách.
+
+Ban đầu chỉ có thi thử và luyện tập. Rồi trung tâm hỏi tiếp: lead từ đâu tới, lớp nào học ngày nào, ai chưa đóng học phí. Sản phẩm mở rộng theo đúng thứ tự câu hỏi đó — CRM, lớp học, học phí, bài về nhà, học liệu — thành hệ thống vận hành cả trung tâm.
 
 ## Tech stack
 
-(Coming soon.)
+- **Next.js 16 App Router + TypeScript strict** — một app, kiến trúc modular monolith. `app/` chỉ giữ route và composition; business logic tách theo capability trong `modules/` (auth, exam, crm, classroom, billing, homework, library…); adapter hạ tầng trong `platform/`; logic đề thi portable trong `packages/` (exam-core, exam-cambridge, exam-ielts, exam-ui). Boundary giữa các lớp được enforce bằng script AST chạy trong `lint`: deep-import sai module là CI đỏ.
+- **PostgreSQL + Prisma 6** — 94 model, 61 migration tính tới hiện tại. Mỗi trung tâm một database, không có cột `orgId` ở bất kỳ đâu.
+- **Exam plugin system** — gần 60 dạng bài Cambridge và IELTS. Mỗi plugin tự khai schema, editor soạn đề, UI làm bài, UI kết quả và logic chấm; core dispatch theo registry, không có `if/else` theo dạng bài.
+- **NextAuth v5** — credentials và Google OAuth; role và permission tách theo account type, staff và học viên đi hai shell UI khác nhau.
+- **OpenAI** — chấm Writing và Speaking, transcript audio, text-to-speech cho Listening. Có cost guard: hạn mức USD theo tháng cho từng trung tâm, đọc chi phí thật đã sync về, hết hạn mức thì chặn ngay đầu handler.
+- **Cloudflare R2** — lưu audio ghi âm, ảnh đề, media; S3-compatible nên dùng thẳng AWS SDK.
+- **Tailwind + shadcn/ui (base-nova)** — theme registry phục vụ white-label. Admin và staff dùng UI cố định; mọi màn hình của học viên theo theme của trung tâm, từ trang đăng nhập tới trang kết quả.
+- **PWA** — manifest sinh động theo trung tâm, service worker, trang offline riêng, hướng dẫn cài trên iOS, web push cho thông báo.
+- **Sentry + Upstash** — observability có cấu trúc (exception, warning, breadcrumb, log) và rate limit cho public endpoint.
+- **Vitest + Playwright** — hơn 2.300 file test, chia hai lane node và dom; có guard bắt test nằm sai lane. Playwright cho smoke test end-to-end.
+- **Docker + Coolify trên VPS** — image build trên GitHub Actions rồi rollout qua Coolify. Dev, staging và production cùng một runbook; cron chạy bằng systemd timer trên host.
+- **Landing page riêng bằng Astro** — deploy lên Cloudflare, tách hẳn khỏi app.
 
 ## Challenges
 
-(Coming soon.)
+- **Single-tenant hay multi-tenant** — với dữ liệu học viên và yêu cầu white-label, mình chọn mỗi trung tâm một deployment và một database. Cái giá là vận hành: dựng trung tâm mới là dựng cả VPS, Postgres, R2 bucket, secrets. Giải bằng runbook đã vấp thật từng bước, cấu hình center dạng file, và build image trên CI vì VPS 4GB không build được Next.
+- **Đề online phải giống đề giấy** — nghe đơn giản, nhưng chi tiết mới là chỗ khó. Ô chữ trong sách Prepare có vài ô tô xám để bài kế bên hỏi ghép chữ; bản online không vẽ được ô xám là học viên không có cách nào giải. Word search phải là lưới đọc được cả 8 hướng, không phải chuỗi chữ bẻ dòng tuỳ ý. Mỗi part đi qua một checklist paper-like riêng, từ ảnh đề giấy tới UI.
+- **Chấm AI phải đáng tin và không cháy tiền** — điểm AI chỉ là ước lượng hỗ trợ review, staff trung tâm vẫn duyệt. Mọi lời gọi chấm đi qua đúng một guard: bật/tắt theo trung tâm, hạn mức tháng, cost sync phải còn tươi. Rubric A2/B1 cho Speaking mới kiểm chứng bằng unit test, còn nợ vài bài ghi âm thật để so band AI với band giáo viên trước khi tin điểm.
+- **Ghi âm Speaking trên iPhone** — recorder ban đầu ép WebM, thứ WebKit trên iOS không ghi được, nên bấm ghi là vỡ. Sửa bằng cách hỏi trình duyệt theo thứ tự ưu tiên, ghi MP4/AAC nơi không có WebM, và thêm đường chuyển MP3 bằng Web Audio cho iOS chưa có WebCodecs. Chromium và Firefox không đổi gì.
+- **Solo dev, code với AI, kiến trúc vẫn phải sạch** — sáu tháng, gần 3.900 commit, phần lớn viết cùng AI coding tool. Thứ giữ codebase không rã là guard chạy bằng máy: check boundary, check UI contract, check test lane. Kỷ luật cá nhân không scale khi ship nhanh cỡ đó.
 
 ## Lessons
 
-(Coming soon.)
+- Boring tech vẫn là lựa chọn đúng cho indie SaaS: Next.js, Postgres, một VPS. Cái cần đầu tư sớm không phải stack mới mà là guard tự động, vì khi code cùng AI, tốc độ ship vượt xa tốc độ review bằng mắt.
+- "Bám đề giấy" là product decision, không phải polish. Một dạng bài sai format là giáo viên mất tin vào cả hệ thống, dù 59 dạng còn lại đúng.
+- Single-tenant đúng cho B2B cỡ trung tâm, nhưng chi phí nằm ở vận hành. Runbook, CI build và cấu hình center phải có từ trung tâm đầu tiên, không phải đợi tới trung tâm thứ năm.
+- Bán B2B khác consumer app ở chỗ sản phẩm lớn theo câu hỏi của khách. Ship tới một trung tâm thật càng sớm càng tốt: exam → CRM → lớp học → học phí là thứ tự trung tâm hỏi, không phải thứ tự mình nghĩ ra.
