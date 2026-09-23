@@ -14,34 +14,32 @@ Checklist các chỗ còn để trống trong codebase. Tick từng cái sau khi
 - [ ] `social.facebook` — đang `""` (intentionally empty, filter ẩn)
   > Handle nào không dùng thì xoá hẳn key khỏi config thay vì để rỗng (tránh render link chết). Hiện tại empty key được filter bởi `Object.entries(...).filter(url.length > 0)` nên không render link chết — clean enough.
 
-### About page — [content/pages/about.mdx](content/pages/about.mdx)
+### About page — [content/vi/pages/about.mdx](content/vi/pages/about.mdx)
 
-> **Tạm ẩn** — `/about` route trả 404, ẩn khỏi nav, bỏ khỏi sitemap. Re-enable: đổi `ENABLED = true` trong [src/app/about/page.tsx](src/app/about/page.tsx) và thêm lại vào nav + sitemap.
+> **Tạm ẩn** — `/about` route trả 404, ẩn khỏi nav, bỏ khỏi sitemap. Re-enable: đổi `ENABLED = true` trong [src/app/[locale]/about/page.tsx](src/app/[locale]/about/page.tsx) và thêm lại vào nav + sitemap.
 
-- [ ] [L22](content/pages/about.mdx#L22) "Email coming soon" — điền `taipv.swe@gmail.com` hoặc xoá đoạn này (xử khi re-enable)
-- [ ] [L24-25](content/pages/about.mdx#L24-L25) verify Twitter/Github handle khớp với site-config — hiện tại sai (`@taiphanvan` thay vì `phanvantai`); fix khi re-enable
+- [ ] [L22](content/vi/pages/about.mdx#L22) "Email coming soon" — điền `taipv.swe@gmail.com` hoặc xoá đoạn này (xử khi re-enable)
+- [ ] [L24-25](content/vi/pages/about.mdx#L24-L25) verify Twitter/Github handle khớp với site-config — hiện tại sai (`@taiphanvan` thay vì `phanvantai`); fix khi re-enable
 - [ ] L11 "đang chuyển dần sang web" mâu thuẫn framing mới của hello-world — rewrite khi re-enable
 - [ ] L46 link `github.com/taiphanvan/taiphanvan-dev/tree/main/plans` — sai org, sửa thành `phanvantai` khi re-enable
 
-### Now page — [content/pages/now.mdx](content/pages/now.mdx)
+### Now page — [content/vi/pages/now.mdx](content/vi/pages/now.mdx)
 
-> **Tạm ẩn** — `/now` route trả 404, ẩn khỏi nav, bỏ khỏi sitemap. Re-enable: đổi `ENABLED = true` trong [src/app/now/page.tsx](src/app/now/page.tsx) và thêm lại vào nav + sitemap.
+> **Tạm ẩn** — `/now` route trả 404, ẩn khỏi nav, bỏ khỏi sitemap. Re-enable: đổi `ENABLED = true` trong [src/app/[locale]/now/page.tsx](src/app/[locale]/now/page.tsx) và thêm lại vào nav + sitemap.
 
 ### Work case studies — frontmatter links rỗng
 
-Cả 4 file đều có `links.live: ""` và `links.github: ""`:
+Content nằm ở `content/{vi,en}/work/` (đã localize). Trạng thái hiện tại:
 
-- [ ] [content/work/examino.mdx:9-11](content/work/examino.mdx#L9-L11) — URL live + repo (nếu public)
-- [ ] [content/work/pes-arena.mdx:9-11](content/work/pes-arena.mdx#L9-L11) — URL live + repo
-- [ ] [content/work/quickspend.mdx:9-11](content/work/quickspend.mdx#L9-L11) — App Store link + repo
-- [ ] [content/work/littlemark.mdx:9-11](content/work/littlemark.mdx#L9-L11) — App Store link + repo
+- [x] [examino.mdx](content/vi/work/examino.mdx#L9-L11) — có live `examino.vn`; `github` để rỗng có chủ ý (source không public)
+- [x] [pes-arena.mdx](content/vi/work/pes-arena.mdx#L9-L11) — có live `pesarena.taiphanvan.dev` + repo `phanvantai/game_note`
+- [ ] [quickspend.mdx](content/vi/work/quickspend.mdx#L9-L11) — có live `quickspend.taiphanvan.dev`; `github` rỗng (App Store link + repo nếu public)
 
 ### Work case studies — body sections `(Coming soon.)`
 
-- [ ] [content/work/examino.mdx](content/work/examino.mdx) — Tech stack, Challenges, Lessons (Background đã có)
-- [ ] [content/work/littlemark.mdx](content/work/littlemark.mdx) — Background, Tech stack, Challenges, Lessons
-- [ ] [content/work/pes-arena.mdx](content/work/pes-arena.mdx) — Background, Tech stack, Challenges, Lessons
-- [ ] [content/work/quickspend.mdx](content/work/quickspend.mdx) — Background, Tech stack, Challenges, Lessons
+- [x] [examino.mdx](content/vi/work/examino.mdx) — viết lại toàn bộ 2026-09-23 (vi + en), status `shipped`
+- [x] [pes-arena.mdx](content/vi/work/pes-arena.mdx) — đã viết đủ
+- [x] [quickspend.mdx](content/vi/work/quickspend.mdx) — đã viết đủ
 
 ## Không phải placeholder (đừng đụng)
 

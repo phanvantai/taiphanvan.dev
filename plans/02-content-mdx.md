@@ -28,8 +28,7 @@ content/
 └── work/
     ├── examino.mdx
     ├── pes-arena.mdx
-    ├── quickspend.mdx
-    └── littlemark.mdx
+    └── quickspend.mdx
 ```
 
 Frontmatter format đúng spec gốc (blog: title/description/date/tags/published/featured/cover; work: title/slug/tagline/period/status/stack/role/links/cover/order/featured).
