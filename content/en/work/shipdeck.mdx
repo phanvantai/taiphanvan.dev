@@ -1,0 +1,41 @@
+---
+title: "Shipdeck"
+slug: "shipdeck"
+tagline: "A macOS app for a whole app portfolio in one window — git, App Store Connect and Claude Code side by side"
+period: "2026 — present"
+status: "in-progress"
+stack: ["SwiftUI", "Swift", "macOS", "Claude Code", "App Store Connect API", "Sparkle", "SwiftTerm"]
+role: "Solo — product owner"
+links:
+  live: "https://shipdeck.taiphanvan.dev"
+  github: ""
+order: 4
+featured: true
+---
+
+Shipdeck is a native macOS app (SwiftUI) for solo developers running many apps. Each product has one or more components — an iOS app, a backend, a landing page — spread across one or more repos. Open it and you see which app needs a release, which has uncommitted work, which has gone quiet, and exactly why.
+
+Landing page: [shipdeck.taiphanvan.dev](https://shipdeck.taiphanvan.dev). In beta; the source is not open source.
+
+## Background
+
+With QuickSpend, Examino, PES Arena and this site running in parallel, every return to a product turned into archaeology: `git log`, App Store Connect, old notes. Shipdeck puts code state, store state and each product's Claude Code sessions in one place.
+
+## Tech stack
+
+- **SwiftUI + Swift** — native macOS app; product data lives in a local `products.json`, nothing is written into repos.
+- **AI-free overview** — reads git, manifest versions, Sparkle appcasts and iTunes Lookup to sort products into Needs a release / In progress / Quiet for a while / All good. Websites and links are checked on a schedule too.
+- **Claude Code survey** — adding a product means picking a folder; a headless, read-only session finds components, commands, services and docs. **Sync with Code** re-surveys from new commits and saves only the fields you tick.
+- **App Store Connect API** — versions, review state, phased release, TestFlight, user reviews, App IDs and capabilities; release or reply to reviews in the app. Keys stay in the keychain.
+- **Release checklist** — per-platform checklists (iOS, Android, Web) that tick what can be read from the repo and App Store Connect.
+- **SwiftTerm** — embedded terminals for each product's Claude Code sessions, which keep running when you switch products.
+- **Action layer + MCP** — every change is an action with a stable id and a tier (read, local, remote, publish, owner); agents call it over a CLI or MCP and stay inside their session's product.
+- **Sparkle** — signed, notarized auto-updates.
+
+## Challenges
+
+Letting agents use the tool without losing control: `remote` and `publish` actions wait in an approval inbox, `publish` always asks, and every run is journaled. AI fills in product data but never overwrites it on its own, and the survey runs without a shell and with git-ignored and secret files blocked.
+
+## Lessons
+
+Let boring tech handle what must be fast and reliable; bring AI in only where understanding code is the job. When Claude Code writes most of the code, my job is product owner: say clearly what I want, use it daily, and catch what feels off.

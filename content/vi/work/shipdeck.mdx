@@ -1,0 +1,44 @@
+---
+title: "Shipdeck"
+slug: "shipdeck"
+tagline: "App macOS gom cả portfolio app vào một cửa sổ — git, App Store Connect và Claude Code ngay cạnh nhau"
+period: "2026 — present"
+status: "in-progress"
+stack: ["SwiftUI", "Swift", "macOS", "Claude Code", "App Store Connect API", "Sparkle", "SwiftTerm"]
+role: "Solo — product owner"
+links:
+  live: "https://shipdeck.taiphanvan.dev"
+  github: ""
+order: 4
+featured: true
+---
+
+Shipdeck là app macOS native (SwiftUI) cho dev một mình chạy nhiều app. Mỗi product gồm một hoặc nhiều component — iOS app, backend, landing page — nằm ở một hay nhiều repo. Mở app lên là biết ngay app nào cần release, app nào còn code chưa commit, app nào lâu rồi không đụng tới, và lý do cụ thể cho từng cái.
+
+Landing page: [shipdeck.taiphanvan.dev](https://shipdeck.taiphanvan.dev). Đang beta, source không open source. Câu chuyện đằng sau: [Shipdeck: một mình, nhiều app](/blog/shipdeck-mot-minh-nhieu-app).
+
+## Background
+
+Chạy song song QuickSpend, Examino, PES Arena và site này, mỗi lần quay lại một product là một lần khảo cổ: `git log`, mở App Store Connect, lục note cũ. Shipdeck gom hết vào một chỗ: trạng thái code, trạng thái store và session Claude Code của từng product.
+
+## Tech stack
+
+- **SwiftUI + Swift** — app macOS native, data product nằm trong một file `products.json` trên máy, không ghi gì vào repo.
+- **Overview không dùng AI** — đọc git, version trong manifest, Sparkle appcast và iTunes Lookup để xếp product vào Needs a release / In progress / Quiet for a while / All good. Website và link cũng được check định kỳ.
+- **Claude Code survey** — thêm product chỉ cần chọn folder; một session headless, read-only tách component, tìm command, service, docs. **Sync with Code** survey lại theo commit mới, chỉ lưu field mình tick.
+- **App Store Connect API** — version, review state, phased release, TestFlight, review của user, App ID và capabilities; release hay reply review ngay trong app. Key lưu trong keychain.
+- **Release checklist** — checklist theo platform (iOS, Android, Web), tự tick những gì đọc được từ repo và App Store Connect.
+- **SwiftTerm** — terminal embedded cho session Claude Code của từng product, vẫn chạy khi chuyển sang product khác.
+- **Action layer + MCP** — mọi thay đổi là một action có id và tier (read, local, remote, publish, owner); agent gọi qua CLI hoặc MCP, bị giới hạn trong đúng product của session.
+- **Sparkle** — auto-update, signed và notarized.
+
+## Challenges
+
+- **Cho agent dùng tool mà không mất kiểm soát** — action `remote` và `publish` phải nằm chờ trong approval inbox; `publish` lần nào cũng hỏi, mọi lần chạy đều ghi vào journal.
+- **AI điền data nhưng không được tự ghi đè** — field nào AI điền thì có nguồn ngay cạnh, sync chỉ lưu những gì mình duyệt.
+- **Survey an toàn trên repo thật** — chạy không có shell, chặn file git-ignore và file secret như `.env`.
+
+## Lessons
+
+- Phần cần nhanh và chắc thì để boring tech làm; AI chỉ vào những chỗ cần hiểu code.
+- Khi Claude Code viết phần lớn code, việc của mình là product owner: nói rõ muốn gì, dùng thật hằng ngày, bắt lỗi chỗ lạc quẻ.
