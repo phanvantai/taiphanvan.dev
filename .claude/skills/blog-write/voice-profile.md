@@ -35,7 +35,7 @@ Bắt đầu nhỏ — pattern xác nhận từ bài đã có (`hello-world`) + 
 - "boring tech" — concept ưa dùng
 - "polish" hơn "tinh chỉnh"
 - "ngon", "ổn" hơn "tốt", "hiệu quả"
-- "lạc quẻ", "ngứa mắt", "đã save" — signature casual phrases
+- "lạc quẻ", "ngứa mắt", "đã save" — signature casual phrases. "Ngứa mắt" chỉ cho UI / lỗi vặt, không làm lý do cho quyết định lớn (xem mục Tránh).
 - "bro" như filler / address term — OK lặp 1–2 lần/bài, đừng lạm dụng
 - "chuẩn chỉnh", "cho xong" — dùng khi nói về quality bar
 
@@ -51,6 +51,7 @@ Bắt đầu nhỏ — pattern xác nhận từ bài đã có (`hello-world`) + 
 - Decorative SVG/icon emoji (UI-style icons) — chỉ dùng nếu load nghĩa (✅ checklist, ❌ failed). VN chat emoji `=))` `:))` xem mục Tone, là exception.
 - **Defensive SEO/algorithm awareness** — vd. "không tối ưu cho thuật toán phân phối nào", "SEO-friendly". Phá personal/canvas tone.
 - **Manufactured-casual filler** — vd. "tuỳ mood mình hôm đó", "mình thấy thích thì viết". Sounds rehearsed-casual. Substantive disclaimer thật mới fit.
+- **Cảm xúc thay cho lý do** khi giải thích một quyết định lớn — vd. ban đầu mình viết "Vài lần như vậy thì ngứa mắt thật sự. Nên mình build Shipdeck.", bro đổi thành lý do + context (xem pattern "Lý do + bối cảnh"). Session 2026-10-21.
 - **Chê third-party tool quá đà** — vd. ban đầu mình viết "Siri cười khẩy gọi Google" về Apple's Siri, bro soften lại. Khi feature flaky vì tool ngoài, **soften + giải thích root cause kỹ thuật** (vd. API restriction) — không đổ lỗi một chiều.
 
 ## Code switching VN/EN
@@ -67,6 +68,22 @@ Bắt đầu nhỏ — pattern xác nhận từ bài đã có (`hello-world`) + 
 - **Đoạn**: 2–4 câu / đoạn. Câu dài chỉ khi bật rhythm.
 - **Lists**: bullet `-` cho enumerate. Bold `**key**: detail` cho định nghĩa nhanh.
 - **Kết bài**: câu thật / lời mời cụ thể / hook bài sau. KHÔNG "cảm ơn / hy vọng".
+
+### Pattern: Lý do + bối cảnh (khi mở bài về việc bắt đầu một project)
+
+Nói rõ vì sao quyết định làm, rồi đặt nó vào bối cảnh chung bên ngoài — không chỉ dừng ở cảm xúc.
+
+> Mẫu: *"Vài lần như vậy thì mình thấy không ổn, phải đổi workflow hoặc dùng tool, automation gì đó thôi. Vừa hay dạo này đang có trend build lại app từ đầu — [ArtCraft](https://getartcraft.com) build lại cả bộ app của Adobe — nên mình cũng tự build một app mới cho nhu cầu của chính mình: Shipdeck."*
+
+### Pattern: Credit nguồn cảm hứng
+
+Mượn ý tưởng từ project khác thì ghi công ngay chỗ dùng ý tưởng đó, kèm link ở lần nhắc đầu tiên.
+
+> Mẫu: *"Ý tưởng này mình mượn từ ArtCraft: mọi action là một command có id cố định…"*
+
+### Pattern: Bài về project AI-built
+
+Agent viết code là chuyện hiển nhiên — chỉ nhắc qua 1 câu. Phần chính là những gì mình trực tiếp yêu cầu, bắt lỗi, quyết định (vai product owner).
 
 ### Pattern: Reflective Intro (cho meta / manifesto / first-of-category posts)
 
@@ -141,3 +158,4 @@ Sau khi tuyên bố canvas cá nhân, set expectation cho reader:
 - **2026-05-10** — Khởi tạo profile từ `hello-world` post + memory về voice & quality bar của bro.
 - **2026-05-10** — Session `2026-05-07-hello-world` (~3 round). Add: VN chat emoji `=))` OK trong reflective sections; reflective Intro pattern (3 đoạn: difficulty → soft commitment → poetic close); reader disclaimer pattern; title EN-subtitle preference khi carry tên/concept; description phải sync title vibe. Avoid: defensive SEO/algorithm awareness, manufactured-casual filler.
 - **2026-05-23** — Session `2026-05-23-quickspend-now-really-quick-finally` (~6 round). **Đảo Xưng hô**: bỏ "bro" trong bài, default sang "các bạn" / "bạn". Add tránh: self-ref "tác giả"; chê third-party tool quá đà (soften + giải thích root cause kỹ thuật). Keep: blockquote cho voice command, inline code cho struct/API/app name, conversational rhetorical close ("Sướng phải không nào?"), future-work bullet với motivation hook ("nếu có người dùng thì mình mới có động lực update").
+- **2026-10-21** — Session `2026-10-21-shipdeck-mot-minh-nhieu-app` (~3 round). Add: pattern "Lý do + bối cảnh" cho mở bài project; credit nguồn cảm hứng kèm link tại chỗ; bài AI-built chỉ nhắc qua agent, focus việc mình yêu cầu/sửa. Avoid: cảm xúc ("ngứa mắt") thay cho lý do của quyết định lớn. Keep: mở bài bằng pain cụ thể + `=))`, "các bạn", kết bằng hook bài sau, 1 Callout/bài.
