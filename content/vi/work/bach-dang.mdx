@@ -1,0 +1,42 @@
+---
+title: "Bạch Đằng"
+slug: "bach-dang"
+tagline: "Game kể chuyện lịch sử Việt Nam, diễn theo lối rối nước — chương 1: trận Bạch Đằng năm 938"
+period: "2026 — present"
+status: "in-progress"
+stack: ["Godot 4.7", "GDScript", "iOS", "Android", "Claude Code"]
+role: "Solo — product owner"
+links:
+  live: "https://bachdang.taiphanvan.dev"
+  github: ""
+order: 5
+featured: true
+---
+
+Bạch Đằng là game kể chuyện có lựa chọn trên điện thoại. Mỗi chương là một trận trên sông Bạch Đằng — 938, 981, 1288 — diễn bằng rối nước trên sân khấu thủy đình, màu tranh khắc gỗ, nhạc dân gian. Chương 1 (938) chơi được trọn: 22 cảnh, 5 quyết định lớn, 3 lượt canh con nước, 7 kết cục.
+
+Trang giới thiệu: [bachdang.taiphanvan.dev](https://bachdang.taiphanvan.dev). Đang làm bản điện thoại, sắp mời chơi thử; source không open source. Game của Boolery Studio.
+
+## Background
+
+Các bạn vào vai Dương Lãng, con trai một người chài bị cả làng coi là "kẻ dẫn giặc", phải đọc con nước để giăng bẫy cọc cho Ngô Quyền — trong khi người cha tưởng đã chết lại đang đứng mũi hạm đội Nam Hán. Hư cấu chỉ sống trong những khoảng trống mà sử không ghi; mọi sự kiện chính sử giữ nguyên ở mọi nhánh.
+
+## Tech stack
+
+- **Bản mẫu web** — JavaScript, SVG, nhạc tổng hợp bằng Web Audio. Dựng đủ 22 cảnh, qua ba lượt chơi thử, giờ đóng băng làm bản đặc tả chạy được.
+- **Godot 4.7 + GDScript** — bản điện thoại làm lại từ đầu, màn hình ngang, chơi offline hoàn toàn. Chọn Godot vì cảnh, hoạt cảnh và dữ liệu đều là file chữ, hợp với cách vẽ hình bằng code.
+- **Hệ rối có khớp** — đầu, thân, tay hai khúc, chân hai khúc, nhấp nhô như trên mặt nước; shader khắc gỗ cho chất tranh dân gian.
+- **Canh con nước** — mực nước chạy theo nhật triều; lựa chọn trước đó nới hoặc thu hẹp cửa sổ thời gian.
+- **Âm thanh** — đàn bầu, sáo trúc, đàn tranh, trống, chiêng, điệu hò, đi qua một kênh tổng.
+- **Phát hành** — Game Center và Google Play Games cho thành tích, GitHub Actions dựng bản Android, Xcode Cloud dựng bản iOS.
+
+## Challenges
+
+- **Giữ sử đúng mà chuyện vẫn có nhánh** — người chơi chỉ quyết định trong khoảng trống của sử, mỗi chi tiết gắn tầng nguồn (chính sử, thần tích, suy luận, hư cấu), cuối chương có màn "Lịch sử thật".
+- **Cân bằng không có đường "luôn đúng"** — kiểm tra trên toàn bộ 81 tổ hợp quyết định.
+- **Chạy mượt trên máy yếu** — Pixel 3 từng văng game giữa chương vì rò bộ nhớ ảnh; phải sửa rò, làm shader rẻ hơn và tự hạ độ nét khi tụt khung hình để giữ 60 fps.
+
+## Lessons
+
+- Làm bản mẫu rẻ trước để chứng minh câu chuyện, rồi mới chọn engine cho bản thật.
+- Khi Claude làm gần như toàn bộ code, hình và nhạc, việc của mình là định hướng và chốt: tinh thần dự án, luật với lịch sử, giọng kể.

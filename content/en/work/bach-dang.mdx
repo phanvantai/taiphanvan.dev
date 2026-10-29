@@ -1,0 +1,39 @@
+---
+title: "Bạch Đằng"
+slug: "bach-dang"
+tagline: "A narrative game about Vietnamese history, staged as water puppetry — chapter 1: the Battle of Bạch Đằng, 938"
+period: "2026 — present"
+status: "in-progress"
+stack: ["Godot 4.7", "GDScript", "iOS", "Android", "Claude Code"]
+role: "Solo — product owner"
+links:
+  live: "https://bachdang.taiphanvan.dev/en"
+  github: ""
+order: 5
+featured: true
+---
+
+Bạch Đằng is a choice-driven narrative game for phones. Each chapter is a battle on the Bạch Đằng River — 938, 981, 1288 — staged as water puppetry on a pavilion stage, in woodblock-print colors with folk music. Chapter 1 (938) is playable end to end: 22 scenes, 5 major decisions, 3 tide-reading rounds and 7 endings.
+
+Landing page: [bachdang.taiphanvan.dev](https://bachdang.taiphanvan.dev/en). The mobile version is in progress and playtests are coming soon; the source is not open source. A game by Boolery Studio.
+
+## Background
+
+You play Dương Lãng, the son of a fisherman the whole village calls "the man who guided the invaders". Lãng has to read the tides to lay the stake trap for Ngô Quyền — while the father everyone thought was dead stands at the bow of the Southern Han fleet. Fiction lives only in the gaps the chronicles leave; every recorded event stays the same on every branch.
+
+## Tech stack
+
+- **Web prototype** — JavaScript, SVG, music synthesized with Web Audio. All 22 scenes built and taken through three playtests, now frozen as a working spec.
+- **Godot 4.7 + GDScript** — the mobile version, rebuilt from scratch: landscape, fully offline. Godot won because scenes, animation and data are all plain text files, which suits art drawn in code.
+- **Jointed puppets** — head, torso, two-part arms and legs, bobbing as if on water; a woodblock shader gives the folk-print look.
+- **Tide reading** — the water level follows a diurnal tide; earlier choices widen or narrow the timing window.
+- **Audio** — đàn bầu, bamboo flute, zither, drums, gongs and work chants, all through one master bus.
+- **Release** — Game Center and Google Play Games achievements, GitHub Actions for Android builds, Xcode Cloud for iOS.
+
+## Challenges
+
+Keeping history accurate while the story still branches: players only decide inside the gaps of the record, every detail is tagged with its source tier (chronicle, temple legend, modern inference, fiction), and the chapter ends with a "What really happened" screen. Balance is checked across all 81 decision combinations so no path is always right. On low-end phones, a Pixel 3 used to crash mid-chapter from an image memory leak; fixing the leak, cheapening the shader and dropping render resolution when frames dip kept it at 60 fps.
+
+## Lessons
+
+Build a cheap prototype to prove the story first, then pick the engine for the real thing. When Claude does almost all of the code, art and music, my job is direction and final calls: the project's spirit, the rules for history, the voice of the telling.
