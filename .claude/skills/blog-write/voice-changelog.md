@@ -56,7 +56,7 @@ Format mỗi entry:
 
 ---
 
-## Session 2026-10-29-bach-dang-tap-lam-game-bang-roi-nuoc (~1 round, chưa merge vào voice-profile.md)
+## Session 2026-10-29-bach-dang-tap-lam-game-bang-roi-nuoc (~1 round, đã merge vào voice-profile.md + SKILL.md)
 
 Bro không sửa prose, chỉ sửa nội dung: mốc chơi thử 02/11 bị hoãn.
 

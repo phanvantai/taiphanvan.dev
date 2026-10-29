@@ -9,7 +9,7 @@ description: Co-write a Vietnamese blog post for taiphanvan.dev in Tai's voice t
 
 Đồng hành với bro qua loop **draft → bro sửa → skill review → bro sửa → ... → OK → publish**. Skill học giọng qua từng bài để rút ngắn dần thời gian từ outline → published.
 
-Output cuối: file MDX trong `content/blog/YYYY-MM-DD-slug.mdx` với frontmatter chuẩn của site này. Bro tự commit + push.
+Output cuối: bài MDX ở cả hai locale — `content/vi/blog/YYYY-MM-DD-slug.mdx` và bản dịch `content/en/blog/YYYY-MM-DD-slug.mdx` — với frontmatter chuẩn của site này, commit và push lên `main`.
 
 ## Voice — luôn đọc trước khi draft
 
@@ -28,7 +28,7 @@ Bro sẽ đưa dàn ý ở 1 trong các format:
 
 Hỏi gọn nếu thiếu:
 - **Tiêu đề / hint tiêu đề?** Nếu chưa rõ, propose 2–3 phương án dựa dàn ý.
-- **Tags?** Tham khảo tags trong các bài cũ ở `content/blog/`. Đề xuất nếu bro chưa nói.
+- **Tags?** Tham khảo tags trong các bài cũ ở `content/vi/blog/`. Đề xuất nếu bro chưa nói.
 - **Featured?** Mặc định `false` trừ khi bro bảo featured.
 - **Description (1–2 câu hook cho card + OG)?** Có thể propose sau khi draft xong nếu bro muốn để cuối.
 
@@ -76,11 +76,14 @@ Bro sửa tiếp → loop tiếp. Lặp đến khi bro nói "OK", "ship", "publi
 
 1. Confirm cuối: title, slug, date, tags, description, featured. Slug từ title (lowercase, dấu Việt → ASCII, space → `-`, bỏ ký tự đặc biệt).
 2. Date dùng `Today's date` từ environment (system reminder ở đầu conversation), format `YYYY-MM-DD`.
-3. File path: `content/blog/<date>-<slug>.mdx`.
+3. File path: `content/vi/blog/<date>-<slug>.mdx`.
 4. Render frontmatter theo [templates/frontmatter.mdx](templates/frontmatter.mdx).
 5. Source content **lấy từ `working.md`** (đó là final user-edited version), không phải `draft-0.md`.
-6. Ghi file. **KHÔNG commit, KHÔNG push** — bro tự làm.
-7. Confirm với bro path file vừa ghi.
+6. **Bản tiếng Anh luôn đi kèm**: dịch sang `content/en/blog/<date>-<slug>.mdx`, cùng filename (slug giữ nguyên tiếng Việt), cùng date/tags. Title, description, body dịch tự nhiên — không dịch word-by-word. Link sang site ngoài có bản `/en` thì trỏ bản `/en`.
+7. Bài về một product có trang `/work/<slug>` thì thêm link "Câu chuyện đằng sau" / "The story behind it" ở trang work của **cả hai** locale.
+8. Chạy `pnpm build` để chắc route mới render được.
+9. Commit (`content: add <topic> blog post`) kèm folder `sessions/<date>-<slug>/`, rồi **push lên `main`**. Bro nói "đẩy lên" / "ship" / "publish" là đủ quyền cho cả bước này — không hỏi lại.
+10. Báo bro path hai file + commit hash.
 
 ### Phase 5 — Learning (sau publish)
 
@@ -106,7 +109,7 @@ Bro sửa tiếp → loop tiếp. Lặp đến khi bro nói "OK", "ship", "publi
    ### Keep
    - <pattern đã đúng, không cần đổi>
    ```
-4. Bro confirm → skill ghi vào voice-profile.md (giữ structure file). Nếu bro skip, ghi vào `voice-changelog.md` (append-only) để session sau xem lại.
+4. Bro confirm (hoặc bảo "xử lí hết") → skill ghi vào voice-profile.md (giữ structure file), commit + push. Nếu bro skip, ghi vào `voice-changelog.md` (append-only) để session sau xem lại.
 5. Optional: clean up `sessions/<date>-<slug>/` nếu thư mục `sessions/` quá 10 entries (giữ 10 bài gần nhất để có thể trace lại).
 
 ## Frontmatter

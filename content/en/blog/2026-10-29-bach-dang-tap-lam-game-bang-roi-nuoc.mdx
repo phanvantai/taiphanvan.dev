@@ -1,0 +1,76 @@
+---
+title: "Bạch Đằng: learning game dev with water puppets"
+description: "My first game: the Battle of Bạch Đằng in 938, retold with water puppetry, woodblock-print colors and tides you have to read just right."
+date: "2026-10-29"
+tags: ["bach-dang", "gamedev", "godot", "ai-coding"]
+published: true
+featured: false
+---
+
+I had never made a game. I've shipped a few apps, but games are a different world: there's a script, a rhythm, and that "game feel" I only knew from... playing =)). For the past month I've been learning by building my first game, [Bạch Đằng](/work/bach-dang).
+
+The theme didn't take long to pick. Vietnamese history has battles everyone here knows by heart — the stake field, the tide, enemy ships stranded — yet they rarely get told as games. And for the visuals there was already something unmistakably Vietnamese that people abroad recognize at a glance: water puppetry.
+
+## A narrative game on the Bạch Đằng River
+
+Bạch Đằng is a choice-driven narrative game. Each chapter is a battle on the Bạch Đằng River: Ngô Quyền in 938, Lê Hoàn in 981, Trần Hưng Đạo in 1288. So far I've only built chapter 1, simply titled **938**.
+
+You play Dương Lãng, the son of a fisherman the whole village calls "the man who guided the invaders". Lãng is taken in by Dương Đình Nghệ as an adopted son, and later has to read the tides to lay the stake trap for Ngô Quyền — while the father everyone thought was dead stands at the bow of the Southern Han fleet. The question running through the chapter: _"As a son, whom do you owe?"_
+
+One playthrough takes about 35–45 minutes, with 22 scenes, 5 major decisions and 7 endings.
+
+## Water puppets, woodblock prints and Chú Tễu
+
+My favorite part is the staging. Characters are jointed puppets — head, torso, two-part arms — bobbing as if on water, performing on a water pavilion stage. The colors come from Vietnamese folk woodblock prints: điệp paper, vermilion, sophora yellow, indigo. The music is đàn bầu, bamboo flute, drums, gongs and fishermen's net-hauling chants.
+
+Just like a real water puppet show, **Chú Tễu** — the traditional jester puppet — opens and closes the performance. Tễu is drawn in the Đông Hồ print style and stays outside the story. Between acts, when the vermilion curtain closes, Tễu steps out to crack a few jokes with the audience — but never about death or about history.
+
+The game also follows a "show, don't tell" rule: scenes play on their own in segments like a film, subtitles are at most 2 lines, and you only tap at the end of a segment, to choose, or to interact. Scene 1 runs about 3 minutes and needs just 4 taps.
+
+## History is the backbone
+
+A history game slides easily into one of two extremes: twisting facts for drama, or sounding like propaganda. So before writing a single scene, I set a few rules:
+
+- **Recorded history stays the same on every branch**: players only decide inside the gaps the chronicles leave.
+- **Fiction is labeled**: every detail carries a source tier — [CS] official chronicles, [TT] temple legends, [SL] modern inference, [HC] fiction.
+- **The enemy are real people**: the Southern Han side has the clever and the foolish, and advisers who were right. Beating a formidable opponent is what gives a victory weight.
+- **Losing doesn't change history**: bad endings always close with _"But that is not how history went."_
+
+The chapter ends with a **"What really happened"** screen that separates what the chronicles record from what the game adds. One fun detail: Hoằng Tháo died at Bạch Đằng, but the Toàn thư, the Cương mục and the New History of the Five Dynasties each tell it differently. The player's final choice lines up with one of those three accounts.
+
+## Reading the tide
+
+Besides the choices, the core mechanic is **reading the tide**, over 3 rounds: drag a mark on a bamboo pole to set the stake height, send out the decoy boats, and wave the flag to attack. The water level follows a diurnal tide — slow near the peak, fast as it drains mid-ebb. Earlier choices feed into it too: the better you understand the river, the wider the timing window.
+
+The part I like most is trust becoming a mechanic. When Ngô Quyền doesn't trust Lãng yet, Tam Kha holds the flag, and it waves a beat later than your tap.
+
+For balance, I ran all 81 decision combinations: with good tide reading most paths reach the best ending, with average tide reading none do, and no combination is always right.
+
+## Web first, Godot second
+
+The first version was on the web — JavaScript, SVG, music synthesized with Web Audio. Going from script to all 22 animated scenes took about two days, then three rounds of playtests and fixes based on the feedback.
+
+The story held up, but phones didn't: the layout broke, so the web version had to block phones for now. Instead of patching it, I treated the web version as a **working spec** and rebuilt the game from scratch for iOS and Android in Godot 4.7.
+
+The reason for Godot was practical. The art is drawn in code, so an engine that keeps everything — scenes, animation, data — in plain text files is far faster than one built around drag-and-drop in an editor.
+
+Porting the 22 scenes to Godot went in 5 batches and took a single day. The hard part was real hardware: an old Pixel 3 crashed right at scene 9 from an image memory leak. It took fixing the leak, hiding the scene behind the tide-reading screen, cheapening the woodblock shader and dropping render resolution when frames dip to hold 60 fps.
+
+## Claude builds, I decide
+
+Code, vector art, synthesized music, docs — almost all of it is Claude's work. My role is direction and final calls: the project's spirit, the rules for history, the voice of the telling, what stays and what gets cut.
+
+Everything goes through an _analyze → revise → lock_ loop, and the latest locked version wins. The script was rewritten three times in one day, the storyboards were reviewed scene by scene, and the text of all 22 scenes was rewritten in the voice of a puppet troupe storyteller. Having Tễu step out three times between acts was also a call I made after weighing it.
+
+<Callout type="info">
+  Claude can't replace historians or tide experts. That's fine for a playtest build, but before a
+  public release the game needs people with real expertise to review the history and the tides.
+</Callout>
+
+Recently I added [Claude Code Game Studios](https://github.com/donchitos/claude-code-game-studios) — a set of agents, skills and hooks that sets up a game studio's workflow — to build a new gameplay loop: **questioning**. In the scene hunting for the traitor, Lãng has to question people one by one, link testimony cards in the Notebook and refute each accusation with evidence, all within 6 questions.
+
+## Almost on stage
+
+Next up is a playtest of chapter 1 on phones. If you want an early seat at the show, sign up at [bachdang.taiphanvan.dev](https://bachdang.taiphanvan.dev/en) =)).
+
+The vermilion curtain is about to open. See you in the next post, once the first playtest feedback is in.
