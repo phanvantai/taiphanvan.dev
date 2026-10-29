@@ -53,3 +53,20 @@ Format mỗi entry:
 
 - Workflow gap: bro edit `draft-0.md` trực tiếp → diff so sánh phải dùng chat history thay vì 2 file. Đã fix SKILL.md: Phase 3 sẽ copy `draft-0.md` thành `working.md` ngay khi enter loop, giữ `draft-0` immutable.
 - Title của voice profile sẽ test session sau: kỳ vọng round count drop về 1–2.
+
+---
+
+## Session 2026-10-29-bach-dang-tap-lam-game-bang-roi-nuoc (~1 round, chưa merge vào voice-profile.md)
+
+Bro không sửa prose, chỉ sửa nội dung: mốc chơi thử 02/11 bị hoãn.
+
+### Đề xuất
+
+- **Avoid**: ghi ngày / mốc kế hoạch cụ thể (vd. "Ngày 02/11 chương 1 lên điện thoại") và chi tiết thủ tục (luật 14 ngày / 12 người của Google Play) ở phần kết. Kế hoạch chưa chắc thì "nói qua qua": "Bước tiếp theo là mời chơi thử…".
+- **Workflow**: "đẩy lên" = publish + commit + push lên `main`, không chỉ ghi file. Cân nhắc sửa Phase 4 của SKILL.md (hiện ghi "KHÔNG commit, KHÔNG push").
+
+### Keep
+
+- Bài AI-built: nhắc qua Claude, focus vai định hướng + chốt.
+- Credit nguồn kèm link tại chỗ (Claude Code Game Studios).
+- 1 Callout/bài, `=))` ở mở bài và kết, kết bằng hook bài sau.
