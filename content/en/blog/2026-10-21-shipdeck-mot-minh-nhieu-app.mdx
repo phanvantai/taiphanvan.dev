@@ -1,0 +1,81 @@
+---
+title: "Shipdeck: one person, many apps"
+description: "Jumping between products, I kept forgetting where each app stood and what was still pending. So I built Shipdeck — one window for the whole portfolio."
+date: "2026-10-21"
+tags: ["shipdeck", "macos", "ai-coding", "indie"]
+published: true
+featured: false
+---
+
+I run several products in parallel — QuickSpend, Examino, PES Arena, plus this site. Building many things is fun, but the price is context switching: this week I push QuickSpend, next week I jump to Examino, and by the time I come back I have no idea where the app stands, which commits haven't shipped, or which reviews are still waiting for a reply =)).
+
+Every return is an archaeology dig: `git log`, App Store Connect, old notes. After a few rounds of that I knew something had to change — a new workflow, a tool, some automation. It also happens that rebuilding apps from scratch is a trend right now — [ArtCraft](https://getartcraft.com) is rebuilding Adobe's whole suite — so I built a new app for my own needs too: Shipdeck.
+
+## What Shipdeck is
+
+Shipdeck is a native macOS app (SwiftUI) that puts all my products in one window. Each product has one or more components — an iOS app, a backend, a landing page — spread across one or more repos.
+
+Open the app and the Overview sorts products into 4 groups, each with a plain reason:
+
+- **Needs a release**: like "5 commits since 2.3.0 went live".
+- **In progress**: uncommitted or unpushed files.
+- **Quiet for a while**: no commits in a long time.
+- **All good**: shipped, nothing pending.
+
+This part runs with no AI at all. Shipdeck reads git, manifest versions, Sparkle appcasts and iTunes Lookup on its own. Boring tech — fast, reliable, zero tokens.
+
+## Claude reads the repo, I decide
+
+Adding a product only takes picking a folder. A headless, read-only Claude Code session surveys the repo: splits components, finds build/test commands, services, docs, and looks the app up on the stores. Then I review each step; every field the AI filled in shows its source right next to it, one click away.
+
+The survey runs in `--restricted` mode with no shell, and git-ignored files and secrets like `.env` are blocked — including non-ASCII filenames and files inside submodules.
+
+When the code changes there's **Sync with Code**: it re-surveys based on the commits since last time, lists every field that changed (old → new), and saves only the ones I tick. All product data lives in a single local `products.json`; nothing is written into repos.
+
+## App Store Connect next to the code
+
+Add an App Store Connect key (stored in the keychain) and every iOS app gets an App Store tab: versions, review state, phased release, TestFlight builds, tester feedback, user reviews. Releasing a version or replying to a review happens right in the app, with a confirmation step.
+
+No more opening a dozen browser tabs to find out which app is "Waiting for Review".
+
+## The agent has to ask before touching Apple
+
+This is my favorite part. Each product can open a Claude Code session right inside Shipdeck (an embedded terminal built on SwiftTerm), and the session keeps running when I switch to another product.
+
+I want the agent to use Shipdeck — read product state, check the App Store, reply to reviews — but I don't want it touching Apple on its own. So every change, mine or the agent's, goes through an action layer. I borrowed this idea from ArtCraft: every action is a command with a stable id, so the GUI, the CLI and MCP all call the same path. Each action has a tier:
+
+- **read**: reads information, runs freely.
+- **local**: changes data on this machine.
+- **remote**: calls out, like replying to a review.
+- **publish**: something users can see, like releasing a version.
+- **owner**: only I can do it.
+
+The agent calls Shipdeck over a Unix socket, the `shipdeck` command or an MCP server, and stays locked inside its session's product. `remote` and `publish` actions wait in an approval inbox: Allow Once, Deny with a reason (the agent can read it), or Always Allow for that product only — `publish` asks every single time. Every run is written to `journal.jsonl` so it can be traced later.
+
+<Callout type="info">
+  The original post was written in a Claude Code session running inside Shipdeck =)).
+</Callout>
+
+## 3 days, from 0.1.0 to 0.6.3
+
+Claude Code wrote the code — nothing unusual about that anymore. My job was product owner: say clearly what I want, use it for real every day, and make it fix whatever felt off. A few things I asked for directly or caught myself:
+
+- **The agent must not touch Apple on its own** → approval inbox and permission rules (0.6.0).
+- **AI must not overwrite data on its own** → Sync with Code saves only the fields I tick (0.6.1).
+- **A stranger installing it has to get it running** → checks for missing Claude Code or Command Line Tools, shows exactly what Claude Code printed when a survey fails, adds a Send Feedback button (0.6.2).
+- **Claude's input box drifted on scroll** → turned on Claude Code's full-screen renderer so the input always sits at the bottom (0.6.3).
+- **Small UI bugs**: the Add Key sheet collapsed and lost its fields, toolbar tabs got clipped when switching products (0.4.4–0.4.5).
+- **Auto-update wouldn't reach 0.4.0** → the root cause was zsh not splitting `${sha:+-f sha=$sha}` into two arguments, so GitHub rejected the appcast update. A tiny bug that ate a whole afternoon.
+
+Three days, 21 commits, 14 releases with auto-update through Sparkle, properly signed and notarized. A few years ago I wouldn't have dreamed of that pace.
+
+## What's next
+
+Shipdeck isn't public yet, and I'm still working on a few features:
+
+- **Google Play** in the Overview — most indie mobile devs ship Android too, and without it this isn't really "every product in one place".
+- **Marketing**: draft posts from real product data (version, commits since the last release, release notes), which I edit and post myself.
+
+After that I'll invite 10–20 real users, fix whatever trips them up, and only then think about a launch. The bar I set isn't downloads — it's whether they still open the app a week later.
+
+When there's a build for you to try, I'll write again. For now, back to shipping.
