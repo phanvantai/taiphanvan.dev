@@ -7,7 +7,7 @@ export const siteConfig = {
   author: {
     name: "Phan Văn Tài",
     handle: "@phanvantai",
-    email: "taipv.swe@gmail.com",
+    email: "hello@taiphanvan.dev",
   },
   social: {
     github: "https://github.com/phanvantai",

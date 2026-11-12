@@ -6,7 +6,7 @@ Checklist các chỗ còn để trống trong codebase. Tick từng cái sau khi
 
 ### Identity & social — [src/lib/site-config.ts](src/lib/site-config.ts)
 
-- [x] `author.email` → `taipv.swe@gmail.com`
+- [x] `author.email` → `hello@taiphanvan.dev`
 - [x] `author.handle` → `@phanvantai` (đã sửa từ stale `@taiphanvan`)
 - [x] `social.github` → `https://github.com/phanvantai`
 - [ ] `social.twitter` — đang `""` (intentionally empty, filter ẩn)
