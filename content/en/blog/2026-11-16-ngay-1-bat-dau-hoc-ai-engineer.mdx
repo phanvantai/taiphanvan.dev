@@ -33,7 +33,43 @@ The first lesson covered three foundational LLM concepts, and I tried to underst
 
 The practice for lesson one is built into the app itself: a `compare` command runs the same text at temperature 0.2 and 0.9, puts the two summaries side by side, and prints the token usage of each call.
 
-Real numbers from today's run with Gemini (`gemini-3.5-flash-lite`): the sample text cost 247 input tokens, and each summary cost about 100 output tokens. The two summaries agree on the content, but the 0.9 one phrases things more freely, exactly as the theory predicts.
+```bash
+python -m app.main compare --file sample.txt
+```
+
+Inside the app, the temperature goes straight into the request's `generation_config` sent to Gemini, and the token counts are read from the `usage` object the API returns after every call:
+
+```python
+body = {"model": self.model, "input": prompt}
+if temperature is not None:
+    body["generation_config"] = {"temperature": temperature}
+# ... send the request ...
+usage = data.get("usage", {})
+input_tokens = usage.get("total_input_tokens", 0)
+output_tokens = usage.get("total_output_tokens", 0)
+```
+
+And here is the actual output of the app, verbatim (the sample text and summaries are in Vietnamese):
+
+```text
+--- Temperature 0.2 (ổn định, bám sát gốc) (model: gemini-3.5-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ trợ kỹ sư viết code,
+sửa lỗi và xử lý tài liệu, giúp họ chuyển trọng tâm từ công việc lặp lại sang thiết kế
+hệ thống và giải quyết bài toán. Tuy nhiên, việc ứng dụng AI cũng đặt ra các thách thức
+mới về chi phí, độ trễ, tính chính xác và bảo mật dữ liệu, đòi hỏi kỹ sư phải biết cách
+đánh giá, kiểm soát và xây dựng sản phẩm an toàn.
+[token] vào: 247, ra: 104, tổng: 351
+
+--- Temperature 0.9 (đa dạng, dễ thêm ý) (model: gemini-3.5-flash-lite, temperature: 0.9) ---
+Trí tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ trợ viết code, sửa lỗi
+và xử lý tài liệu, giúp kỹ sư chuyển trọng tâm từ công việc lặp lại sang thiết kế hệ thống
+và kiểm chứng chất lượng. Tuy nhiên, việc ứng dụng AI cũng đặt ra các thách thức mới về
+chi phí, độ trễ, bảo mật và độ chính xác, đòi hỏi kỹ sư phải biết đánh giá chất lượng và
+xây dựng sản phẩm an toàn.
+[token] vào: 247, ra: 99, tổng: 346
+```
+
+The two summaries agree on the content, but the 0.9 one phrases things more freely, exactly as the theory predicts. Input tokens are identical because the prompt is the same; output tokens differ slightly because each answer has a different length.
 
 A few technical notes from day one:
 
@@ -43,6 +79,6 @@ A few technical notes from day one:
 
 ## What's next
 
-Still in the foundations phase: call a second model for comparison, add streaming so the app types out its answers, and wrap the app in FastAPI. Each finished piece makes the app a little bigger, and gives this journal its next post.
+Following the roadmap, the next day is still in the foundations phase: I will try a different model, add streaming, and use FastAPI.
 
-Learning in public adds a bit of pressure, but that is the point: once it is written down, it has to get done.
+It is a journey, and a habit of taking one small step every day. I believe that accumulating like this will add up to enough quality for the final project.
