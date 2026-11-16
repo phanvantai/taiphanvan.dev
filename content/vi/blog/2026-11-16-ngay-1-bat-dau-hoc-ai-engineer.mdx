@@ -33,7 +33,43 @@ Bài đầu tiên là ba khái niệm nền tảng của LLM, và mình cố hi�
 
 Phần thực hành của bài 1 nằm ngay trong app: lệnh `compare` chạy cùng một nội dung ở hai mức temperature 0.2 và 0.9, đặt hai bản tóm tắt cạnh nhau và hiện số token đã dùng sau mỗi lần gọi.
 
-Kết quả chạy thật hôm nay với Gemini (`gemini-3.5-flash-lite`): văn bản mẫu tốn 247 token đầu vào, mỗi bản tóm tắt tốn khoảng 100 token đầu ra. Hai bản tóm tắt khá giống nhau về ý, nhưng bản 0.9 diễn đạt khác đi nhiều hơn, đúng như lý thuyết.
+```bash
+python -m app.main compare --file sample.txt
+```
+
+Bên trong app, temperature được truyền thẳng vào `generation_config` của request gửi tới Gemini, còn số token thì đọc từ `usage` mà API trả về sau mỗi lần gọi:
+
+```python
+body = {"model": self.model, "input": prompt}
+if temperature is not None:
+    body["generation_config"] = {"temperature": temperature}
+# ... gửi request ...
+usage = data.get("usage", {})
+input_tokens = usage.get("total_input_tokens", 0)
+output_tokens = usage.get("total_output_tokens", 0)
+```
+
+Và đây là kết quả chạy thật, nguyên văn output của app:
+
+```text
+--- Temperature 0.2 (ổn định, bám sát gốc) (model: gemini-3.5-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ trợ kỹ sư viết code,
+sửa lỗi và xử lý tài liệu, giúp họ chuyển trọng tâm từ công việc lặp lại sang thiết kế
+hệ thống và giải quyết bài toán. Tuy nhiên, việc ứng dụng AI cũng đặt ra các thách thức
+mới về chi phí, độ trễ, tính chính xác và bảo mật dữ liệu, đòi hỏi kỹ sư phải biết cách
+đánh giá, kiểm soát và xây dựng sản phẩm an toàn.
+[token] vào: 247, ra: 104, tổng: 351
+
+--- Temperature 0.9 (đa dạng, dễ thêm ý) (model: gemini-3.5-flash-lite, temperature: 0.9) ---
+Trí tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ trợ viết code, sửa lỗi
+và xử lý tài liệu, giúp kỹ sư chuyển trọng tâm từ công việc lặp lại sang thiết kế hệ thống
+và kiểm chứng chất lượng. Tuy nhiên, việc ứng dụng AI cũng đặt ra các thách thức mới về
+chi phí, độ trễ, bảo mật và độ chính xác, đòi hỏi kỹ sư phải biết đánh giá chất lượng và
+xây dựng sản phẩm an toàn.
+[token] vào: 247, ra: 99, tổng: 346
+```
+
+Hai bản tóm tắt khá giống nhau về ý, nhưng bản 0.9 diễn đạt khác đi nhiều hơn, đúng như lý thuyết. Token đầu vào bằng nhau vì cùng một prompt, token đầu ra lệch nhau một chút vì độ dài câu trả lời mỗi lần chạy một khác.
 
 Vài ghi chú kỹ thuật của ngày đầu:
 
@@ -43,6 +79,6 @@ Vài ghi chú kỹ thuật của ngày đầu:
 
 ## Ngày tiếp theo
 
-Vẫn ở giai đoạn nền tảng: gọi thêm một model thứ hai để so sánh, thêm streaming cho app trả chữ dần, và bọc app bằng FastAPI. Mỗi phần xong, app lại lớn thêm một chút, và nhật ký này lại có thêm một bài.
+Theo lộ trình thì ngày tiếp theo sẽ vẫn là giai đoạn nền tảng, mình sẽ thử model khác, thêm streaming, dùng FastAPI.
 
-Học công khai hơi áp lực, nhưng đó chính là mục đích: đã viết ra là phải làm thật.
+Đó là một hành trình và thói quen làm mỗi bước nhỏ hằng ngày, mình tin là sẽ tích luỹ đủ chất lượng cho project cuối cùng.
