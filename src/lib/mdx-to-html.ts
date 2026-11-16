@@ -8,6 +8,8 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
+import type { ContentFormat } from "@/types/post";
+
 /**
  * Convert MDX source → static HTML for use in RSS feeds.
  *
@@ -16,10 +18,10 @@ import { visit } from "unist-util-visit";
  * For more nuanced rendering we'd need server-render the React tree, but
  * that's overkill for RSS.
  */
-export async function mdxToHtml(source: string): Promise<string> {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkMdx)
+export async function mdxToHtml(source: string, format: ContentFormat = "mdx"): Promise<string> {
+  const parser = unified().use(remarkParse);
+  if (format === "mdx") parser.use(remarkMdx);
+  const file = await parser
     .use(remarkGfm)
     .use(stripMdxJsx)
     .use(remarkRehype, { allowDangerousHtml: false })

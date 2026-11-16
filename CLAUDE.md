@@ -40,6 +40,9 @@ See [docs/STACK.md](docs/STACK.md) for version and migration notes.
 - `src/proxy.ts` redirects `/` to the default locale.
 - `src/lib/mdx.ts` reads localized file-backed content from `content/{vi,en}/`.
 - Blog filenames use `YYYY-MM-DD-slug.mdx`; unpublished posts are filtered out.
+- `/api/mcp` is an MCP server that lets external AI tools publish posts by committing
+  `content/{locale}/blog/*.md` through the GitHub API (`src/lib/publish/`). `.md` posts compile as
+  plain Markdown, `.mdx` as MDX. See [docs/PUBLISHING.md](docs/PUBLISHING.md).
 
 Content directories are the source of truth. Do not auto-generate or rewrite prose unless the user
 asks for content changes.

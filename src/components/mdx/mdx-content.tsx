@@ -8,6 +8,7 @@ import { Callout } from "@/components/mdx/callout";
 import { MdxImage } from "@/components/mdx/mdx-image";
 import { MdxLink } from "@/components/mdx/mdx-link";
 import { Pre } from "@/components/mdx/pre";
+import type { ContentFormat } from "@/types/post";
 
 const prettyCodeOptions: PrettyCodeOptions = {
   theme: {
@@ -27,15 +28,18 @@ const components: MDXRemoteProps["components"] = {
 
 interface Props {
   source: string;
+  /** "md" compiles the source as plain Markdown: no JSX, no expressions. */
+  format?: ContentFormat;
 }
 
-export function MdxContent({ source }: Props) {
+export function MdxContent({ source, format = "mdx" }: Props) {
   return (
     <MDXRemote
       source={source}
       components={components}
       options={{
         mdxOptions: {
+          format,
           remarkPlugins: [remarkGfm],
           rehypePlugins: [
             rehypeSlug,

@@ -30,6 +30,9 @@ Set cho Production, Preview, và Development khi cần:
 
 Hai biến đều có default hợp lệ trong code; khai báo rõ trên Vercel giúp cấu hình dễ nhìn hơn.
 
+Để đăng bài qua MCP cần thêm `MCP_PUBLISH_TOKEN` và `CONTENT_GITHUB_TOKEN` (chỉ Production) — xem
+[PUBLISHING.md](PUBLISHING.md).
+
 ## 3. First deploy
 
 Push lên `main`; Vercel tự install và build. Trong build log cần thấy compile, TypeScript và static

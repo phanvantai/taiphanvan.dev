@@ -132,7 +132,7 @@ export default async function PostPage({ params }: PageProps) {
         )}
 
         <div className="prose prose-neutral dark:prose-invert prose-headings:scroll-mt-20 prose-headings:tracking-tight prose-pre:p-0 max-w-none">
-          <MdxContent source={post.content} />
+          <MdxContent source={post.content} format={post.format} />
         </div>
 
         {related.length > 0 && (

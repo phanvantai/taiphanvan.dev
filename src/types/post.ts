@@ -1,3 +1,5 @@
+export type ContentFormat = "md" | "mdx";
+
 export interface PostFrontmatter {
   title: string;
   description: string;
@@ -11,6 +13,8 @@ export interface PostFrontmatter {
 export interface Post extends PostFrontmatter {
   slug: string;
   content: string;
+  /** How `content` must be compiled: hand-written MDX, or plain Markdown. */
+  format: ContentFormat;
   readingTime: number; // minutes (rounded)
 }
 

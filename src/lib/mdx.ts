@@ -69,6 +69,8 @@ function parsePost(locale: Locale, filename: string): Post | null {
     featured: fm.featured ?? false,
     cover: fm.cover,
     content,
+    // `.md` posts (published through the MCP endpoint) are plain Markdown.
+    format: filename.endsWith(".md") ? "md" : "mdx",
     readingTime: minutes,
   };
 }

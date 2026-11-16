@@ -22,7 +22,7 @@ export async function GET() {
   const items = await Promise.all(
     posts.map(async (post) => {
       const full = getPostBySlug(defaultLocale, post.slug);
-      const html = full ? await mdxToHtml(full.content) : "";
+      const html = full ? await mdxToHtml(full.content, full.format) : "";
       const url = `${siteConfig.url}${withLocale(defaultLocale, `/blog/${post.slug}`)}`;
       return { post, url, html };
     }),
