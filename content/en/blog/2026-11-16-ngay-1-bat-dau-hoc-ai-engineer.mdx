@@ -1,0 +1,48 @@
+---
+title: "Day 1: Starting my AI Engineer journey, and the decision to build only one project"
+description: "Day one of teaching myself AI engineering: why I dropped the one-project-per-phase plan, committed to a single AI document assistant, and what I learned about tokens, context windows, and temperature."
+date: "2026-11-16"
+tags: ["ai-engineer", "learning-in-public", "llm", "gemini"]
+published: true
+featured: false
+---
+
+I'm Tai, a software engineer who mostly builds products. Today I officially started teaching myself to become an AI Engineer, and I decided to learn in public: the code lives in a public repo, [assistant-intelligence-learning](https://github.com/phanvantai/assistant-intelligence-learning), and the learning journal lives here, one post per day.
+
+## The most important decision: only one project
+
+My roadmap originally had several phases, each with its own separate project. It looked tidy on paper, but I know myself: pure theory fades fast, and a project that gets abandoned after each phase is barely better than not building it at all.
+
+So I changed the rules:
+
+- The whole journey has **exactly one project**: an AI document assistant.
+- Every topic I learn adds **one small piece** to that same project, like shipping a real product version by version.
+- Practice is not a throwaway experiment script. It is a real feature of the app. Skipping is not an option, because skipping means the app is missing a feature.
+
+## What I learned today: tokens, context window, temperature
+
+The first lesson covered three foundational LLM concepts, and I tried to understand them from a product builder's perspective:
+
+**Tokens** are the units a model reads and writes in, and also the unit you get billed for. A Vietnamese sentence usually costs more tokens than the same sentence in English. The cost of one model call is not just the user's question: it includes the system prompt, the entire chat history resent every turn, any documents stuffed into the prompt, and the length of the answer.
+
+**The context window** is the maximum number of tokens a model can see in a single call. This is why chatbots "forget" what was said a hundred turns ago: the start of the conversation has fallen out of the window. If a product needs long-term memory, you have to extract and store the important information yourself instead of hoping the model remembers.
+
+**Temperature** controls how randomly the model picks the next token. Tasks that need accuracy and repeatability, like data extraction, should use a low temperature around 0.2. Creative tasks, like brainstorming product names, can go up to 0.9.
+
+## Practice: the app's first feature actually runs
+
+The practice for lesson one is built into the app itself: a `compare` command runs the same text at temperature 0.2 and 0.9, puts the two summaries side by side, and prints the token usage of each call.
+
+Real numbers from today's run with Gemini (`gemini-3.5-flash-lite`): the sample text cost 247 input tokens, and each summary cost about 100 output tokens. The two summaries agree on the content, but the 0.9 one phrases things more freely, exactly as the theory predicts.
+
+A few technical notes from day one:
+
+- I picked Gemini as the first provider because Google AI Studio gives you a free API key. The model-calling code sits in its own layer, so swapping providers later does not mean rewriting the app.
+- An API key is a secret: mine lives in a secure vault and a local `.env` file, never in a commit. The repo only has an empty `.env.example`.
+- One small surprise: Google has retired the Gemini 2.5 models for new users, so the app runs on a 3.5-generation model. Documentation that is a few months old can already be wrong.
+
+## What's next
+
+Still in the foundations phase: call a second model for comparison, add streaming so the app types out its answers, and wrap the app in FastAPI. Each finished piece makes the app a little bigger, and gives this journal its next post.
+
+Learning in public adds a bit of pressure, but that is the point: once it is written down, it has to get done.
