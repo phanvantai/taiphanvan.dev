@@ -1,0 +1,48 @@
+---
+title: "Ngày 1: Bắt đầu học AI Engineer, và quyết định chỉ làm đúng một project"
+description: "Ngày đầu tự học AI Engineer: vì sao mình bỏ kiểu mỗi giai đoạn một project, chỉ làm một trợ lý tài liệu AI duy nhất, và bài học đầu tiên về token, context window, temperature."
+date: "2026-11-16"
+tags: ["ai-engineer", "learning-in-public", "llm", "gemini"]
+published: true
+featured: false
+---
+
+Mình là Tai, một software engineer chủ yếu làm sản phẩm. Hôm nay mình chính thức bắt đầu tự học để trở thành AI Engineer, và mình quyết định học công khai: code để ở repo public [assistant-intelligence-learning](https://github.com/phanvantai/assistant-intelligence-learning), còn nhật ký học thì viết ở đây, mỗi ngày một bài.
+
+## Quyết định quan trọng nhất: chỉ làm một project duy nhất
+
+Ban đầu lộ trình của mình được chia thành nhiều giai đoạn, mỗi giai đoạn một project riêng. Nghe thì gọn, nhưng mình biết tính mình: học lý thuyết thuần túy thì quên rất nhanh, còn project làm xong rồi bỏ thì vài tuần sau cũng như chưa làm.
+
+Vậy nên mình đổi luật chơi:
+
+- Cả hành trình chỉ có **một project duy nhất**: một trợ lý tài liệu AI.
+- Mỗi phần học chỉ thêm **một phần nhỏ** vào chính project đó, giống như phát triển một sản phẩm thật theo từng phiên bản.
+- Phần thực hành không phải script thí nghiệm làm xong rồi xoá, mà là tính năng thật của app. Muốn skip cũng không được, vì skip là app thiếu tính năng =)).
+
+## Hôm nay học được gì: token, context window, temperature
+
+Bài đầu tiên là ba khái niệm nền tảng của LLM, và mình cố hiểu chúng dưới góc độ làm sản phẩm:
+
+**Token** là đơn vị mà model dùng để đọc và viết, đồng thời là đơn vị tính tiền. Một câu tiếng Việt thường tốn nhiều token hơn câu tiếng Anh có cùng nghĩa. Chi phí của một lần gọi model không chỉ nằm ở câu hỏi của người dùng, mà còn ở prompt hệ thống, toàn bộ lịch sử chat được gửi lại mỗi lượt, tài liệu mình nhét vào prompt, và độ dài câu trả lời.
+
+**Context window** là giới hạn tổng số token model có thể nhìn thấy trong một lần gọi. Đây là lý do chatbot "quên" những gì đã nói sau cả trăm lượt chat: phần đầu hội thoại đã tràn ra khỏi cửa sổ ngữ cảnh. Muốn sản phẩm nhớ lâu thì phải chủ động trích xuất và lưu lại thông tin quan trọng, thay vì hy vọng model tự nhớ.
+
+**Temperature** quyết định độ ngẫu nhiên khi model chọn token tiếp theo. Việc cần tính chuẩn xác và lặp lại được, như trích xuất dữ liệu, nên dùng temperature thấp khoảng 0.2. Việc cần sáng tạo, như nghĩ tên sản phẩm, có thể dùng 0.9.
+
+## Thực hành: tính năng đầu tiên của app đã chạy thật
+
+Phần thực hành của bài 1 nằm ngay trong app: lệnh `compare` chạy cùng một nội dung ở hai mức temperature 0.2 và 0.9, đặt hai bản tóm tắt cạnh nhau và hiện số token đã dùng sau mỗi lần gọi.
+
+Kết quả chạy thật hôm nay với Gemini (`gemini-3.5-flash-lite`): văn bản mẫu tốn 247 token đầu vào, mỗi bản tóm tắt tốn khoảng 100 token đầu ra. Hai bản tóm tắt khá giống nhau về ý, nhưng bản 0.9 diễn đạt khác đi nhiều hơn, đúng như lý thuyết.
+
+Vài ghi chú kỹ thuật của ngày đầu:
+
+- Mình dùng Gemini làm provider đầu tiên vì có API key miễn phí từ Google AI Studio. Code được tách lớp gọi model riêng, sau này đổi provider không phải viết lại app.
+- API key là secret: key nằm trong kho bảo mật và file `.env` ở máy local, không bao giờ commit. Trong repo chỉ có `.env.example` để trống.
+- Một bất ngờ nhỏ: các model Gemini 2.5 đã bị Google ngừng cung cấp cho người dùng mới, nên app phải dùng model đời 3.5. Tài liệu trên mạng cũ hơn vài tháng là đã có thể sai.
+
+## Ngày tiếp theo
+
+Vẫn ở giai đoạn nền tảng: gọi thêm một model thứ hai để so sánh, thêm streaming cho app trả chữ dần, và bọc app bằng FastAPI. Mỗi phần xong, app lại lớn thêm một chút, và nhật ký này lại có thêm một bài.
+
+Học công khai hơi áp lực, nhưng đó chính là mục đích: đã viết ra là phải làm thật.
