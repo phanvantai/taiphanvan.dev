@@ -1,0 +1,70 @@
+---
+title: "Day 2: Choosing a model, and teaching the app to count money"
+description: "Day two of learning AI engineering: why there is no best model, how to read Gemini's pricing, and the --model feature that lets my AI document assistant estimate the cost of every call."
+date: "2026-11-17"
+tags: ["ai-engineer", "learning-in-public", "llm", "gemini"]
+published: true
+featured: false
+---
+
+Day 2 is still in the foundations phase. Today's topic sounds simple — choosing a model and calculating cost — but once you build it, you realize it is a real money problem, not theory.
+
+## There is no best model, only the right model for the job
+
+The biggest lesson today: switching models means switching a whole package of trade-offs — quality, speed, and cost. Small models like the flash-lite line are cheap and fast, and good enough for work like summarization and extraction. Larger models are stronger at complex reasoning, but slower and more expensive.
+
+For a document summarizer serving many users, the right default is a small model. You only climb to a bigger one when quality is not enough — long documents, overlapping ideas, summaries that drop key points. And the most reliable way to know which model fits is to measure on your own task, not to trust generic benchmarks.
+
+## How to read AI pricing
+
+Google bills per model, with input and output tokens priced separately, in USD per 1 million tokens. Output tokens are usually much more expensive than input tokens, so the length of the answer is the biggest cost lever you control.
+
+Prices for the three models I use, from Google's official pricing page, checked on 18 November 2026:
+
+| Model | Input / 1M tokens | Output / 1M tokens |
+| --- | --- | --- |
+| gemini-3.5-flash-lite | $0.30 | $2.50 |
+| gemini-3.1-flash-lite | $0.25 | $1.50 |
+| gemini-3.8-flash | $0.75 | $3.75 |
+
+The formula itself is nothing fancy:
+
+```text
+cost = input_tokens × input_price / 1,000,000 + output_tokens × output_price / 1,000,000
+```
+
+The hard part of this lesson was not the formula, it was the docs. Prices change over time — gemini-3.8-flash alone doubles from 1 January 2027 — so a pricing table kept in code has to record its source and the date it was checked. On top of that, the model I wanted to try, gemini-3.8-flash, is currently overloaded and returns 503 errors. A model appearing in the API's list does not mean you can actually call it right now.
+
+## Practice: a --model flag, and the app counts its own cost
+
+Today's feature for the [AI document assistant](https://github.com/phanvantai/assistant-intelligence-learning): a `--model` option on both commands, and cost estimation after every call based on the pricing table above.
+
+```bash
+python -m app.main summarize --file sample.txt
+python -m app.main summarize --file sample.txt --model gemini-3.1-flash-lite
+```
+
+Real output, same text, same temperature 0.2 (summaries in Vietnamese, trimmed):
+
+```text
+--- Tóm tắt (model: gemini-3.5-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang làm thay đổi quy trình phát triển phần mềm bằng cách hỗ trợ viết
+code, sửa lỗi và xử lý tài liệu, giúp kỹ sư chuyển trọng tâm từ công việc lặp lại sang
+thiết kế hệ thống và kiểm chứng chất lượng. [...]
+[token] vào: 247, ra: 105, tổng: 352, chi phí ước tính: $0.000337
+
+--- Tóm tắt (model: gemini-3.1-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang thay đổi quy trình phát triển phần mềm, giúp kỹ sư giảm bớt các
+công việc lặp lại để tập trung vào thiết kế và giải quyết bài toán người dùng. [...]
+[token] vào: 247, ra: 97, tổng: 344, chi phí ước tính: $0.000207
+```
+
+Same 247 input tokens, and the second call is about 40% cheaper: partly because gemini-3.1-flash-lite has lower rates, and partly because it answered shorter (97 output tokens versus 105). Both variables of the cost formula, visible in a single run.
+
+One limitation I noted for later: the app does not separate cached tokens yet — cached input is much cheaper, and right now it is billed at the regular rate in my estimate.
+
+## What's next
+
+Following the roadmap, the rest of the foundations phase is streaming — so the app types out its answer instead of making the user wait for one big block — and then wrapping the app in a proper API with FastAPI.
+
+Same old habit: one small step a day, and the app grows with each step. I believe that accumulating steadily like this will leave me with a project worth looking back on at the end of the road.
