@@ -1,0 +1,70 @@
+---
+title: "Ngày 2: Chọn model, và lần đầu app tự tính được tiền"
+description: "Ngày thứ hai học AI Engineer: vì sao không có model tốt nhất, cách đọc bảng giá Gemini, và tính năng --model giúp trợ lý tài liệu AI tự tính chi phí sau mỗi lần gọi."
+date: "2026-11-17"
+tags: ["ai-engineer", "learning-in-public", "llm", "gemini"]
+published: true
+featured: false
+---
+
+Ngày 2 vẫn ở giai đoạn nền tảng. Bài hôm nay nghe có vẻ đơn giản — chọn model và tính chi phí — nhưng làm rồi mới thấy nó là bài toán tiền thật, không phải lý thuyết.
+
+## Không có model tốt nhất, chỉ có model hợp việc
+
+Bài học lớn nhất của hôm nay: đổi model là đổi cả một gói đánh đổi gồm chất lượng, tốc độ và chi phí. Model nhỏ như dòng flash-lite rẻ và nhanh, đủ tốt cho các việc như tóm tắt hay trích xuất. Model lớn mạnh hơn ở suy luận phức tạp, nhưng chậm và đắt hơn.
+
+Với một app tóm tắt tài liệu phục vụ nhiều người dùng, mặc định đúng là model nhỏ. Chỉ khi chất lượng không đủ — tài liệu dài, nhiều ý chồng chéo, bản tóm tắt bị sót ý — mới leo lên model lớn. Và muốn biết model nào hợp, cách đáng tin nhất là đo trên chính việc của mình, không tin benchmark chung chung.
+
+## Giá AI đọc như thế nào
+
+Google tính tiền theo từng model, tách riêng token đầu vào và đầu ra, đơn vị là USD cho 1 triệu token. Token ra thường đắt hơn token vào khá nhiều, nên độ dài câu trả lời chính là đòn bẩy chi phí lớn nhất.
+
+Giá của ba model mình dùng, tra từ trang giá chính thức của Google ngày 18/11/2026:
+
+| Model | Giá vào / 1M token | Giá ra / 1M token |
+| --- | --- | --- |
+| gemini-3.5-flash-lite | $0.30 | $2.50 |
+| gemini-3.1-flash-lite | $0.25 | $1.50 |
+| gemini-3.8-flash | $0.75 | $3.75 |
+
+Công thức thì không có gì cao siêu:
+
+```text
+chi phí = token_vào × giá_vào / 1.000.000 + token_ra × giá_ra / 1.000.000
+```
+
+Phần mệt của bài này không nằm ở công thức, mà nằm ở docs. Giá thay đổi theo thời gian — riêng gemini-3.8-flash sẽ tăng gấp đôi từ 01/01/2027 — nên bảng giá để trong code phải ghi rõ nguồn và ngày kiểm tra. Chưa kể model mình định thử là gemini-3.8-flash thì đang quá tải, gọi là trả lỗi 503. Danh sách model API liệt kê ra không có nghĩa là model nào cũng gọi được ngay lúc đó.
+
+## Thực hành: thêm --model, app tự tính tiền
+
+Tính năng của hôm nay cho [trợ lý tài liệu AI](https://github.com/phanvantai/assistant-intelligence-learning): thêm tuỳ chọn `--model` cho cả hai lệnh, và để app tự tính chi phí sau mỗi lần gọi dựa trên bảng giá trên.
+
+```bash
+python -m app.main summarize --file sample.txt
+python -m app.main summarize --file sample.txt --model gemini-3.1-flash-lite
+```
+
+Kết quả chạy thật, cùng một văn bản, cùng temperature 0.2:
+
+```text
+--- Tóm tắt (model: gemini-3.5-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang làm thay đổi quy trình phát triển phần mềm bằng cách hỗ trợ viết
+code, sửa lỗi và xử lý tài liệu, giúp kỹ sư chuyển trọng tâm từ công việc lặp lại sang
+thiết kế hệ thống và kiểm chứng chất lượng. [...]
+[token] vào: 247, ra: 105, tổng: 352, chi phí ước tính: $0.000337
+
+--- Tóm tắt (model: gemini-3.1-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang thay đổi quy trình phát triển phần mềm, giúp kỹ sư giảm bớt các
+công việc lặp lại để tập trung vào thiết kế và giải quyết bài toán người dùng. [...]
+[token] vào: 247, ra: 97, tổng: 344, chi phí ước tính: $0.000207
+```
+
+Cùng 247 token đầu vào, lần gọi thứ hai rẻ hơn khoảng 40%: một phần vì đơn giá của gemini-3.1-flash-lite thấp hơn, phần còn lại vì nó trả lời ngắn hơn (97 token ra so với 105). Đúng hai biến số của công thức tiền, nhìn thấy ngay trong một lần chạy.
+
+Một giới hạn mình ghi lại để sau này xử lý: app chưa tách token cache — phần token được cache có giá rẻ hơn nhiều, hiện tại vẫn tính theo giá thường.
+
+## Ngày tiếp theo
+
+Theo lộ trình thì phần còn lại của giai đoạn nền tảng là streaming — để app trả chữ dần thay vì bắt người dùng chờ nguyên cục — rồi dùng FastAPI bọc app thành một API đàng hoàng.
+
+Vẫn là thói quen cũ: mỗi ngày một bước nhỏ, làm tới đâu app lớn tới đó. Mình tin cứ tích luỹ đều như vậy, đến cuối chặng sẽ có một project tử tế để nhìn lại.
