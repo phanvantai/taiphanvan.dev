@@ -1,0 +1,73 @@
+---
+title: "Day 3: Streaming — words that arrive gradually, and a lesson about waiting"
+description: "Day three of learning AI engineering: what streaming actually changes, how Gemini sends results chunk by chunk over SSE, and what a 10-second TTFT taught me that the docs don't mention."
+date: "2026-11-20"
+tags: ["ai-engineer", "learning-in-public", "llm", "gemini"]
+published: true
+featured: false
+---
+
+Day 3 is still in the foundations phase, and it is about the experience of waiting: why AI apps show words appearing gradually, as if someone were typing, instead of making you stare at a blank screen and then dumping everything at once.
+
+## Streaming changes the delivery, not the model
+
+Until today my app worked like this: send a request, wait for the model to generate the entire answer, receive one big result, print it once. For a short summary the wait is under a second, fine. But the longer the output, the longer you stare at a blank screen, with no idea whether the app is working or frozen.
+
+Streaming keeps everything else the same — the model still generates tokens one by one, total generation time and cost barely change — and only changes the delivery: the server pushes each piece of text down as soon as it is generated, and the client prints each piece as it arrives.
+
+The key metric here is TTFT (time to first token): the time from sending the request to seeing the first token. Streaming pulls this down from "the entire generation time" to "the time to generate the first few tokens". Users who see words early feel reassured, and they can stop the run early if the answer heads the wrong way — tokens not yet generated are not yet billed.
+
+The price is more complex code: you have to stitch the pieces back together, and handle the connection dropping mid-stream. A summary that stops mid-sentence cannot count as a success.
+
+## How Gemini streams
+
+With the Interactions API, enabling streaming is one extra field, `"stream": true`, in the request. The response comes back as SSE (server-sent events) with a fixed event sequence:
+
+```text
+interaction.created -> step.start -> step.delta (repeated) -> step.stop -> interaction.completed
+```
+
+Each `step.delta` event carries a new piece of text in `delta.text`. And the token counts and cost — the subject of day 2 — only appear in the final `interaction.completed` event, because while words are still flowing, nobody knows the total output yet.
+
+## Practice: a --stream flag for the document assistant
+
+Today's feature for the [AI document assistant](https://github.com/phanvantai/assistant-intelligence-learning): a `--stream` option on the summarize command. If the stream breaks before the final event, the app reports an error and treats the call as failed, following the principle above.
+
+```bash
+python -m app.main summarize --file sample.txt --stream
+```
+
+Real output (summary in Vietnamese, trimmed):
+
+```text
+--- Tóm tắt (streaming) (model: gemini-3.5-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ trợ viết code, sửa
+lỗi và kiểm thử, giúp kỹ sư chuyển trọng tâm từ công việc lặp lại sang thiết kế hệ
+thống và giải quyết bài toán. [...]
+[token] vào: 247, ra: 99, tổng: 346, chi phí ước tính: $0.000322
+```
+
+To actually see the words arriving piece by piece, I measured one run separately and recorded when each chunk landed:
+
+```text
+chunks: 6
+chunk 1 at 10.46s: "Tr"
+chunk 2 at 10.49s: "í tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ"
+chunk 3 at 10.58s: " trợ viết code, sửa lỗi và xử lý tài liệu, giúp kỹ sư chuyển..."
+...
+total time: 11.57s
+```
+
+## The 10 seconds the docs don't tell you about
+
+A TTFT of 10.46 seconds is very slow. Tonight Gemini's servers were broadly overloaded — while I was checking, all 5 models returned 503 "high demand" errors at various points. Which means most of the waiting happened in a queue on the server side, before the first token was even generated.
+
+The lesson: streaming improves the feeling of waiting *after* the first token arrives (in the run above, the rest of the text flowed in within about 0.4 seconds), but it cannot save you from a server with a long queue. A genuinely fast app has to look at both segments: the time to the first token, and the flow rate of everything after it.
+
+One more limitation noted for later: the command-line version has no graceful way to stop a stream mid-way yet, and Gemini's chunks arrive in fairly large pieces rather than the smooth word-by-word flow I had imagined.
+
+## What's next
+
+The last foundations lesson is FastAPI: wrapping the document assistant in a proper API, so a web UI or any other app can call it later. That closes phase 0.
+
+One small step a day, and the app grows with each step. Today's small step was teaching it to "speak gradually" instead of staying silent and then blurting everything out at once — sounds simple, but finishing it made me realize that designing the waiting experience is part of building a product too.
