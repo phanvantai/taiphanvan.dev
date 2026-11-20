@@ -1,0 +1,73 @@
+---
+title: "Ngày 3: Streaming — chữ chạy dần, và bài học về chờ đợi"
+description: "Ngày thứ ba học AI Engineer: streaming thực ra thay đổi cái gì, cách Gemini gửi kết quả theo từng mẩu qua SSE, và con số TTFT 10 giây dạy mình một điều không có trong docs."
+date: "2026-11-20"
+tags: ["ai-engineer", "learning-in-public", "llm", "gemini"]
+published: true
+featured: false
+---
+
+Ngày 3 vẫn ở giai đoạn nền tảng, và là bài về trải nghiệm chờ đợi: vì sao các app AI hiện chữ chạy dần như có người đang gõ, thay vì bắt mình nhìn màn hình trắng rồi hiện ra một cục.
+
+## Streaming thay đổi cách vận chuyển, không thay đổi model
+
+Cách app của mình chạy trước hôm nay: gửi yêu cầu, chờ model sinh toàn bộ câu trả lời, nhận một cục kết quả rồi in ra một lần. Bản tóm tắt ngắn thì chờ chưa tới một giây, không sao. Nhưng output càng dài, thời gian nhìn màn hình trắng càng lâu, và người dùng không biết app đang chạy hay đã treo.
+
+Streaming giữ nguyên mọi thứ — model vẫn sinh token tuần tự, tổng thời gian sinh và chi phí gần như không đổi — chỉ đổi cách gửi: server đẩy từng mẩu chữ xuống ngay khi sinh ra, client nhận mẩu nào in mẩu đó.
+
+Chỉ số quan trọng nhất của bài này là TTFT (time to first token): thời gian từ lúc gửi yêu cầu tới lúc thấy token đầu tiên. Streaming kéo con số này từ "toàn bộ thời gian sinh" xuống còn "thời gian sinh vài token đầu". Người dùng thấy chữ sớm thì yên tâm, và còn có thể dừng sớm nếu thấy câu trả lời đi sai hướng — phần chưa sinh thì chưa tốn tiền.
+
+Cái giá phải trả là code phức tạp hơn: phải ghép các mẩu chữ lại với nhau, và phải xử lý tình huống đứt kết nối giữa chừng. Một bản tóm tắt mới được nửa câu thì không thể coi là thành công được.
+
+## Gemini stream như thế nào
+
+Với Interactions API, bật streaming chỉ thêm một field `"stream": true` vào request. Response trả về dạng SSE (server-sent events) với một chuỗi sự kiện cố định:
+
+```text
+interaction.created -> step.start -> step.delta (lặp lại) -> step.stop -> interaction.completed
+```
+
+Mỗi sự kiện `step.delta` chứa một mẩu chữ mới trong `delta.text`. Còn số token và chi phí — bài học của ngày 2 — chỉ xuất hiện ở sự kiện cuối cùng `interaction.completed`, vì khi chữ còn đang chảy thì chưa ai biết tổng output là bao nhiêu.
+
+## Thực hành: thêm --stream cho trợ lý tài liệu
+
+Tính năng của hôm nay cho [trợ lý tài liệu AI](https://github.com/phanvantai/assistant-intelligence-learning): thêm tuỳ chọn `--stream` cho lệnh tóm tắt. Nếu stream đứt trước sự kiện cuối, app báo lỗi và coi lần gọi là thất bại, đúng nguyên tắc ở trên.
+
+```bash
+python -m app.main summarize --file sample.txt --stream
+```
+
+Kết quả chạy thật:
+
+```text
+--- Tóm tắt (streaming) (model: gemini-3.5-flash-lite, temperature: 0.2) ---
+Trí tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ trợ viết code, sửa
+lỗi và kiểm thử, giúp kỹ sư chuyển trọng tâm từ công việc lặp lại sang thiết kế hệ
+thống và giải quyết bài toán. [...]
+[token] vào: 247, ra: 99, tổng: 346, chi phí ước tính: $0.000322
+```
+
+Để nhìn rõ chữ về theo từng mẩu, mình đo riêng một lần chạy và ghi lại thời điểm từng mẩu chữ đến nơi:
+
+```text
+số mẩu chữ (chunks): 6
+mẩu 1 lúc 10.46s: "Tr"
+mẩu 2 lúc 10.49s: "í tuệ nhân tạo đang thay đổi cách xây dựng phần mềm bằng cách hỗ"
+mẩu 3 lúc 10.58s: " trợ viết code, sửa lỗi và xử lý tài liệu, giúp kỹ sư chuyển..."
+...
+tổng thời gian: 11.57s
+```
+
+## Con số 10 giây dạy mình điều docs không nói
+
+TTFT 10.46 giây là rất chậm. Tối nay server Gemini quá tải diện rộng — lúc mình kiểm tra, cả 5 model đều trả lỗi 503 "high demand" ở nhiều thời điểm. Nghĩa là phần lớn thời gian chờ nằm ở hàng đợi phía server, trước cả khi token đầu tiên được sinh ra.
+
+Bài học rút ra: streaming cải thiện cảm giác chờ *sau khi* token đầu tiên đến (ở lần đo trên, chữ chảy hết trong khoảng 0.4 giây sau đó), nhưng nó không cứu được một server đang xếp hàng lâu. Muốn app nhanh thật thì phải nhìn cả hai đoạn: thời gian tới token đầu tiên và tốc độ chảy của phần còn lại.
+
+Một giới hạn nữa ghi lại cho sau này: bản dòng lệnh hiện chưa có nút dừng stream giữa chừng một cách gọn gàng, và số mẩu chữ Gemini trả về khá lớn từng cục chứ không mịn từng từ như mình tưởng.
+
+## Ngày tiếp theo
+
+Bài cuối của giai đoạn nền tảng là FastAPI: bọc trợ lý tài liệu thành một API đàng hoàng, để về sau có giao diện web hay app nào cũng gọi vào được. Xong bài đó là hết giai đoạn 0.
+
+Mỗi ngày một bước nhỏ, app lớn dần theo. Hôm nay bước nhỏ đó là cho nó biết "nói dần" thay vì nín thinh rồi nói một cục — nghe đơn giản, mà làm xong mới hiểu người ta thiết kế trải nghiệm chờ đợi cũng là một phần của làm sản phẩm.
